@@ -43,6 +43,13 @@ import {
 } from "@/components/calculators/HealthCalculators2";
 import AgeCalculator from "@/components/calculators/AgeCalculator";
 import MultiCalculator from "@/components/calculators/MultiCalculator";
+import {
+  GPACalculator,
+  TipCalculator,
+  FuelCostCalculator,
+  CurrencyConverter,
+  InflationCalculator,
+} from "@/components/calculators/NewCalculators";
 
 const CALCULATOR_COMPONENTS: Record<string, React.ComponentType> = {
   loan: LoanCalculator,
@@ -72,6 +79,11 @@ const CALCULATOR_COMPONENTS: Record<string, React.ComponentType> = {
   sleep: SleepCalculator,
   age: AgeCalculator,
   calculator: MultiCalculator,
+  gpa: GPACalculator,
+  tip: TipCalculator,
+  "fuel-cost": FuelCostCalculator,
+  currency: CurrencyConverter,
+  inflation: InflationCalculator,
 };
 
 function FAQItem({ question, answer }: { question: string; answer: string }) {

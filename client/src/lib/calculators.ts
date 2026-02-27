@@ -622,6 +622,142 @@ export const CALCULATORS: Calculator[] = [
       },
     ],
   },
+  // -- NEW PHASE 2 CALCULATORS -----------------------------------------------
+  {
+    slug: 'gpa',
+    title: 'GPA Calculator',
+    description: 'Calculate your GPA instantly. Enter your courses, grades, and credit hours to get your weighted GPA on a 4.0 scale.',
+    category: 'tools',
+    icon: 'GraduationCap',
+    color: 'bg-violet-50 text-violet-700',
+    keywords: ['gpa calculator', 'grade point average', 'college gpa', 'cumulative gpa', 'semester gpa'],
+    faqs: [
+      {
+        question: 'How is GPA calculated?',
+        answer: 'GPA is calculated by multiplying each course grade point value by the number of credit hours, summing all quality points, then dividing by the total credit hours. For example, an A (4.0) in a 3-credit course contributes 12 quality points.',
+      },
+      {
+        question: 'What is a good GPA?',
+        answer: 'A GPA of 3.5 or higher is generally considered excellent and qualifies for honors designations like Magna Cum Laude. A 3.0 GPA is considered good and is often the minimum for graduate school applications. Below 2.0 may put you on academic probation.',
+      },
+      {
+        question: 'What is the difference between semester GPA and cumulative GPA?',
+        answer: 'Semester GPA reflects only the courses taken in a single term, while cumulative GPA is the weighted average of all courses taken throughout your academic career. Most graduate schools and employers look at cumulative GPA.',
+      },
+      {
+        question: 'Does an A+ give a higher GPA than an A?',
+        answer: 'At most US universities, both A+ and A are worth 4.0 grade points. Some schools award 4.3 for an A+, but this is not standard. Check your institution\'s grading policy for the exact scale used.',
+      },
+    ],
+  },
+  {
+    slug: 'tip',
+    title: 'Tip Calculator',
+    description: 'Calculate the tip amount and total bill instantly. Split the bill evenly among any number of people.',
+    category: 'financial',
+    icon: 'Receipt',
+    color: 'bg-emerald-50 text-emerald-700',
+    keywords: ['tip calculator', 'gratuity calculator', 'restaurant tip', 'split bill', 'how much to tip'],
+    faqs: [
+      {
+        question: 'How much should I tip at a restaurant?',
+        answer: 'The standard tip at a US restaurant is 15-20% for good service. 10% is acceptable for poor service, 18% is the norm for average service, 20% for great service, and 25% or more for exceptional service. In some cities like New York, 20% is considered the baseline.',
+      },
+      {
+        question: 'Do I tip on the pre-tax or post-tax amount?',
+        answer: 'Tipping on the pre-tax amount is technically correct and slightly reduces the tip. However, most people tip on the total bill including tax for simplicity. The difference is small -- on a $100 bill with 8% tax, tipping 20% on pre-tax gives $20 vs $21.60 on post-tax.',
+      },
+      {
+        question: 'How do I split a bill evenly?',
+        answer: 'Enter the total bill amount, select your tip percentage, then enter the number of people. The calculator divides the total (bill + tip) equally among all diners and shows each person\'s share.',
+      },
+      {
+        question: 'How much do you tip for delivery?',
+        answer: 'For food delivery, tip 15-20% of the order total or a minimum of $3-5 for small orders. For grocery delivery, $5-10 is standard. Always tip in cash when possible as some apps do not pass 100% of digital tips to drivers.',
+      },
+    ],
+  },
+  {
+    slug: 'fuel-cost',
+    title: 'Fuel Cost Calculator',
+    description: 'Calculate the gas cost for any trip. Enter distance, fuel economy, and gas price to find your total fuel expense.',
+    category: 'financial',
+    icon: 'Fuel',
+    color: 'bg-orange-50 text-orange-700',
+    keywords: ['fuel cost calculator', 'gas cost calculator', 'trip cost', 'mpg calculator', 'road trip cost'],
+    faqs: [
+      {
+        question: 'How do I calculate fuel cost for a road trip?',
+        answer: 'Divide the total distance by your vehicle\'s fuel economy (MPG) to get gallons needed, then multiply by the current gas price. For example, a 300-mile trip in a 30 MPG car at $3.50/gallon costs (300/30) x $3.50 = $35.',
+      },
+      {
+        question: 'What is the average MPG for a car?',
+        answer: 'The average new car in the US gets about 28-30 MPG combined. Compact cars average 32-38 MPG, SUVs average 22-28 MPG, trucks average 18-24 MPG, and hybrid vehicles average 40-55 MPG. Electric vehicles are measured in MPGe (miles per gallon equivalent).',
+      },
+      {
+        question: 'How can I improve my fuel economy?',
+        answer: 'Maintain steady speeds and avoid rapid acceleration, keep tires properly inflated (can improve MPG by up to 3%), remove excess weight from the vehicle, use cruise control on highways, and keep up with regular maintenance like air filter and spark plug replacements.',
+      },
+      {
+        question: 'How do I convert MPG to L/100km?',
+        answer: 'To convert MPG to L/100km, divide 235.21 by the MPG value. For example, 30 MPG = 235.21/30 = 7.84 L/100km. To convert L/100km to MPG, divide 235.21 by the L/100km value.',
+      },
+    ],
+  },
+  {
+    slug: 'currency',
+    title: 'Currency Converter',
+    description: 'Convert between 20 major world currencies with up-to-date reference exchange rates. Fast, free, and no sign-up required.',
+    category: 'financial',
+    icon: 'DollarSign',
+    color: 'bg-emerald-50 text-emerald-700',
+    keywords: ['currency converter', 'exchange rate', 'usd to eur', 'foreign exchange', 'forex calculator'],
+    faqs: [
+      {
+        question: 'How are exchange rates calculated?',
+        answer: 'Exchange rates are determined by the foreign exchange (forex) market, which operates 24/7. Rates fluctuate based on supply and demand, interest rates, inflation, political stability, and economic performance. The rates shown here are reference rates for informational purposes.',
+      },
+      {
+        question: 'What is the difference between buy and sell rates?',
+        answer: 'Banks and currency exchange services quote two rates: the buy rate (what they pay you for foreign currency) and the sell rate (what they charge you). The difference is called the spread and is how they profit. Online converters typically show mid-market rates, which are between the two.',
+      },
+      {
+        question: 'Which is the strongest currency in the world?',
+        answer: 'The Kuwaiti Dinar (KWD) is consistently the highest-valued currency, with 1 KWD worth about $3.25 USD. The Bahraini Dinar and Omani Rial also rank highly. However, currency strength is different from economic strength -- the USD and EUR dominate global trade volume.',
+      },
+      {
+        question: 'What is a good exchange rate for USD to EUR?',
+        answer: 'Historically, 1 USD has ranged from 0.85 to 1.05 EUR. A rate above 0.95 EUR per USD is generally favorable for Americans traveling to Europe. Always compare rates from multiple sources and avoid airport currency exchange booths which typically have the worst rates.',
+      },
+    ],
+  },
+  {
+    slug: 'inflation',
+    title: 'Inflation Calculator',
+    description: 'Calculate the real value of money over time using historical US CPI data. See how inflation has eroded purchasing power since 1960.',
+    category: 'financial',
+    icon: 'TrendingUp',
+    color: 'bg-red-50 text-red-700',
+    keywords: ['inflation calculator', 'purchasing power', 'cpi calculator', 'cost of living', 'real value of money'],
+    faqs: [
+      {
+        question: 'What is inflation?',
+        answer: 'Inflation is the rate at which the general level of prices for goods and services rises over time, reducing purchasing power. When inflation is 3%, a basket of goods that cost $100 today will cost $103 next year. The US Federal Reserve targets 2% annual inflation as healthy for the economy.',
+      },
+      {
+        question: 'How is inflation measured?',
+        answer: 'In the US, inflation is primarily measured by the Consumer Price Index (CPI), published monthly by the Bureau of Labor Statistics. The CPI tracks the price of a fixed basket of goods and services purchased by typical urban consumers, including food, housing, transportation, and medical care.',
+      },
+      {
+        question: 'What was the highest inflation rate in US history?',
+        answer: 'The highest peacetime inflation in modern US history occurred in 1980 when the annual rate reached 13.5%, driven by oil price shocks and loose monetary policy. More recently, inflation peaked at 9.1% in June 2022, the highest since 1981, driven by pandemic supply chain disruptions and stimulus spending.',
+      },
+      {
+        question: 'How does inflation affect savings?',
+        answer: 'If your savings account earns 1% interest but inflation is 3%, your money loses 2% of its purchasing power each year. To preserve wealth, investments need to earn returns that exceed the inflation rate. This is why financial advisors recommend investing in assets like stocks, real estate, or TIPS (Treasury Inflation-Protected Securities).',
+      },
+    ],
+  },
 ];
 
 // Merge SEO content into calculators

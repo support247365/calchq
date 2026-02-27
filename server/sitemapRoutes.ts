@@ -3,10 +3,10 @@
  * 
  * Serves multiple sitemaps:
  * /sitemap.xml              — Sitemap index pointing to all sub-sitemaps
- * /sitemap-main.xml         — All 27 calculator pages
+ * /sitemap-main.xml         — All 32 calculator pages
  * /sitemap-zip-{slug}.xml   — ZIP code pages for each calculator (42,741 entries each)
  * 
- * Total coverage: 27 calculators + (27 × 42,741 ZIP pages) = ~1,154,007 pages
+ * Total coverage: 32 calculators + (32 x 42,741 ZIP pages) = ~1,369,744 pages
  */
 import { type Express } from "express";
 import { getDb } from "./db";
@@ -14,14 +14,15 @@ import { zipCodes } from "../drizzle/schema";
 
 const BASE_URL = "https://calchq.io";
 
-// All 27 calculator slugs
+// All 32 calculator slugs
 const CALCULATOR_SLUGS = [
   "loan", "mortgage", "rent-vs-buy", "salary", "sales-tax",
   "percentage", "compound-interest", "retirement", "paycheck", "roi", "refinance",
   "tdee", "macro", "bmi", "body-fat", "bmr", "one-rep-max",
   "calories-burned", "fat-burning-zone",
   "pregnancy", "ovulation", "calorie-deficit", "ideal-weight", "sleep",
-  "age", "calculator", "unit-converter"
+  "age", "calculator", "unit-converter",
+  "gpa", "tip", "fuel-cost", "currency", "inflation"
 ];
 
 export function registerSitemapRoutes(app: Express) {
@@ -43,7 +44,7 @@ export function registerSitemapRoutes(app: Express) {
 </sitemapindex>`);
   });
 
-  // Main sitemap — homepage + all 27 calculator pages
+  // Main sitemap — homepage + all 32 calculator pages
   app.get("/sitemap-main.xml", (_req, res) => {
     const today = new Date().toISOString().split("T")[0];
     const urls = [
