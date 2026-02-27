@@ -817,6 +817,65 @@ export const CALCULATORS: Calculator[] = [
       },
     ],
   },
+  // -- PHASE 6: TOOLS SECTION EXPANSION ---------------------------------------
+  {
+    slug: 'random-number',
+    title: 'Random Number Generator',
+    description: 'Generate random numbers, roll dice, flip coins, and pick random items from a list. Supports ranges, multiple numbers, and no-duplicate mode.',
+    category: 'tools',
+    icon: 'Shuffle',
+    color: 'bg-orange-50 text-orange-700',
+    keywords: ['random number generator', 'random number', 'dice roller', 'coin flip', 'random picker', 'lottery number generator'],
+    faqs: [
+      {
+        question: 'How does a random number generator work?',
+        answer: 'A computer random number generator (RNG) uses a mathematical algorithm called a pseudorandom number generator (PRNG) to produce sequences of numbers that appear random. Most use the current time as a "seed" value. While not truly random (like radioactive decay), PRNGs are statistically random enough for games, simulations, and everyday use.',
+      },
+      {
+        question: 'Can I use this to pick lottery numbers?',
+        answer: 'Yes. Set your minimum to 1, maximum to the highest number in your lottery (e.g., 69 for Powerball), generate 5 or 6 unique numbers, and you have a random lottery selection. Remember that all combinations have exactly equal odds -- there is no strategy that improves your chances.',
+      },
+      {
+        question: 'What is the difference between random and unique random numbers?',
+        answer: 'Standard random numbers can repeat (like rolling a die twice and getting 4 both times). Unique random numbers (no duplicates) are like drawing cards from a shuffled deck -- once a number is picked, it cannot appear again. Use unique mode when you need a random ordering or selection without repetition.',
+      },
+      {
+        question: 'What are the odds of rolling a specific number on a die?',
+        answer: 'For a fair d6 (six-sided die), each face has a 1/6 (about 16.7%) chance. For a d20, each face has a 1/20 (5%) chance. For two d6 dice, the most likely total is 7 (probability 6/36 = 16.7%), and the least likely totals are 2 and 12 (probability 1/36 = 2.8% each).',
+      },
+    ],
+  },
+  {
+    slug: 'password-generator',
+    title: 'Password Generator',
+    description: 'Generate strong, secure passwords with customizable length, character types, and strength meter. Includes entropy calculation and one-click copy.',
+    category: 'tools',
+    icon: 'Lock',
+    color: 'bg-orange-50 text-orange-700',
+    keywords: ['password generator', 'strong password', 'random password', 'secure password generator', 'password strength', 'password creator'],
+    faqs: [
+      {
+        question: 'How long should a password be?',
+        answer: 'Security experts recommend at least 12 characters for most accounts and 16+ for sensitive accounts like banking or email. A 12-character password with mixed case, numbers, and symbols has roughly 72 bits of entropy, which would take billions of years to brute-force with current technology.',
+      },
+      {
+        question: 'What is password entropy?',
+        answer: 'Entropy measures how unpredictable a password is, expressed in bits. It is calculated as: length x log2(pool size). A pool of 94 printable ASCII characters gives log2(94) = 6.55 bits per character. A 16-character password from this pool has about 105 bits of entropy -- considered very strong. Each additional bit doubles the difficulty of cracking.',
+      },
+      {
+        question: 'Should I use special characters in passwords?',
+        answer: 'Yes, when the site allows it. Adding symbols expands the character pool from 62 (letters + digits) to 94+ characters, significantly increasing entropy. However, some sites restrict special characters. If symbols are not allowed, compensate by using a longer password (20+ characters).',
+      },
+      {
+        question: 'Is it safe to use an online password generator?',
+        answer: 'This generator runs entirely in your browser using JavaScript -- no passwords are ever sent to a server or stored anywhere. You can verify this by disconnecting from the internet and the generator will still work. For maximum security, use a reputable password manager that generates and stores passwords locally.',
+      },
+      {
+        question: 'What makes a password weak?',
+        answer: 'Weak passwords include dictionary words, names, dates, keyboard patterns (qwerty, 123456), and anything under 8 characters. The most commonly used passwords in data breaches are "123456", "password", "123456789", and "qwerty". Using any of these is equivalent to having no password at all.',
+      },
+    ],
+  },
   // -- PHASE 5: DATE CALCULATOR --------------------------------------------------
   {
     slug: 'date',

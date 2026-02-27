@@ -44,3 +44,11 @@
 - [x] Register in CalculatorPage.tsx component map
 - [x] Register in sitemapRoutes.ts
 - [x] Update homepage stats
+
+## Phase 6 - Tools Section Expansion
+- [x] Build Random Number Generator component
+- [x] Build Password Generator component
+- [x] Register both in calculators.ts with FAQs
+- [x] Register both in CalculatorPage.tsx component map
+- [x] Register both in sitemapRoutes.ts
+- [x] Update homepage stats

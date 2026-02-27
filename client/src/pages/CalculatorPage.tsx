@@ -55,6 +55,10 @@ import {
   ExponentCalculator,
 } from "@/components/calculators/MathCalculators";
 import DateCalculator from "@/components/calculators/DateCalculator";
+import {
+  RandomNumberGenerator,
+  PasswordGenerator,
+} from "@/components/calculators/ToolsCalculators";
 
 const CALCULATOR_COMPONENTS: Record<string, React.ComponentType> = {
   loan: LoanCalculator,
@@ -92,6 +96,8 @@ const CALCULATOR_COMPONENTS: Record<string, React.ComponentType> = {
   fraction: FractionCalculator,
   exponent: ExponentCalculator,
   date: DateCalculator,
+  "random-number": RandomNumberGenerator,
+  "password-generator": PasswordGenerator,
 };
 
 function FAQItem({ question, answer }: { question: string; answer: string }) {
