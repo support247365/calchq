@@ -22,7 +22,8 @@ const CALCULATOR_SLUGS = [
   "calories-burned", "fat-burning-zone",
   "pregnancy", "ovulation", "calorie-deficit", "ideal-weight", "sleep",
   "age", "calculator", "unit-converter",
-  "gpa", "tip", "fuel-cost", "currency", "inflation"
+  "gpa", "tip", "fuel-cost", "currency", "inflation",
+  "fraction", "exponent"
 ];
 
 export function registerSitemapRoutes(app: Express) {

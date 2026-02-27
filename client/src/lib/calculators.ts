@@ -758,6 +758,65 @@ export const CALCULATORS: Calculator[] = [
       },
     ],
   },
+  // -- PHASE 4: MATH SECTION EXPANSION ------------------------------------------
+  {
+    slug: 'fraction',
+    title: 'Fraction Calculator',
+    description: 'Add, subtract, multiply, and divide fractions instantly. Shows simplified results, mixed numbers, decimals, and step-by-step solutions.',
+    category: 'math',
+    icon: 'Divide',
+    color: 'bg-violet-50 text-violet-700',
+    keywords: ['fraction calculator', 'add fractions', 'subtract fractions', 'multiply fractions', 'divide fractions', 'simplify fractions'],
+    faqs: [
+      {
+        question: 'How do you add fractions with different denominators?',
+        answer: 'To add fractions with different denominators, find the Least Common Multiple (LCM) of the denominators, convert each fraction to an equivalent fraction with that LCM as the denominator, then add the numerators. For example, 1/2 + 1/3: LCM of 2 and 3 is 6, so 3/6 + 2/6 = 5/6.',
+      },
+      {
+        question: 'How do you multiply fractions?',
+        answer: 'To multiply fractions, multiply the numerators together and multiply the denominators together. For example, 2/3 x 3/4 = (2x3)/(3x4) = 6/12 = 1/2 after simplification. You can also simplify before multiplying by canceling common factors diagonally.',
+      },
+      {
+        question: 'How do you divide fractions?',
+        answer: 'To divide fractions, multiply the first fraction by the reciprocal (flip) of the second fraction. For example, 2/3 / 4/5 = 2/3 x 5/4 = 10/12 = 5/6. The phrase "keep, change, flip" is a common memory aid: keep the first fraction, change division to multiplication, flip the second fraction.',
+      },
+      {
+        question: 'How do you simplify a fraction?',
+        answer: 'To simplify a fraction, find the Greatest Common Divisor (GCD) of the numerator and denominator, then divide both by that number. For example, to simplify 12/18: GCD(12, 18) = 6, so 12/6 = 2 and 18/6 = 3, giving 2/3. A fraction is fully simplified when the GCD of numerator and denominator is 1.',
+      },
+      {
+        question: 'What is a mixed number?',
+        answer: 'A mixed number combines a whole number and a proper fraction, such as 2 1/2 (two and one half). To convert an improper fraction to a mixed number, divide the numerator by the denominator -- the quotient is the whole number and the remainder becomes the new numerator. For example, 7/3 = 2 remainder 1 = 2 1/3.',
+      },
+    ],
+  },
+  {
+    slug: 'exponent',
+    title: 'Square Root & Exponent Calculator',
+    description: 'Calculate powers, square roots, nth roots, logarithms, and scientific notation. Includes step-by-step solutions for every calculation.',
+    category: 'math',
+    icon: 'Superscript',
+    color: 'bg-violet-50 text-violet-700',
+    keywords: ['square root calculator', 'exponent calculator', 'power calculator', 'nth root', 'logarithm calculator', 'scientific notation'],
+    faqs: [
+      {
+        question: 'What is a square root?',
+        answer: 'The square root of a number n is the value that, when multiplied by itself, gives n. For example, the square root of 25 is 5 because 5 x 5 = 25. The square root symbol is sqrt. Every positive number has two square roots: a positive and a negative one (e.g., both 5 and -5 are square roots of 25), but by convention the principal (positive) root is used.',
+      },
+      {
+        question: 'What is the difference between a square root and a cube root?',
+        answer: 'A square root finds the number that multiplied by itself equals the original (2nd root). A cube root finds the number that multiplied by itself three times equals the original (3rd root). For example, the cube root of 27 is 3 because 3 x 3 x 3 = 27. The nth root generalizes this to any index n.',
+      },
+      {
+        question: 'What does a negative exponent mean?',
+        answer: 'A negative exponent means the reciprocal of the positive exponent. For example, 2^(-3) = 1/(2^3) = 1/8 = 0.125. In general, x^(-n) = 1/x^n. Negative exponents are commonly used in scientific notation for very small numbers, such as 1 x 10^(-9) for one nanometer.',
+      },
+      {
+        question: 'What is the difference between log and ln?',
+        answer: 'log (common logarithm) uses base 10, so log(1000) = 3 because 10^3 = 1000. ln (natural logarithm) uses base e (approximately 2.71828), so ln(e) = 1. Natural logarithms appear frequently in calculus, physics, and finance (compound interest formulas). Common logarithms are used in pH, decibels, and the Richter scale.',
+      },
+    ],
+  },
 ];
 
 // Merge SEO content into calculators

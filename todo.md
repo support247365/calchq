@@ -30,3 +30,10 @@
 - [x] Add Math category definition with Sigma icon and violet color
 - [x] Update homepage to display Math section
 - [x] Add Math to Navbar dropdown
+
+## Phase 4 - Math Section Expansion
+- [x] Build Fraction Calculator component (add, subtract, multiply, divide, simplify)
+- [x] Build Square Root / Exponent Calculator component
+- [x] Register both in calculators.ts with FAQs
+- [x] Register both in CalculatorPage.tsx component map
+- [x] Register both in sitemapRoutes.ts
