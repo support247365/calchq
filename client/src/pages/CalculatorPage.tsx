@@ -39,6 +39,7 @@ import {
   IdealWeightCalculator,
   SleepCalculator,
 } from "@/components/calculators/HealthCalculators2";
+import AgeCalculator from "@/components/calculators/AgeCalculator";
 
 const CALCULATOR_COMPONENTS: Record<string, React.ComponentType> = {
   loan: LoanCalculator,
@@ -68,6 +69,8 @@ const CALCULATOR_COMPONENTS: Record<string, React.ComponentType> = {
   "calorie-deficit": CalorieDeficitCalculator,
   "ideal-weight": IdealWeightCalculator,
   sleep: SleepCalculator,
+  // Tools expansion
+  age: AgeCalculator,
 };
 
 function FAQItem({ question, answer }: { question: string; answer: string }) {

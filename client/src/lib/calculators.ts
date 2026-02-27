@@ -550,7 +550,30 @@ export const CALCULATORS: Calculator[] = [
     ],
   },
 
-  // ── TOOLS ──────────────────────────────────────────────────────────────────
+  // ── TOOLS ──────────────────────────────────────────────────────────────
+  {
+    slug: 'age',
+    title: 'Age Calculator',
+    description: 'Calculate your exact age in years, months, days, weeks, and hours — plus find out how many days until your next birthday.',
+    category: 'tools',
+    icon: 'Cake',
+    color: 'bg-pink-50 text-pink-700',
+    keywords: ['age calculator', 'how old am i', 'birthday calculator', 'age in days', 'next birthday'],
+    faqs: [
+      {
+        question: 'How is my exact age calculated?',
+        answer: 'Your exact age is calculated by finding the difference between your date of birth and today (or any target date), accounting for leap years and varying month lengths to give you the precise number of years, months, and days.',
+      },
+      {
+        question: 'How many days old am I?',
+        answer: 'Your total age in days is the number of calendar days elapsed from your birth date to today. This accounts for every leap year in between. The Age Calculator shows this automatically alongside your age in weeks, months, and hours.',
+      },
+      {
+        question: 'How do I calculate how many days until my next birthday?',
+        answer: 'Find the date of your next birthday (same month and day, next calendar year if it has already passed this year), then subtract today\'s date. The Age Calculator does this automatically and shows the exact number of days remaining.',
+      },
+    ],
+  },
   {
     slug: 'unit-converter',
     title: 'Unit Converter',
