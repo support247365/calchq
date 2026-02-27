@@ -1,13 +1,15 @@
 /*
- * CalcHQ Calculator Page — "Clean Utility" Design
- * Individual calculator page with the calculator widget, description, FAQs, and SEO
+ * CalcHQ Calculator Page — Enhanced for Google Quality Guidelines
+ * Sections: Breadcrumb, Header, Widget, Explanation, How-to Guide,
+ *           Ad Slot, FAQs, Related Calculators
+ * Schema: FAQPage + HowTo structured data
  */
 import { useParams, useLocation } from "wouter";
-import { ArrowLeft, ChevronDown } from "lucide-react";
+import { ArrowLeft, ChevronDown, ArrowRight, Calculator } from "lucide-react";
 import { useState, useEffect } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import { getCalculatorBySlug, CATEGORIES } from "@/lib/calculators";
+import { getCalculatorBySlug, CALCULATORS, CATEGORIES } from "@/lib/calculators";
 import LoanCalculator from "@/components/calculators/LoanCalculator";
 import {
   MortgageCalculator,
@@ -40,6 +42,7 @@ import {
   SleepCalculator,
 } from "@/components/calculators/HealthCalculators2";
 import AgeCalculator from "@/components/calculators/AgeCalculator";
+import MultiCalculator from "@/components/calculators/MultiCalculator";
 
 const CALCULATOR_COMPONENTS: Record<string, React.ComponentType> = {
   loan: LoanCalculator,
@@ -56,21 +59,19 @@ const CALCULATOR_COMPONENTS: Record<string, React.ComponentType> = {
   "calories-burned": CaloriesBurnedCalculator,
   "fat-burning-zone": FatBurningZoneCalculator,
   "unit-converter": UnitConverter,
-  // Financial expansion
   percentage: PercentageCalculator,
   "compound-interest": CompoundInterestCalculator,
   retirement: RetirementCalculator,
   paycheck: PaycheckCalculator,
   roi: ROICalculator,
   refinance: RefinanceCalculator,
-  // Health expansion
   pregnancy: PregnancyCalculator,
   ovulation: OvulationCalculator,
   "calorie-deficit": CalorieDeficitCalculator,
   "ideal-weight": IdealWeightCalculator,
   sleep: SleepCalculator,
-  // Tools expansion
   age: AgeCalculator,
+  calculator: MultiCalculator,
 };
 
 function FAQItem({ question, answer }: { question: string; answer: string }) {
@@ -101,46 +102,66 @@ export default function CalculatorPage() {
   const calc = getCalculatorBySlug(slug);
   const CalculatorComponent = CALCULATOR_COMPONENTS[slug];
 
-  // Update page title and meta description for SEO
   useEffect(() => {
-    if (calc) {
-      document.title = `${calc.title} — Free Online Calculator | CalcHQ`;
-      // Update meta description
-      let metaDesc = document.querySelector('meta[name="description"]');
-      if (!metaDesc) {
-        metaDesc = document.createElement('meta');
-        (metaDesc as HTMLMetaElement).name = 'description';
-        document.head.appendChild(metaDesc);
-      }
-      (metaDesc as HTMLMetaElement).content = `${calc.description} Free, fast, and accurate. No sign-up required.`;
+    if (!calc) return;
 
-      // Inject FAQ structured data
-      const existingScript = document.getElementById('faq-schema');
-      if (existingScript) existingScript.remove();
-      if (calc.faqs.length > 0) {
-        const schema = {
-          "@context": "https://schema.org",
-          "@type": "FAQPage",
-          "mainEntity": calc.faqs.map((faq) => ({
-            "@type": "Question",
-            "name": faq.question,
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": faq.answer,
-            },
-          })),
-        };
-        const script = document.createElement('script');
-        script.id = 'faq-schema';
-        script.type = 'application/ld+json';
-        script.textContent = JSON.stringify(schema);
-        document.head.appendChild(script);
-      }
+    document.title = `${calc.title} — Free Online Calculator | CalcHQ`;
+
+    let metaDesc = document.querySelector('meta[name="description"]');
+    if (!metaDesc) {
+      metaDesc = document.createElement('meta');
+      (metaDesc as HTMLMetaElement).name = 'description';
+      document.head.appendChild(metaDesc);
     }
+    (metaDesc as HTMLMetaElement).content = `Free ${calc.title.toLowerCase()} — ${calc.description} No sign-up required. Instant results.`;
+
+    // Remove old schemas
+    document.getElementById('faq-schema')?.remove();
+    document.getElementById('howto-schema')?.remove();
+
+    // FAQ schema
+    if (calc.faqs.length > 0) {
+      const faqSchema = {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": calc.faqs.map((faq) => ({
+          "@type": "Question",
+          "name": faq.question,
+          "acceptedAnswer": { "@type": "Answer", "text": faq.answer },
+        })),
+      };
+      const s = document.createElement('script');
+      s.id = 'faq-schema';
+      s.type = 'application/ld+json';
+      s.textContent = JSON.stringify(faqSchema);
+      document.head.appendChild(s);
+    }
+
+    // HowTo schema
+    if (calc.howTo && calc.howTo.steps.length > 0) {
+      const howToSchema = {
+        "@context": "https://schema.org",
+        "@type": "HowTo",
+        "name": `How to Use the ${calc.title}`,
+        "description": calc.howTo.intro,
+        "step": calc.howTo.steps.map((step, i) => ({
+          "@type": "HowToStep",
+          "position": i + 1,
+          "name": step.title,
+          "text": step.text,
+        })),
+      };
+      const s2 = document.createElement('script');
+      s2.id = 'howto-schema';
+      s2.type = 'application/ld+json';
+      s2.textContent = JSON.stringify(howToSchema);
+      document.head.appendChild(s2);
+    }
+
     return () => {
       document.title = 'CalcHQ - Free Online Calculators for Finance, Health & Math';
-      const existingScript = document.getElementById('faq-schema');
-      if (existingScript) existingScript.remove();
+      document.getElementById('faq-schema')?.remove();
+      document.getElementById('howto-schema')?.remove();
     };
   }, [calc]);
 
@@ -167,6 +188,11 @@ export default function CalculatorPage() {
 
   const catInfo = CATEGORIES[calc.category];
 
+  // Related calculators: same category, excluding self, up to 4
+  const related = CALCULATORS.filter(
+    (c) => c.category === calc.category && c.slug !== calc.slug
+  ).slice(0, 4);
+
   return (
     <div className="min-h-screen flex flex-col bg-white">
       <Navbar />
@@ -174,7 +200,7 @@ export default function CalculatorPage() {
       {/* Breadcrumb */}
       <div className="bg-gray-50 border-b border-gray-100">
         <div className="container py-3">
-          <nav className="flex items-center gap-2 text-xs text-gray-500">
+          <nav className="flex items-center gap-2 text-xs text-gray-500" aria-label="Breadcrumb">
             <button onClick={() => navigate("/")} className="hover:text-emerald-600 transition-colors">Home</button>
             <span>/</span>
             <span className={catInfo.color}>{catInfo.label}</span>
@@ -186,6 +212,7 @@ export default function CalculatorPage() {
 
       <main className="flex-1 container py-10">
         <div className="max-w-3xl mx-auto">
+
           {/* Back button */}
           <button
             onClick={() => navigate("/")}
@@ -195,7 +222,7 @@ export default function CalculatorPage() {
           </button>
 
           {/* Header */}
-          <div className="mb-8">
+          <div className="mb-6">
             <div className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold mb-3 ${catInfo.bgColor} ${catInfo.color}`}>
               {catInfo.label}
             </div>
@@ -213,14 +240,57 @@ export default function CalculatorPage() {
             <CalculatorComponent />
           </div>
 
-          {/* Ad placeholder — replace with AdSense unit */}
+          {/* What is / Explanation section */}
+          {calc.explanation && (
+            <section className="mb-8 prose prose-sm max-w-none">
+              <h2
+                className="text-xl font-bold text-gray-900 mb-3"
+                style={{ fontFamily: "'Space Grotesk', sans-serif" }}
+              >
+                What is a {calc.title}?
+              </h2>
+              {calc.explanation.map((para, i) => (
+                <p key={i} className="text-gray-600 leading-relaxed mb-3 text-sm">
+                  {para}
+                </p>
+              ))}
+            </section>
+          )}
+
+          {/* How to Use section */}
+          {calc.howTo && (
+            <section className="mb-8">
+              <h2
+                className="text-xl font-bold text-gray-900 mb-3"
+                style={{ fontFamily: "'Space Grotesk', sans-serif" }}
+              >
+                How to Use the {calc.title}
+              </h2>
+              <p className="text-sm text-gray-500 mb-4">{calc.howTo.intro}</p>
+              <ol className="space-y-3">
+                {calc.howTo.steps.map((step, i) => (
+                  <li key={i} className="flex gap-4">
+                    <div className="flex-shrink-0 w-7 h-7 rounded-full bg-emerald-100 text-emerald-700 text-xs font-bold flex items-center justify-center mt-0.5">
+                      {i + 1}
+                    </div>
+                    <div>
+                      <p className="text-sm font-semibold text-gray-800">{step.title}</p>
+                      <p className="text-sm text-gray-500 mt-0.5">{step.text}</p>
+                    </div>
+                  </li>
+                ))}
+              </ol>
+            </section>
+          )}
+
+          {/* Ad slot */}
           <div className="bg-gray-50 border border-dashed border-gray-200 rounded-xl p-6 text-center mb-8">
             <p className="text-xs text-gray-400 uppercase tracking-wider">Advertisement</p>
           </div>
 
           {/* FAQs */}
           {calc.faqs.length > 0 && (
-            <section>
+            <section className="mb-10">
               <h2
                 className="text-xl font-bold text-gray-900 mb-4"
                 style={{ fontFamily: "'Space Grotesk', sans-serif" }}
@@ -236,23 +306,41 @@ export default function CalculatorPage() {
           )}
 
           {/* Related calculators */}
-          <section className="mt-10">
-            <h2
-              className="text-xl font-bold text-gray-900 mb-4"
-              style={{ fontFamily: "'Space Grotesk', sans-serif" }}
-            >
-              More {catInfo.label} Calculators
-            </h2>
-            <div className="flex flex-wrap gap-2">
-              {/* Rendered by parent via category */}
+          {related.length > 0 && (
+            <section className="mt-2">
+              <h2
+                className="text-xl font-bold text-gray-900 mb-4"
+                style={{ fontFamily: "'Space Grotesk', sans-serif" }}
+              >
+                Related {catInfo.label} Calculators
+              </h2>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                {related.map((rel) => (
+                  <button
+                    key={rel.slug}
+                    onClick={() => navigate(`/calculator/${rel.slug}`)}
+                    className="flex items-center gap-3 p-4 bg-white border border-gray-100 rounded-xl hover:border-emerald-200 hover:shadow-sm transition-all text-left group"
+                  >
+                    <div className={`w-9 h-9 rounded-lg flex items-center justify-center flex-shrink-0 ${rel.color}`}>
+                      <Calculator className="w-4 h-4" />
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <p className="text-sm font-semibold text-gray-800 group-hover:text-emerald-700 transition-colors">{rel.title}</p>
+                      <p className="text-xs text-gray-400 line-clamp-1 mt-0.5">{rel.description}</p>
+                    </div>
+                    <ArrowRight className="w-4 h-4 text-gray-300 group-hover:text-emerald-500 flex-shrink-0 transition-colors" />
+                  </button>
+                ))}
+              </div>
               <button
                 onClick={() => navigate("/")}
-                className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-emerald-50 text-emerald-700 text-sm font-medium rounded-lg hover:bg-emerald-100 transition-colors"
+                className="mt-4 inline-flex items-center gap-1.5 text-sm font-medium text-emerald-600 hover:text-emerald-700 transition-colors"
               >
-                View All Calculators →
+                View All Calculators <ArrowRight className="w-3.5 h-3.5" />
               </button>
-            </div>
-          </section>
+            </section>
+          )}
+
         </div>
       </main>
 

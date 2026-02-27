@@ -1,5 +1,6 @@
 // CalcHQ Calculator Registry
 // All calculator metadata, categories, FAQs, and routing slugs
+import { CALCULATOR_CONTENT } from './calculatorContent';
 
 export type Category = 'financial' | 'health' | 'math' | 'tools';
 
@@ -12,6 +13,11 @@ export interface Calculator {
   color: string; // tailwind color class for icon bg
   faqs: { question: string; answer: string }[];
   keywords: string[];
+  explanation?: string[]; // 2-3 paragraphs explaining what the calculator is
+  howTo?: {
+    intro: string;
+    steps: { title: string; text: string }[];
+  };
 }
 
 export const CATEGORIES: Record<Category, { label: string; color: string; bgColor: string; description: string }> = {
@@ -42,7 +48,7 @@ export const CATEGORIES: Record<Category, { label: string; color: string; bgColo
 };
 
 export const CALCULATORS: Calculator[] = [
-  // ── FINANCIAL ──────────────────────────────────────────────────────────────
+  // -- FINANCIAL --------------------------------------------------------------
   {
     slug: 'loan',
     title: 'Loan Calculator',
@@ -139,7 +145,7 @@ export const CALCULATORS: Calculator[] = [
     ],
   },
 
-  // ── HEALTH & FITNESS ───────────────────────────────────────────────────────
+  // -- HEALTH & FITNESS -------------------------------------------------------
   {
     slug: 'tdee',
     title: 'TDEE Calculator',
@@ -293,7 +299,7 @@ export const CALCULATORS: Calculator[] = [
     ],
   },
 
-  // ── FINANCIAL (EXPANSION) ───────────────────────────────────────────────────
+  // -- FINANCIAL (EXPANSION) ---------------------------------------------------
   {
     slug: 'percentage',
     title: 'Percentage Calculator',
@@ -433,7 +439,7 @@ export const CALCULATORS: Calculator[] = [
     ],
   },
 
-  // ── HEALTH & FITNESS (EXPANSION) ──────────────────────────────────────────
+  // -- HEALTH & FITNESS (EXPANSION) ------------------------------------------
   {
     slug: 'pregnancy',
     title: 'Pregnancy Due Date Calculator',
@@ -550,7 +556,30 @@ export const CALCULATORS: Calculator[] = [
     ],
   },
 
-  // ── TOOLS ──────────────────────────────────────────────────────────────
+  // -- TOOLS --------------------------------------------------------------
+  {
+    slug: 'calculator',
+    title: 'Calculator',
+    description: 'A full-featured calculator with three modes: Standard for everyday math, Scientific for trigonometry and logarithms, and Engineering for advanced functions.',
+    category: 'tools',
+    icon: 'Calculator',
+    color: 'bg-gray-100 text-gray-700',
+    keywords: ['calculator', 'scientific calculator', 'engineering calculator', 'online calculator', 'standard calculator'],
+    faqs: [
+      {
+        question: 'What is the difference between Standard, Scientific, and Engineering modes?',
+        answer: 'Standard mode handles everyday arithmetic: addition, subtraction, multiplication, and division. Scientific mode adds trigonometric functions (sin, cos, tan), logarithms, square roots, exponents, and constants like pi and e. Engineering mode extends Scientific with inverse trig functions, cube roots, absolute value, ceiling/floor functions, and outputs results in scientific notation for very large or very small numbers.',
+      },
+      {
+        question: 'How do I use the history feature?',
+        answer: 'Every calculation you perform is saved in the History panel below the calculator. Click any history entry to load that result back into the calculator as your starting value. Click Clear to erase the history.',
+      },
+      {
+        question: 'How do I calculate trigonometric functions?',
+        answer: 'Switch to Scientific or Engineering mode, press sin, cos, or tan, enter your angle value in radians, and close the parenthesis before pressing equals. For example, sin(1.5708) gives approximately 1, which is sin(90 degrees in radians).',
+      },
+    ],
+  },
   {
     slug: 'age',
     title: 'Age Calculator',
@@ -595,8 +624,19 @@ export const CALCULATORS: Calculator[] = [
   },
 ];
 
+// Merge SEO content into calculators
+function mergeContent(calcs: Calculator[]): Calculator[] {
+  return calcs.map((c) => {
+    const content = CALCULATOR_CONTENT[c.slug];
+    if (!content) return c;
+    return { ...c, explanation: content.explanation, howTo: content.howTo };
+  });
+}
+
+const ENRICHED_CALCULATORS = mergeContent(CALCULATORS);
+
 export function getCalculatorBySlug(slug: string): Calculator | undefined {
-  return CALCULATORS.find((c) => c.slug === slug);
+  return ENRICHED_CALCULATORS.find((c) => c.slug === slug);
 }
 
 export function getCalculatorsByCategory(category: Category): Calculator[] {
