@@ -876,6 +876,61 @@ export const CALCULATORS: Calculator[] = [
       },
     ],
   },
+  // -- PHASE 7: TOOLS SECTION EXPANSION II ------------------------------------
+  {
+    slug: 'timezone',
+    title: 'Time Zone Converter',
+    description: 'Convert time between 45+ world time zones instantly. Select multiple target zones to compare times side by side for meetings, travel, and remote work.',
+    category: 'tools',
+    icon: 'Globe',
+    color: 'bg-orange-50 text-orange-700',
+    keywords: ['time zone converter', 'time zone calculator', 'world clock', 'convert time zones', 'meeting time planner', 'international time converter'],
+    faqs: [
+      {
+        question: 'What is a time zone?',
+        answer: 'A time zone is a region of the globe that observes a uniform standard time for legal, commercial, and social purposes. Time zones tend to follow the boundaries of countries and their subdivisions. UTC (Coordinated Universal Time) is the primary time standard by which the world regulates clocks and time, and all other zones are expressed as offsets from UTC.',
+      },
+      {
+        question: 'What is the difference between UTC and GMT?',
+        answer: 'UTC and GMT are often used interchangeably, but they are technically different. GMT (Greenwich Mean Time) is a time zone, while UTC is a time standard. For everyday purposes, UTC+0 and GMT are the same offset. The key difference is that UTC is based on atomic clocks and never has leap seconds added, while GMT is based on Earth rotation.',
+      },
+      {
+        question: 'What is Daylight Saving Time (DST)?',
+        answer: 'Daylight Saving Time is the practice of advancing clocks by one hour during summer months so that darkness falls later each day. Not all countries observe DST. The US and most of Europe do, but countries near the equator typically do not. This is why EST (UTC-5) becomes EDT (UTC-4) in summer, and CET (UTC+1) becomes CEST (UTC+2).',
+      },
+      {
+        question: 'How do I schedule a meeting across time zones?',
+        answer: 'Enter your local date and time, select your time zone as the source, then add all participant time zones as targets. The converter will show the equivalent time for each zone simultaneously. Aim for overlap during standard business hours (9am-5pm) in all locations. Tools like this are essential for teams spanning the Americas, Europe, and Asia.',
+      },
+    ],
+  },
+  {
+    slug: 'word-counter',
+    title: 'Word Counter',
+    description: 'Count words, characters, sentences, paragraphs, and lines. Estimates reading time, speaking time, readability score, and shows top keywords.',
+    category: 'tools',
+    icon: 'FileText',
+    color: 'bg-orange-50 text-orange-700',
+    keywords: ['word counter', 'character counter', 'word count', 'character count', 'reading time calculator', 'word frequency counter'],
+    faqs: [
+      {
+        question: 'How is reading time calculated?',
+        answer: 'Reading time is estimated using the average adult silent reading speed of 238 words per minute (wpm), based on research by Brysbaert et al. (2019). Speaking time uses 130 wpm, the average conversational speaking pace. These are averages -- actual reading speed varies by text complexity, familiarity with the subject, and individual ability.',
+      },
+      {
+        question: 'What is the Flesch Reading Ease score?',
+        answer: 'The Flesch Reading Ease score (0-100) measures how easy a text is to read. Higher scores mean easier reading. Scores above 70 are considered easy (suitable for general audiences), 60-70 is standard (8th-9th grade), 30-60 is difficult (college level), and below 30 is very difficult (professional/academic). It is calculated using average sentence length and average syllables per word.',
+      },
+      {
+        question: 'How many words is a typical essay or article?',
+        answer: 'Common word count benchmarks: tweet (280 characters), text message (7-15 words), paragraph (100-200 words), blog post (1,000-2,000 words), short story (1,000-7,500 words), novella (17,500-40,000 words), novel (80,000-100,000 words). Academic papers typically range from 3,000 words (conference paper) to 10,000+ words (journal article).',
+      },
+      {
+        question: 'What counts as a word?',
+        answer: 'In most word counters, a word is any sequence of characters separated by whitespace (spaces, tabs, line breaks). Hyphenated words like "well-known" are typically counted as one word. Numbers, abbreviations, and contractions each count as one word. This calculator splits on whitespace, which is the standard approach used by Microsoft Word and Google Docs.',
+      },
+    ],
+  },
   // -- PHASE 5: DATE CALCULATOR --------------------------------------------------
   {
     slug: 'date',

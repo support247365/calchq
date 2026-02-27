@@ -52,3 +52,12 @@
 - [x] Register both in CalculatorPage.tsx component map
 - [x] Register both in sitemapRoutes.ts
 - [x] Update homepage stats
+
+## Phase 7 - Tools Section Expansion II
+- [x] Build Time Zone Converter component
+- [x] Build Word / Character Counter component
+- [x] Register both in calculators.ts with FAQs
+- [x] Register both in CalculatorPage.tsx component map
+- [x] Register both in sitemapRoutes.ts
+- [x] Update homepage stats
+- [ ] Resubmit sitemap to Google Search Console (user action)

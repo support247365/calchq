@@ -59,6 +59,10 @@ import {
   RandomNumberGenerator,
   PasswordGenerator,
 } from "@/components/calculators/ToolsCalculators";
+import {
+  TimeZoneConverter,
+  WordCounter,
+} from "@/components/calculators/MoreToolsCalculators";
 
 const CALCULATOR_COMPONENTS: Record<string, React.ComponentType> = {
   loan: LoanCalculator,
@@ -98,6 +102,8 @@ const CALCULATOR_COMPONENTS: Record<string, React.ComponentType> = {
   date: DateCalculator,
   "random-number": RandomNumberGenerator,
   "password-generator": PasswordGenerator,
+  timezone: TimeZoneConverter,
+  "word-counter": WordCounter,
 };
 
 function FAQItem({ question, answer }: { question: string; answer: string }) {
