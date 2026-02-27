@@ -24,6 +24,21 @@ import {
   FatBurningZoneCalculator,
   UnitConverter,
 } from "@/components/calculators/AllCalculators";
+import {
+  PercentageCalculator,
+  CompoundInterestCalculator,
+  RetirementCalculator,
+  PaycheckCalculator,
+  ROICalculator,
+  RefinanceCalculator,
+} from "@/components/calculators/FinancialCalculators2";
+import {
+  PregnancyCalculator,
+  OvulationCalculator,
+  CalorieDeficitCalculator,
+  IdealWeightCalculator,
+  SleepCalculator,
+} from "@/components/calculators/HealthCalculators2";
 
 const CALCULATOR_COMPONENTS: Record<string, React.ComponentType> = {
   loan: LoanCalculator,
@@ -40,6 +55,19 @@ const CALCULATOR_COMPONENTS: Record<string, React.ComponentType> = {
   "calories-burned": CaloriesBurnedCalculator,
   "fat-burning-zone": FatBurningZoneCalculator,
   "unit-converter": UnitConverter,
+  // Financial expansion
+  percentage: PercentageCalculator,
+  "compound-interest": CompoundInterestCalculator,
+  retirement: RetirementCalculator,
+  paycheck: PaycheckCalculator,
+  roi: ROICalculator,
+  refinance: RefinanceCalculator,
+  // Health expansion
+  pregnancy: PregnancyCalculator,
+  ovulation: OvulationCalculator,
+  "calorie-deficit": CalorieDeficitCalculator,
+  "ideal-weight": IdealWeightCalculator,
+  sleep: SleepCalculator,
 };
 
 function FAQItem({ question, answer }: { question: string; answer: string }) {

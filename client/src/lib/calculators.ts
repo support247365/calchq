@@ -293,6 +293,263 @@ export const CALCULATORS: Calculator[] = [
     ],
   },
 
+  // ── FINANCIAL (EXPANSION) ───────────────────────────────────────────────────
+  {
+    slug: 'percentage',
+    title: 'Percentage Calculator',
+    description: 'Calculate percentages instantly — find what percent of a number is, what percentage one number is of another, or the percentage change between two values.',
+    category: 'financial',
+    icon: 'Percent',
+    color: 'bg-emerald-50 text-emerald-700',
+    keywords: ['percentage calculator', 'percent of a number', 'percentage change', 'percent increase decrease'],
+    faqs: [
+      {
+        question: 'How do I calculate what percent one number is of another?',
+        answer: 'Divide the part by the whole, then multiply by 100. For example, 30 is what percent of 150? (30 ÷ 150) × 100 = 20%.',
+      },
+      {
+        question: 'How do I calculate percentage increase or decrease?',
+        answer: 'Subtract the old value from the new value, divide by the old value, then multiply by 100. Example: from 80 to 100 is a 25% increase: ((100 - 80) ÷ 80) × 100 = 25%.',
+      },
+      {
+        question: 'What is 15% of 200?',
+        answer: 'Multiply 200 by 0.15 (which is 15 ÷ 100). 200 × 0.15 = 30. So 15% of 200 is 30.',
+      },
+    ],
+  },
+  {
+    slug: 'compound-interest',
+    title: 'Compound Interest Calculator',
+    description: 'See how your money grows over time with the power of compound interest. Includes monthly contributions and multiple compounding frequencies.',
+    category: 'financial',
+    icon: 'TrendingUp',
+    color: 'bg-emerald-50 text-emerald-700',
+    keywords: ['compound interest calculator', 'investment growth', 'savings calculator', 'interest calculator'],
+    faqs: [
+      {
+        question: 'What is compound interest?',
+        answer: 'Compound interest is interest calculated on both the initial principal and the accumulated interest from previous periods. Unlike simple interest, it causes wealth to grow exponentially over time.',
+      },
+      {
+        question: 'How often should interest compound for maximum growth?',
+        answer: 'More frequent compounding means slightly more growth. Daily compounding yields marginally more than monthly, which yields more than annual. However, the difference between daily and monthly is usually small.',
+      },
+      {
+        question: 'What is the Rule of 72?',
+        answer: 'The Rule of 72 is a quick way to estimate how long it takes to double your money. Divide 72 by the annual interest rate. At 7% annual return, your money doubles in approximately 72 ÷ 7 = 10.3 years.',
+      },
+    ],
+  },
+  {
+    slug: 'retirement',
+    title: 'Retirement Calculator',
+    description: 'Find out how much you need to save for retirement and whether you are on track to meet your goals.',
+    category: 'financial',
+    icon: 'PiggyBank',
+    color: 'bg-emerald-50 text-emerald-700',
+    keywords: ['retirement calculator', 'retirement savings', '401k calculator', 'retirement planning'],
+    faqs: [
+      {
+        question: 'How much do I need to retire?',
+        answer: 'A common rule of thumb is the 25x rule: save 25 times your expected annual expenses. This is based on the 4% withdrawal rate, which historically sustains a 30-year retirement.',
+      },
+      {
+        question: 'What is the 4% rule?',
+        answer: 'The 4% rule suggests you can withdraw 4% of your retirement portfolio in year one, then adjust for inflation each year, with a high probability of not running out of money over a 30-year retirement.',
+      },
+      {
+        question: 'How much should I contribute to my 401(k)?',
+        answer: 'At minimum, contribute enough to get your full employer match — that is free money. Beyond that, aim to save 15% of your gross income for retirement across all accounts.',
+      },
+    ],
+  },
+  {
+    slug: 'paycheck',
+    title: 'Paycheck & Tax Calculator',
+    description: 'Calculate your take-home pay after federal income tax, Social Security, Medicare, state tax, and 401(k) contributions.',
+    category: 'financial',
+    icon: 'Wallet',
+    color: 'bg-emerald-50 text-emerald-700',
+    keywords: ['paycheck calculator', 'take home pay', 'salary after tax', 'net pay calculator', 'income tax calculator'],
+    faqs: [
+      {
+        question: 'What taxes are taken out of my paycheck?',
+        answer: 'Federal income tax, Social Security (6.2%), Medicare (1.45%), and state income tax (varies by state). Pre-tax deductions like 401(k) contributions reduce your taxable income.',
+      },
+      {
+        question: 'What is the difference between gross and net pay?',
+        answer: 'Gross pay is your total earnings before any deductions. Net pay (take-home pay) is what remains after all taxes and deductions are subtracted.',
+      },
+      {
+        question: 'How can I increase my take-home pay?',
+        answer: 'You can increase take-home pay by adjusting your W-4 withholding, maximizing pre-tax deductions (401k, HSA, FSA), or by reducing your taxable income through deductions and credits.',
+      },
+    ],
+  },
+  {
+    slug: 'roi',
+    title: 'Investment ROI Calculator',
+    description: 'Calculate the return on investment (ROI) and annualized return for any investment, stock, or business venture.',
+    category: 'financial',
+    icon: 'BarChart2',
+    color: 'bg-emerald-50 text-emerald-700',
+    keywords: ['ROI calculator', 'return on investment', 'investment return calculator', 'annualized return'],
+    faqs: [
+      {
+        question: 'How is ROI calculated?',
+        answer: 'ROI = ((Final Value - Initial Investment) ÷ Initial Investment) × 100. For example, investing $10,000 that grows to $15,000 gives an ROI of 50%.',
+      },
+      {
+        question: 'What is a good ROI?',
+        answer: 'A good ROI depends on the asset class and risk level. The S&P 500 has historically returned about 10% annually. Real estate typically returns 8–12%. A good rule of thumb is any return that beats inflation and your next best alternative.',
+      },
+      {
+        question: 'What is annualized ROI?',
+        answer: 'Annualized ROI (also called CAGR — Compound Annual Growth Rate) normalizes returns over multiple years to show the equivalent annual growth rate. It allows fair comparison of investments held for different time periods.',
+      },
+    ],
+  },
+  {
+    slug: 'refinance',
+    title: 'Mortgage Refinance Calculator',
+    description: 'Find out how much you could save by refinancing your mortgage and calculate your break-even point.',
+    category: 'financial',
+    icon: 'RefreshCw',
+    color: 'bg-emerald-50 text-emerald-700',
+    keywords: ['refinance calculator', 'mortgage refinance', 'refinancing savings', 'break even refinance'],
+    faqs: [
+      {
+        question: 'When does it make sense to refinance?',
+        answer: 'Refinancing typically makes sense when you can lower your interest rate by at least 0.5–1%, plan to stay in your home past the break-even point, and have good credit to qualify for a competitive rate.',
+      },
+      {
+        question: 'What are typical refinancing closing costs?',
+        answer: 'Closing costs for a refinance typically range from 2–5% of the loan amount, or $3,000–$6,000 on a $200,000 mortgage. Some lenders offer no-closing-cost refinances at a slightly higher rate.',
+      },
+      {
+        question: 'What is the break-even point on a refinance?',
+        answer: 'The break-even point is how long it takes for your monthly savings to recoup the closing costs. If closing costs are $4,000 and you save $200/month, your break-even is 20 months.',
+      },
+    ],
+  },
+
+  // ── HEALTH & FITNESS (EXPANSION) ──────────────────────────────────────────
+  {
+    slug: 'pregnancy',
+    title: 'Pregnancy Due Date Calculator',
+    description: 'Calculate your estimated due date and key pregnancy milestones based on your last menstrual period or conception date.',
+    category: 'health',
+    icon: 'Baby',
+    color: 'bg-blue-50 text-blue-700',
+    keywords: ['pregnancy calculator', 'due date calculator', 'pregnancy due date', 'when is my baby due'],
+    faqs: [
+      {
+        question: 'How is a due date calculated?',
+        answer: 'The most common method is Naegele\'s Rule: add 280 days (40 weeks) to the first day of your last menstrual period (LMP). This assumes a 28-day cycle with ovulation on day 14.',
+      },
+      {
+        question: 'How accurate is an estimated due date?',
+        answer: 'Only about 5% of babies are born on their exact due date. Most are born within 2 weeks before or after. An ultrasound in the first trimester provides the most accurate dating.',
+      },
+      {
+        question: 'What are the three trimesters of pregnancy?',
+        answer: 'The first trimester is weeks 1–12, the second trimester is weeks 13–26, and the third trimester is weeks 27–40. Each trimester brings distinct developmental milestones.',
+      },
+    ],
+  },
+  {
+    slug: 'ovulation',
+    title: 'Ovulation Calculator',
+    description: 'Identify your most fertile days and predict your ovulation date based on your menstrual cycle.',
+    category: 'health',
+    icon: 'Calendar',
+    color: 'bg-blue-50 text-blue-700',
+    keywords: ['ovulation calculator', 'fertile days calculator', 'ovulation tracker', 'best days to conceive'],
+    faqs: [
+      {
+        question: 'When do I ovulate?',
+        answer: 'Ovulation typically occurs about 14 days before your next period. For a 28-day cycle, that is around day 14. For a 32-day cycle, it would be around day 18.',
+      },
+      {
+        question: 'What is the fertile window?',
+        answer: 'The fertile window is the 6-day period ending on the day of ovulation. Sperm can survive up to 5 days in the reproductive tract, so intercourse in the days before ovulation can result in pregnancy.',
+      },
+      {
+        question: 'How can I confirm ovulation?',
+        answer: 'Ovulation predictor kits (OPKs) detect the LH surge that occurs 24–36 hours before ovulation. Basal body temperature (BBT) tracking and cervical mucus monitoring are also reliable methods.',
+      },
+    ],
+  },
+  {
+    slug: 'calorie-deficit',
+    title: 'Calorie Deficit Calculator',
+    description: 'Calculate your daily calorie target to lose weight at your desired pace using the Mifflin-St Jeor equation.',
+    category: 'health',
+    icon: 'Minus',
+    color: 'bg-blue-50 text-blue-700',
+    keywords: ['calorie deficit calculator', 'weight loss calculator', 'how many calories to lose weight', 'calorie calculator'],
+    faqs: [
+      {
+        question: 'How many calories do I need to cut to lose 1 pound per week?',
+        answer: 'One pound of fat equals approximately 3,500 calories. To lose 1 pound per week, you need a daily deficit of 500 calories (3,500 ÷ 7 = 500).',
+      },
+      {
+        question: 'What is the minimum safe calorie intake?',
+        answer: 'Most health authorities recommend no fewer than 1,200 calories per day for women and 1,500 for men without medical supervision. Going below these levels can cause nutrient deficiencies and metabolic adaptation.',
+      },
+      {
+        question: 'What is the Mifflin-St Jeor equation?',
+        answer: 'The Mifflin-St Jeor equation is considered the most accurate formula for estimating BMR. For men: (10 × weight in kg) + (6.25 × height in cm) − (5 × age) + 5. For women: same formula but −161 instead of +5.',
+      },
+    ],
+  },
+  {
+    slug: 'ideal-weight',
+    title: 'Ideal Weight Calculator',
+    description: 'Find your ideal body weight based on height and sex using four medically recognized formulas.',
+    category: 'health',
+    icon: 'Target',
+    color: 'bg-blue-50 text-blue-700',
+    keywords: ['ideal weight calculator', 'healthy weight calculator', 'ideal body weight', 'weight for height'],
+    faqs: [
+      {
+        question: 'What is the ideal weight for my height?',
+        answer: 'Ideal weight varies by formula and individual factors. This calculator uses four established formulas (Robinson, Miller, Devine, Hamwi) and shows the average. The healthy BMI range (18.5–24.9) provides another benchmark.',
+      },
+      {
+        question: 'Is ideal weight the same as healthy weight?',
+        answer: 'Not exactly. Ideal weight formulas provide a single target number, while healthy weight is a range. Factors like muscle mass, bone density, and body composition matter more than a single number.',
+      },
+      {
+        question: 'Which ideal weight formula is most accurate?',
+        answer: 'No single formula is universally best. The Devine formula is widely used in clinical settings. The average of multiple formulas, as shown in this calculator, provides a more balanced estimate.',
+      },
+    ],
+  },
+  {
+    slug: 'sleep',
+    title: 'Sleep Calculator',
+    description: 'Find the best bedtime or wake-up time based on 90-minute sleep cycles to wake up feeling refreshed.',
+    category: 'health',
+    icon: 'Moon',
+    color: 'bg-blue-50 text-blue-700',
+    keywords: ['sleep calculator', 'best time to wake up', 'sleep cycle calculator', 'bedtime calculator'],
+    faqs: [
+      {
+        question: 'How long is a sleep cycle?',
+        answer: 'A complete sleep cycle lasts approximately 90 minutes and includes light sleep, deep sleep, and REM sleep stages. Most adults need 5–6 complete cycles (7.5–9 hours) per night.',
+      },
+      {
+        question: 'Why do I feel groggy even after 8 hours of sleep?',
+        answer: 'Waking up in the middle of a deep sleep stage causes sleep inertia — that groggy, disoriented feeling. This calculator helps you time your alarm to coincide with the end of a sleep cycle, when sleep is lightest.',
+      },
+      {
+        question: 'How much sleep do adults need?',
+        answer: 'The CDC recommends 7–9 hours of sleep per night for adults aged 18–60. Older adults may need slightly less. Consistently sleeping fewer than 7 hours is associated with increased health risks.',
+      },
+    ],
+  },
+
   // ── TOOLS ──────────────────────────────────────────────────────────────────
   {
     slug: 'unit-converter',
