@@ -79,7 +79,7 @@ export const CALCULATORS: Calculator[] = [
     faqs: [
       {
         question: 'What does PITI mean?',
-        answer: 'PITI stands for Principal, Interest, Taxes, and Insurance — the four components that make up a typical monthly mortgage payment.',
+        answer: 'PITI stands for Principal, Interest, Taxes, and Insurance -- the four components that make up a typical monthly mortgage payment.',
       },
       {
         question: 'How much house can I afford?',
@@ -117,11 +117,11 @@ export const CALCULATORS: Calculator[] = [
     faqs: [
       {
         question: 'How do I convert an hourly wage to an annual salary?',
-        answer: 'Multiply your hourly rate by the number of hours you work per week, then multiply by 52 (weeks per year). For example, $25/hour × 40 hours × 52 weeks = $52,000/year.',
+        answer: 'Multiply your hourly rate by the number of hours you work per week, then multiply by 52 (weeks per year). For example, $25/hour x 40 hours x 52 weeks = $52,000/year.',
       },
       {
         question: 'How many working hours are in a year?',
-        answer: 'A standard full-time work year is 2,080 hours (40 hours/week × 52 weeks). This calculator uses your actual hours per week for accuracy.',
+        answer: 'A standard full-time work year is 2,080 hours (40 hours/week x 52 weeks). This calculator uses your actual hours per week for accuracy.',
       },
     ],
   },
@@ -136,7 +136,7 @@ export const CALCULATORS: Calculator[] = [
     faqs: [
       {
         question: 'How do I calculate sales tax?',
-        answer: 'Multiply the pre-tax price by the tax rate (as a decimal). For example, a $50 item with 8% tax: $50 × 0.08 = $4 tax, so the total is $54.',
+        answer: 'Multiply the pre-tax price by the tax rate (as a decimal). For example, a $50 item with 8% tax: $50 x 0.08 = $4 tax, so the total is $54.',
       },
       {
         question: 'How much should I tip?',
@@ -180,7 +180,7 @@ export const CALCULATORS: Calculator[] = [
       },
       {
         question: 'How much protein do I need per day?',
-        answer: 'For most active people, 0.7–1g of protein per pound of body weight is recommended. Athletes and those trying to build muscle may benefit from the higher end of this range.',
+        answer: 'For most active people, 0.7-1g of protein per pound of body weight is recommended. Athletes and those trying to build muscle may benefit from the higher end of this range.',
       },
     ],
   },
@@ -195,7 +195,7 @@ export const CALCULATORS: Calculator[] = [
     faqs: [
       {
         question: 'What is a healthy BMI?',
-        answer: 'According to the CDC, a BMI below 18.5 is underweight, 18.5–24.9 is normal weight, 25–29.9 is overweight, and 30 or above is obese. BMI is a screening tool, not a diagnostic measure.',
+        answer: 'According to the CDC, a BMI below 18.5 is underweight, 18.5-24.9 is normal weight, 25-29.9 is overweight, and 30 or above is obese. BMI is a screening tool, not a diagnostic measure.',
       },
       {
         question: 'Is BMI an accurate measure of health?',
@@ -214,18 +214,18 @@ export const CALCULATORS: Calculator[] = [
     faqs: [
       {
         question: 'What is a healthy body fat percentage?',
-        answer: 'For men, 10–20% is considered fit, and 20–25% is acceptable. For women, 18–28% is considered fit, and 25–31% is acceptable. Athletes often have lower percentages.',
+        answer: 'For men, 10-20% is considered fit, and 20-25% is acceptable. For women, 18-28% is considered fit, and 25-31% is acceptable. Athletes often have lower percentages.',
       },
       {
         question: 'How accurate is the Navy body fat method?',
-        answer: 'The U.S. Navy method is reasonably accurate for most people, with an error margin of about 3–4%. It uses neck, waist, and hip measurements to estimate body fat percentage.',
+        answer: 'The U.S. Navy method is reasonably accurate for most people, with an error margin of about 3-4%. It uses neck, waist, and hip measurements to estimate body fat percentage.',
       },
     ],
   },
   {
     slug: 'bmr',
     title: 'BMR Calculator',
-    description: 'Calculate your Basal Metabolic Rate — the calories your body burns at complete rest.',
+    description: 'Calculate your Basal Metabolic Rate -- the calories your body burns at complete rest.',
     category: 'health',
     icon: 'HeartPulse',
     color: 'bg-blue-50 text-blue-700',
@@ -233,7 +233,7 @@ export const CALCULATORS: Calculator[] = [
     faqs: [
       {
         question: 'What is BMR?',
-        answer: 'BMR (Basal Metabolic Rate) is the number of calories your body needs to maintain basic physiological functions at complete rest — breathing, circulation, cell production, and temperature regulation.',
+        answer: 'BMR (Basal Metabolic Rate) is the number of calories your body needs to maintain basic physiological functions at complete rest -- breathing, circulation, cell production, and temperature regulation.',
       },
       {
         question: 'What is the difference between BMR and TDEE?',
@@ -256,7 +256,7 @@ export const CALCULATORS: Calculator[] = [
       },
       {
         question: 'Which 1RM formula is most accurate?',
-        answer: 'The Epley and Brzycki formulas are the most widely used. This calculator uses the Epley formula (weight × (1 + reps/30)), which is accurate for sets of 1–10 reps.',
+        answer: 'The Epley and Brzycki formulas are the most widely used. This calculator uses the Epley formula (weight x (1 + reps/30)), which is accurate for sets of 1-10 reps.',
       },
     ],
   },
@@ -271,7 +271,7 @@ export const CALCULATORS: Calculator[] = [
     faqs: [
       {
         question: 'How are calories burned during exercise calculated?',
-        answer: 'Calories burned are estimated using MET (Metabolic Equivalent of Task) values: Calories = MET × weight (kg) × duration (hours). Different activities have different MET values.',
+        answer: 'Calories burned are estimated using MET (Metabolic Equivalent of Task) values: Calories = MET x weight (kg) x duration (hours). Different activities have different MET values.',
       },
       {
         question: 'How accurate are calorie burn estimates?',
@@ -290,7 +290,7 @@ export const CALCULATORS: Calculator[] = [
     faqs: [
       {
         question: 'What is the fat burning zone?',
-        answer: 'The fat burning zone is typically 60–70% of your maximum heart rate. At this intensity, your body uses a higher proportion of fat as fuel, though total calorie burn is lower than at higher intensities.',
+        answer: 'The fat burning zone is typically 60-70% of your maximum heart rate. At this intensity, your body uses a higher proportion of fat as fuel, though total calorie burn is lower than at higher intensities.',
       },
       {
         question: 'How do I calculate my maximum heart rate?',
@@ -303,7 +303,7 @@ export const CALCULATORS: Calculator[] = [
   {
     slug: 'percentage',
     title: 'Percentage Calculator',
-    description: 'Calculate percentages instantly — find what percent of a number is, what percentage one number is of another, or the percentage change between two values.',
+    description: 'Calculate percentages instantly -- find what percent of a number is, what percentage one number is of another, or the percentage change between two values.',
     category: 'financial',
     icon: 'Percent',
     color: 'bg-emerald-50 text-emerald-700',
@@ -311,15 +311,15 @@ export const CALCULATORS: Calculator[] = [
     faqs: [
       {
         question: 'How do I calculate what percent one number is of another?',
-        answer: 'Divide the part by the whole, then multiply by 100. For example, 30 is what percent of 150? (30 ÷ 150) × 100 = 20%.',
+        answer: 'Divide the part by the whole, then multiply by 100. For example, 30 is what percent of 150? (30 / 150) x 100 = 20%.',
       },
       {
         question: 'How do I calculate percentage increase or decrease?',
-        answer: 'Subtract the old value from the new value, divide by the old value, then multiply by 100. Example: from 80 to 100 is a 25% increase: ((100 - 80) ÷ 80) × 100 = 25%.',
+        answer: 'Subtract the old value from the new value, divide by the old value, then multiply by 100. Example: from 80 to 100 is a 25% increase: ((100 - 80) / 80) x 100 = 25%.',
       },
       {
         question: 'What is 15% of 200?',
-        answer: 'Multiply 200 by 0.15 (which is 15 ÷ 100). 200 × 0.15 = 30. So 15% of 200 is 30.',
+        answer: 'Multiply 200 by 0.15 (which is 15 / 100). 200 x 0.15 = 30. So 15% of 200 is 30.',
       },
     ],
   },
@@ -342,7 +342,7 @@ export const CALCULATORS: Calculator[] = [
       },
       {
         question: 'What is the Rule of 72?',
-        answer: 'The Rule of 72 is a quick way to estimate how long it takes to double your money. Divide 72 by the annual interest rate. At 7% annual return, your money doubles in approximately 72 ÷ 7 = 10.3 years.',
+        answer: 'The Rule of 72 is a quick way to estimate how long it takes to double your money. Divide 72 by the annual interest rate. At 7% annual return, your money doubles in approximately 72 / 7 = 10.3 years.',
       },
     ],
   },
@@ -365,7 +365,7 @@ export const CALCULATORS: Calculator[] = [
       },
       {
         question: 'How much should I contribute to my 401(k)?',
-        answer: 'At minimum, contribute enough to get your full employer match — that is free money. Beyond that, aim to save 15% of your gross income for retirement across all accounts.',
+        answer: 'At minimum, contribute enough to get your full employer match -- that is free money. Beyond that, aim to save 15% of your gross income for retirement across all accounts.',
       },
     ],
   },
@@ -403,15 +403,15 @@ export const CALCULATORS: Calculator[] = [
     faqs: [
       {
         question: 'How is ROI calculated?',
-        answer: 'ROI = ((Final Value - Initial Investment) ÷ Initial Investment) × 100. For example, investing $10,000 that grows to $15,000 gives an ROI of 50%.',
+        answer: 'ROI = ((Final Value - Initial Investment) / Initial Investment) x 100. For example, investing $10,000 that grows to $15,000 gives an ROI of 50%.',
       },
       {
         question: 'What is a good ROI?',
-        answer: 'A good ROI depends on the asset class and risk level. The S&P 500 has historically returned about 10% annually. Real estate typically returns 8–12%. A good rule of thumb is any return that beats inflation and your next best alternative.',
+        answer: 'A good ROI depends on the asset class and risk level. The S&P 500 has historically returned about 10% annually. Real estate typically returns 8-12%. A good rule of thumb is any return that beats inflation and your next best alternative.',
       },
       {
         question: 'What is annualized ROI?',
-        answer: 'Annualized ROI (also called CAGR — Compound Annual Growth Rate) normalizes returns over multiple years to show the equivalent annual growth rate. It allows fair comparison of investments held for different time periods.',
+        answer: 'Annualized ROI (also called CAGR -- Compound Annual Growth Rate) normalizes returns over multiple years to show the equivalent annual growth rate. It allows fair comparison of investments held for different time periods.',
       },
     ],
   },
@@ -426,11 +426,11 @@ export const CALCULATORS: Calculator[] = [
     faqs: [
       {
         question: 'When does it make sense to refinance?',
-        answer: 'Refinancing typically makes sense when you can lower your interest rate by at least 0.5–1%, plan to stay in your home past the break-even point, and have good credit to qualify for a competitive rate.',
+        answer: 'Refinancing typically makes sense when you can lower your interest rate by at least 0.5-1%, plan to stay in your home past the break-even point, and have good credit to qualify for a competitive rate.',
       },
       {
         question: 'What are typical refinancing closing costs?',
-        answer: 'Closing costs for a refinance typically range from 2–5% of the loan amount, or $3,000–$6,000 on a $200,000 mortgage. Some lenders offer no-closing-cost refinances at a slightly higher rate.',
+        answer: 'Closing costs for a refinance typically range from 2-5% of the loan amount, or $3,000-$6,000 on a $200,000 mortgage. Some lenders offer no-closing-cost refinances at a slightly higher rate.',
       },
       {
         question: 'What is the break-even point on a refinance?',
@@ -459,7 +459,7 @@ export const CALCULATORS: Calculator[] = [
       },
       {
         question: 'What are the three trimesters of pregnancy?',
-        answer: 'The first trimester is weeks 1–12, the second trimester is weeks 13–26, and the third trimester is weeks 27–40. Each trimester brings distinct developmental milestones.',
+        answer: 'The first trimester is weeks 1-12, the second trimester is weeks 13-26, and the third trimester is weeks 27-40. Each trimester brings distinct developmental milestones.',
       },
     ],
   },
@@ -482,7 +482,7 @@ export const CALCULATORS: Calculator[] = [
       },
       {
         question: 'How can I confirm ovulation?',
-        answer: 'Ovulation predictor kits (OPKs) detect the LH surge that occurs 24–36 hours before ovulation. Basal body temperature (BBT) tracking and cervical mucus monitoring are also reliable methods.',
+        answer: 'Ovulation predictor kits (OPKs) detect the LH surge that occurs 24-36 hours before ovulation. Basal body temperature (BBT) tracking and cervical mucus monitoring are also reliable methods.',
       },
     ],
   },
@@ -497,7 +497,7 @@ export const CALCULATORS: Calculator[] = [
     faqs: [
       {
         question: 'How many calories do I need to cut to lose 1 pound per week?',
-        answer: 'One pound of fat equals approximately 3,500 calories. To lose 1 pound per week, you need a daily deficit of 500 calories (3,500 ÷ 7 = 500).',
+        answer: 'One pound of fat equals approximately 3,500 calories. To lose 1 pound per week, you need a daily deficit of 500 calories (3,500 / 7 = 500).',
       },
       {
         question: 'What is the minimum safe calorie intake?',
@@ -505,7 +505,7 @@ export const CALCULATORS: Calculator[] = [
       },
       {
         question: 'What is the Mifflin-St Jeor equation?',
-        answer: 'The Mifflin-St Jeor equation is considered the most accurate formula for estimating BMR. For men: (10 × weight in kg) + (6.25 × height in cm) − (5 × age) + 5. For women: same formula but −161 instead of +5.',
+        answer: 'The Mifflin-St Jeor equation is considered the most accurate formula for estimating BMR. For men: (10 x weight in kg) + (6.25 x height in cm) - (5 x age) + 5. For women: same formula but -161 instead of +5.',
       },
     ],
   },
@@ -520,7 +520,7 @@ export const CALCULATORS: Calculator[] = [
     faqs: [
       {
         question: 'What is the ideal weight for my height?',
-        answer: 'Ideal weight varies by formula and individual factors. This calculator uses four established formulas (Robinson, Miller, Devine, Hamwi) and shows the average. The healthy BMI range (18.5–24.9) provides another benchmark.',
+        answer: 'Ideal weight varies by formula and individual factors. This calculator uses four established formulas (Robinson, Miller, Devine, Hamwi) and shows the average. The healthy BMI range (18.5-24.9) provides another benchmark.',
       },
       {
         question: 'Is ideal weight the same as healthy weight?',
@@ -543,15 +543,15 @@ export const CALCULATORS: Calculator[] = [
     faqs: [
       {
         question: 'How long is a sleep cycle?',
-        answer: 'A complete sleep cycle lasts approximately 90 minutes and includes light sleep, deep sleep, and REM sleep stages. Most adults need 5–6 complete cycles (7.5–9 hours) per night.',
+        answer: 'A complete sleep cycle lasts approximately 90 minutes and includes light sleep, deep sleep, and REM sleep stages. Most adults need 5-6 complete cycles (7.5-9 hours) per night.',
       },
       {
         question: 'Why do I feel groggy even after 8 hours of sleep?',
-        answer: 'Waking up in the middle of a deep sleep stage causes sleep inertia — that groggy, disoriented feeling. This calculator helps you time your alarm to coincide with the end of a sleep cycle, when sleep is lightest.',
+        answer: 'Waking up in the middle of a deep sleep stage causes sleep inertia -- that groggy, disoriented feeling. This calculator helps you time your alarm to coincide with the end of a sleep cycle, when sleep is lightest.',
       },
       {
         question: 'How much sleep do adults need?',
-        answer: 'The CDC recommends 7–9 hours of sleep per night for adults aged 18–60. Older adults may need slightly less. Consistently sleeping fewer than 7 hours is associated with increased health risks.',
+        answer: 'The CDC recommends 7-9 hours of sleep per night for adults aged 18-60. Older adults may need slightly less. Consistently sleeping fewer than 7 hours is associated with increased health risks.',
       },
     ],
   },
@@ -583,7 +583,7 @@ export const CALCULATORS: Calculator[] = [
   {
     slug: 'age',
     title: 'Age Calculator',
-    description: 'Calculate your exact age in years, months, days, weeks, and hours — plus find out how many days until your next birthday.',
+    description: 'Calculate your exact age in years, months, days, weeks, and hours -- plus find out how many days until your next birthday.',
     category: 'tools',
     icon: 'Cake',
     color: 'bg-pink-50 text-pink-700',
@@ -614,7 +614,7 @@ export const CALCULATORS: Calculator[] = [
     faqs: [
       {
         question: 'How do I convert Celsius to Fahrenheit?',
-        answer: 'Use the formula: °F = (°C × 9/5) + 32. For example, 100°C = (100 × 9/5) + 32 = 212°F.',
+        answer: 'Use the formula: F = (C x 9/5) + 32. For example, 100C = (100 x 9/5) + 32 = 212F.',
       },
       {
         question: 'How many kilograms are in a pound?',
