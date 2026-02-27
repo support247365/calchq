@@ -817,6 +817,38 @@ export const CALCULATORS: Calculator[] = [
       },
     ],
   },
+  // -- PHASE 5: DATE CALCULATOR --------------------------------------------------
+  {
+    slug: 'date',
+    title: 'Date Calculator',
+    description: 'Calculate the number of days between two dates, add or subtract days from any date, and find out what day of the week any date falls on.',
+    category: 'math',
+    icon: 'Calendar',
+    color: 'bg-violet-50 text-violet-700',
+    keywords: ['date calculator', 'days between dates', 'add days to date', 'day of the week', 'how many days until', 'date difference calculator'],
+    faqs: [
+      {
+        question: 'How do I calculate the number of days between two dates?',
+        answer: 'To find the number of days between two dates, subtract the earlier date from the later date. Each day is 86,400 seconds (24 hours x 60 minutes x 60 seconds). Our calculator also breaks the difference into years, months, and days, and counts weekdays versus weekend days separately.',
+      },
+      {
+        question: 'How do I add or subtract days from a date?',
+        answer: 'To add days to a date, simply count forward on the calendar. For large numbers, convert to weeks first (divide by 7), then add the remaining days. For example, 100 days from January 1 = 14 weeks and 2 days = April 11 (in a non-leap year). Our calculator handles all the month-length and leap-year complexity automatically.',
+      },
+      {
+        question: 'What day of the week was I born?',
+        answer: 'Enter your birth date in the Day of the Week tab to instantly see what day you were born on. This uses the Zeller formula or similar algorithm to compute the day of the week for any Gregorian calendar date.',
+      },
+      {
+        question: 'What is a leap year and how does it affect date calculations?',
+        answer: 'A leap year has 366 days instead of 365, with February 29 added. A year is a leap year if it is divisible by 4, except for century years (divisible by 100), which must also be divisible by 400. For example, 2000 was a leap year but 1900 was not. Leap years affect date calculations when the span crosses February 29.',
+      },
+      {
+        question: 'How many days are in each month?',
+        answer: 'January (31), February (28 or 29 in a leap year), March (31), April (30), May (31), June (30), July (31), August (31), September (30), October (31), November (30), December (31). A common memory aid: knuckles are 31-day months, valleys are 30-day months (or February).',
+      },
+    ],
+  },
 ];
 
 // Merge SEO content into calculators

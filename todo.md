@@ -37,3 +37,10 @@
 - [x] Register both in calculators.ts with FAQs
 - [x] Register both in CalculatorPage.tsx component map
 - [x] Register both in sitemapRoutes.ts
+
+## Phase 5 - Date Calculator
+- [x] Build Date Calculator component (days between, add/subtract days, day-of-week)
+- [x] Register in calculators.ts with FAQs
+- [x] Register in CalculatorPage.tsx component map
+- [x] Register in sitemapRoutes.ts
+- [x] Update homepage stats

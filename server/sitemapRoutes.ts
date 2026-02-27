@@ -23,7 +23,7 @@ const CALCULATOR_SLUGS = [
   "pregnancy", "ovulation", "calorie-deficit", "ideal-weight", "sleep",
   "age", "calculator", "unit-converter",
   "gpa", "tip", "fuel-cost", "currency", "inflation",
-  "fraction", "exponent"
+  "fraction", "exponent", "date"
 ];
 
 export function registerSitemapRoutes(app: Express) {

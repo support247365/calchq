@@ -54,6 +54,7 @@ import {
   FractionCalculator,
   ExponentCalculator,
 } from "@/components/calculators/MathCalculators";
+import DateCalculator from "@/components/calculators/DateCalculator";
 
 const CALCULATOR_COMPONENTS: Record<string, React.ComponentType> = {
   loan: LoanCalculator,
@@ -90,6 +91,7 @@ const CALCULATOR_COMPONENTS: Record<string, React.ComponentType> = {
   inflation: InflationCalculator,
   fraction: FractionCalculator,
   exponent: ExponentCalculator,
+  date: DateCalculator,
 };
 
 function FAQItem({ question, answer }: { question: string; answer: string }) {
