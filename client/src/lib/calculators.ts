@@ -304,9 +304,9 @@ export const CALCULATORS: Calculator[] = [
     slug: 'percentage',
     title: 'Percentage Calculator',
     description: 'Calculate percentages instantly -- find what percent of a number is, what percentage one number is of another, or the percentage change between two values.',
-    category: 'financial',
+    category: 'math',
     icon: 'Percent',
-    color: 'bg-emerald-50 text-emerald-700',
+    color: 'bg-violet-50 text-violet-700',
     keywords: ['percentage calculator', 'percent of a number', 'percentage change', 'percent increase decrease'],
     faqs: [
       {
@@ -561,9 +561,9 @@ export const CALCULATORS: Calculator[] = [
     slug: 'calculator',
     title: 'Calculator',
     description: 'A full-featured calculator with three modes: Standard for everyday math, Scientific for trigonometry and logarithms, and Engineering for advanced functions.',
-    category: 'tools',
+    category: 'math',
     icon: 'Calculator',
-    color: 'bg-gray-100 text-gray-700',
+    color: 'bg-violet-50 text-violet-700',
     keywords: ['calculator', 'scientific calculator', 'engineering calculator', 'online calculator', 'standard calculator'],
     faqs: [
       {
@@ -627,7 +627,7 @@ export const CALCULATORS: Calculator[] = [
     slug: 'gpa',
     title: 'GPA Calculator',
     description: 'Calculate your GPA instantly. Enter your courses, grades, and credit hours to get your weighted GPA on a 4.0 scale.',
-    category: 'tools',
+    category: 'math',
     icon: 'GraduationCap',
     color: 'bg-violet-50 text-violet-700',
     keywords: ['gpa calculator', 'grade point average', 'college gpa', 'cumulative gpa', 'semester gpa'],

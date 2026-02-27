@@ -4,7 +4,7 @@
  */
 import { useState, useMemo } from "react";
 import { useLocation } from "wouter";
-import { Search, ArrowRight, Calculator, TrendingUp, Heart, Wrench } from "lucide-react";
+import { Search, ArrowRight, Calculator, TrendingUp, Heart, Wrench, Sigma } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { CALCULATORS, CATEGORIES, type Category } from "@/lib/calculators";
@@ -12,11 +12,11 @@ import { CALCULATORS, CATEGORIES, type Category } from "@/lib/calculators";
 const CATEGORY_ICONS: Record<Category, React.ReactNode> = {
   financial: <TrendingUp className="w-5 h-5" />,
   health: <Heart className="w-5 h-5" />,
-  math: <Calculator className="w-5 h-5" />,
+  math: <Sigma className="w-5 h-5" />,
   tools: <Wrench className="w-5 h-5" />,
 };
 
-const DISPLAY_CATEGORIES: Category[] = ["financial", "health", "tools"];
+const DISPLAY_CATEGORIES: Category[] = ["financial", "health", "math", "tools"];
 
 export default function Home() {
   const [query, setQuery] = useState("");

@@ -23,3 +23,10 @@
 - [ ] GPA, Tip, Fuel Cost, Currency, Inflation ZIP code pages (5 x 42,741 = 213,705 new pages)
 - [ ] Nearby ZIP codes section on ZIP calculator pages (internal linking)
 - [ ] Ezoic application (after 10k monthly visitors)
+
+## Phase 3 - Homepage Math Category
+- [x] Add 'math' category type to calculators.ts
+- [x] Tag GPA, Percentage, and Calculator as 'math'
+- [x] Add Math category definition with Sigma icon and violet color
+- [x] Update homepage to display Math section
+- [x] Add Math to Navbar dropdown

@@ -7,7 +7,7 @@ import { Link, useLocation } from "wouter";
 import { Calculator, ChevronDown, Menu, X } from "lucide-react";
 import { CALCULATORS, CATEGORIES, type Category } from "@/lib/calculators";
 
-const NAV_CATEGORIES: Category[] = ["financial", "health", "tools"];
+const NAV_CATEGORIES: Category[] = ["financial", "health", "math", "tools"];
 
 export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
