@@ -61,3 +61,13 @@
 - [x] Register both in sitemapRoutes.ts
 - [x] Update homepage stats
 - [ ] Resubmit sitemap to Google Search Console (user action)
+
+## Phase 8 - Math Expansion + Bookmark Prompt
+- [x] Build Scientific Notation Converter component
+- [x] Build Roman Numeral Converter component
+- [x] Build bookmark/PWA install prompt component
+- [x] Add bookmark prompt to CalculatorPage and Homepage
+- [x] Register both new calculators in calculators.ts with FAQs
+- [x] Register both in CalculatorPage.tsx component map
+- [x] Register both in sitemapRoutes.ts
+- [x] Update homepage stats

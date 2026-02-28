@@ -931,6 +931,61 @@ export const CALCULATORS: Calculator[] = [
       },
     ],
   },
+  // -- PHASE 8: MATH CONVERTERS -----------------------------------------------
+  {
+    slug: 'scientific-notation',
+    title: 'Scientific Notation Converter',
+    description: 'Convert numbers to and from scientific notation and engineering notation. Supports very large and very small numbers with step-by-step explanations and SI prefix reference.',
+    category: 'math',
+    icon: 'Atom',
+    color: 'bg-violet-50 text-violet-700',
+    keywords: ['scientific notation converter', 'scientific notation calculator', 'engineering notation', 'convert to scientific notation', 'standard form calculator', 'powers of 10'],
+    faqs: [
+      {
+        question: 'What is scientific notation?',
+        answer: 'Scientific notation is a way of expressing very large or very small numbers in the form a x 10^n, where 1 <= |a| < 10 and n is an integer. For example, 299,792,458 (speed of light in m/s) is written as 2.998 x 10^8. It is used in science, engineering, and mathematics to make calculations with extreme values more manageable.',
+      },
+      {
+        question: 'What is the difference between scientific and engineering notation?',
+        answer: 'In scientific notation, the exponent can be any integer and the coefficient is between 1 and 10. In engineering notation, the exponent is always a multiple of 3 (0, 3, 6, 9, -3, -6, etc.), which aligns with SI prefixes like kilo (10^3), mega (10^6), milli (10^-3), and micro (10^-6). Engineering notation is preferred in electronics and practical engineering.',
+      },
+      {
+        question: 'How do I convert a number to scientific notation?',
+        answer: 'Move the decimal point until there is exactly one non-zero digit to the left of the decimal. Count the number of places you moved the decimal -- this is the exponent. If you moved left, the exponent is positive; if you moved right, it is negative. Example: 0.0000045 = 4.5 x 10^-6 (moved 6 places right).',
+      },
+      {
+        question: 'What are SI prefixes and how do they relate to powers of 10?',
+        answer: 'SI prefixes are standardized multipliers used in the metric system. Key prefixes: nano (10^-9), micro (10^-6), milli (10^-3), kilo (10^3), mega (10^6), giga (10^9), tera (10^12). These align with engineering notation exponents, making it easy to express measurements like 1.5 GHz (1.5 x 10^9 Hz) or 47 nF (47 x 10^-9 F).',
+      },
+    ],
+  },
+  {
+    slug: 'roman-numerals',
+    title: 'Roman Numeral Converter',
+    description: 'Convert between Roman numerals and standard numbers instantly. Supports 1 to 3,999 with a full step-by-step breakdown and clickable reference table.',
+    category: 'math',
+    icon: 'BookOpen',
+    color: 'bg-violet-50 text-violet-700',
+    keywords: ['roman numeral converter', 'roman numeral calculator', 'convert roman numerals', 'roman numerals to numbers', 'numbers to roman numerals', 'what is MCMXCIX'],
+    faqs: [
+      {
+        question: 'What are Roman numerals?',
+        answer: 'Roman numerals are a numeral system originating in ancient Rome that uses letters from the Latin alphabet (I, V, X, L, C, D, M) to represent numbers. They were the standard writing system for numbers in Europe throughout the Middle Ages and are still used today for clock faces, book chapters, movie sequels, Super Bowl numbering, and year designations.',
+      },
+      {
+        question: 'What are the basic Roman numeral values?',
+        answer: 'The seven basic symbols are: I = 1, V = 5, X = 10, L = 50, C = 100, D = 500, M = 1000. Numbers are formed by combining these symbols: larger values are added (VIII = 8), but when a smaller value precedes a larger one, it is subtracted (IV = 4, IX = 9, XL = 40, XC = 90, CD = 400, CM = 900).',
+      },
+      {
+        question: 'What is the largest number in Roman numerals?',
+        answer: 'The standard Roman numeral system goes up to 3,999 (MMMCMXCIX). Numbers above 3,999 traditionally used a bar over a numeral to multiply it by 1,000, but this is rarely used in modern contexts. Most practical uses of Roman numerals stay well within the 1-3,999 range.',
+      },
+      {
+        question: 'Why are Roman numerals still used today?',
+        answer: 'Roman numerals persist in modern life for several reasons: they look formal and timeless (used on clock faces, monuments, and official documents), they distinguish sequels and editions from their predecessors (Super Bowl LVIII, Rocky II), they are used in outlines and lists to avoid confusion with Arabic numerals, and they appear in copyright years on films and TV shows.',
+      },
+    ],
+  },
   // -- PHASE 5: DATE CALCULATOR --------------------------------------------------
   {
     slug: 'date',

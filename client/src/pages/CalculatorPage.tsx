@@ -8,6 +8,7 @@ import { useParams, useLocation } from "wouter";
 import { ArrowLeft, ChevronDown, ArrowRight, Calculator } from "lucide-react";
 import { useState, useEffect } from "react";
 import Navbar from "@/components/Navbar";
+import BookmarkPrompt from "@/components/BookmarkPrompt";
 import Footer from "@/components/Footer";
 import { getCalculatorBySlug, CALCULATORS, CATEGORIES } from "@/lib/calculators";
 import LoanCalculator from "@/components/calculators/LoanCalculator";
@@ -63,6 +64,10 @@ import {
   TimeZoneConverter,
   WordCounter,
 } from "@/components/calculators/MoreToolsCalculators";
+import {
+  ScientificNotationConverter,
+  RomanNumeralConverter,
+} from "@/components/calculators/MathConverters";
 
 const CALCULATOR_COMPONENTS: Record<string, React.ComponentType> = {
   loan: LoanCalculator,
@@ -104,6 +109,8 @@ const CALCULATOR_COMPONENTS: Record<string, React.ComponentType> = {
   "password-generator": PasswordGenerator,
   timezone: TimeZoneConverter,
   "word-counter": WordCounter,
+  "scientific-notation": ScientificNotationConverter,
+  "roman-numerals": RomanNumeralConverter,
 };
 
 function FAQItem({ question, answer }: { question: string; answer: string }) {
@@ -372,6 +379,9 @@ export default function CalculatorPage() {
               </button>
             </section>
           )}
+
+          {/* Bookmark prompt */}
+          <BookmarkPrompt compact />
 
         </div>
       </main>

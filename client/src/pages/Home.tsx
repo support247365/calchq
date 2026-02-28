@@ -7,6 +7,7 @@ import { useLocation } from "wouter";
 import { Search, ArrowRight, Calculator, TrendingUp, Heart, Wrench, Sigma } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import BookmarkPrompt from "@/components/BookmarkPrompt";
 import { CALCULATORS, CATEGORIES, type Category } from "@/lib/calculators";
 
 const CATEGORY_ICONS: Record<Category, React.ReactNode> = {
@@ -112,8 +113,8 @@ export default function Home() {
         <div className="container py-4">
           <div className="flex flex-wrap gap-6 md:gap-10">
             {[
-              { value: "39", label: "Free Calculators" },
-              { value: "1.6M+", label: "Unique Pages" },
+              { value: "41", label: "Free Calculators" },
+              { value: "1.7M+", label: "Unique Pages" },
               { value: "100%", label: "Free & Private" },
               { value: "0", label: "Sign-ups Required" },
             ].map((stat) => (
@@ -182,6 +183,11 @@ export default function Home() {
           );
         })}
       </main>
+
+      {/* Bookmark / Install prompt */}
+      <div className="container pb-8">
+        <BookmarkPrompt />
+      </div>
 
       <Footer />
     </div>

@@ -25,7 +25,8 @@ const CALCULATOR_SLUGS = [
   "gpa", "tip", "fuel-cost", "currency", "inflation",
   "fraction", "exponent", "date",
   "random-number", "password-generator",
-  "timezone", "word-counter"
+  "timezone", "word-counter",
+  "scientific-notation", "roman-numerals"
 ];
 
 export function registerSitemapRoutes(app: Express) {
