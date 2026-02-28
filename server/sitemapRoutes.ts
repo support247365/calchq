@@ -14,7 +14,7 @@ import { zipCodes } from "../drizzle/schema";
 
 const BASE_URL = "https://calchq.io";
 
-// All 32 calculator slugs
+// All 47 calculator slugs
 const CALCULATOR_SLUGS = [
   "loan", "mortgage", "rent-vs-buy", "salary", "sales-tax",
   "percentage", "compound-interest", "retirement", "paycheck", "roi", "refinance",
@@ -27,7 +27,8 @@ const CALCULATOR_SLUGS = [
   "random-number", "password-generator",
   "timezone", "word-counter",
   "scientific-notation", "roman-numerals",
-  "color", "number-base"
+  "color", "number-base",
+  "temperature", "speed", "pace", "net-worth"
 ];
 
 export function registerSitemapRoutes(app: Express) {

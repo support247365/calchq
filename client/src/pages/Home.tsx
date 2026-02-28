@@ -8,6 +8,7 @@ import { Search, ArrowRight, Calculator, TrendingUp, Heart, Wrench, Sigma } from
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import BookmarkPrompt from "@/components/BookmarkPrompt";
+import { RecentlyViewedHomeBanner } from "@/components/RecentlyViewed";
 import { CALCULATORS, CATEGORIES, type Category } from "@/lib/calculators";
 
 const CATEGORY_ICONS: Record<Category, React.ReactNode> = {
@@ -113,8 +114,8 @@ export default function Home() {
         <div className="container py-4">
           <div className="flex flex-wrap gap-6 md:gap-10">
             {[
-              { value: "43", label: "Free Calculators" },
-              { value: "1.8M+", label: "Unique Pages" },
+              { value: "47", label: "Free Calculators" },
+              { value: "2M+", label: "Unique Pages" },
               { value: "100%", label: "Free & Private" },
               { value: "0", label: "Sign-ups Required" },
             ].map((stat) => (
@@ -128,6 +129,8 @@ export default function Home() {
           </div>
         </div>
       </div>
+
+      <RecentlyViewedHomeBanner />
 
       {/* Calculator sections */}
       <main className="flex-1 container py-12 space-y-16">

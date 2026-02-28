@@ -80,3 +80,15 @@
 - [x] Register both in CalculatorPage.tsx component map
 - [x] Register both in sitemapRoutes.ts
 - [x] Update homepage stats
+
+## Phase 10 - Final Polish
+- [x] Add JSON-LD FAQPage + HowTo structured data to CalculatorPage
+- [x] Add Open Graph / Twitter Card meta tags to CalculatorPage and Home
+- [x] Build Recently Viewed bar (localStorage, last 5 calculators)
+- [x] Build All Calculators browse page (/calculators) with category filter
+- [x] Build Temperature Converter component
+- [x] Build Speed Converter component
+- [x] Build Pace Calculator component
+- [x] Build Net Worth Calculator component
+- [x] Register all 4 new calculators in registry, sitemap, homepage
+- [x] Update homepage stats to 47 calculators / 2M+ pages

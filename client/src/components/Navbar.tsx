@@ -72,7 +72,7 @@ export default function Navbar() {
           {/* Right side */}
           <div className="flex items-center gap-3">
             <Link
-              href="/"
+              href="/calculators"
               className="hidden md:inline-flex items-center gap-1.5 px-4 py-2 bg-emerald-500 hover:bg-emerald-600 text-white text-sm font-semibold rounded-lg transition-colors shadow-sm"
             >
               All Calculators

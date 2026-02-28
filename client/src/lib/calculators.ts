@@ -1073,6 +1073,110 @@ export const CALCULATORS: Calculator[] = [
       },
     ],
   },
+  {
+    slug: 'temperature',
+    title: 'Temperature Converter',
+    description: 'Convert between Celsius, Fahrenheit, Kelvin, Rankine, and more. Includes common reference points and quick presets.',
+    icon: 'Thermometer',
+    category: 'tools',
+    keywords: ['temperature converter', 'celsius to fahrenheit', 'fahrenheit to celsius', 'kelvin converter', 'c to f', 'f to c'],
+    color: 'bg-orange-100 text-orange-600',
+    explanation: [
+      'Temperature is a measure of thermal energy. Different scales are used around the world and in science. Celsius (C) is used in most countries for everyday temperature. Fahrenheit (F) is used primarily in the United States. Kelvin (K) is the SI base unit used in science and engineering.',
+      'The Celsius scale is based on water: 0 C is the freezing point and 100 C is the boiling point at sea level. Fahrenheit sets these at 32 F and 212 F respectively. Kelvin starts at absolute zero (-273.15 C), the theoretical lowest possible temperature.',
+    ],
+    howTo: {
+      intro: 'Enter a temperature value, select your starting unit, and instantly see conversions to all other scales.',
+      steps: [
+        { title: 'Enter a value', text: 'Type the temperature number in the input field.' },
+        { title: 'Select the source unit', text: 'Choose Celsius, Fahrenheit, or Kelvin from the dropdown.' },
+        { title: 'Read the results', text: 'All conversions update instantly. Click a reference row to load that temperature.' },
+      ],
+    },
+    faqs: [
+      { question: 'What is the formula to convert Celsius to Fahrenheit?', answer: 'Multiply by 9/5 then add 32. Example: 100 C x (9/5) + 32 = 212 F. To go the other direction, subtract 32 then multiply by 5/9.' },
+      { question: 'What is absolute zero?', answer: 'Absolute zero is 0 Kelvin, -273.15 Celsius, or -459.67 Fahrenheit. It is the theoretical lowest possible temperature where all molecular motion stops. It has never been achieved in practice, only approached.' },
+      { question: 'What temperature is the same in Celsius and Fahrenheit?', answer: '-40 degrees is the same in both Celsius and Fahrenheit. This is the only point where the two scales intersect.' },
+    ],
+  },
+  {
+    slug: 'speed',
+    title: 'Speed Converter',
+    description: 'Convert between mph, km/h, m/s, knots, Mach, and the speed of light. Includes common speed reference points.',
+    icon: 'Gauge',
+    category: 'tools',
+    keywords: ['speed converter', 'mph to kph', 'kph to mph', 'knots to mph', 'mach to mph', 'meters per second'],
+    color: 'bg-blue-100 text-blue-600',
+    explanation: [
+      'Speed is the rate at which an object covers distance over time. Different fields use different units: miles per hour (mph) is standard in the US for road travel, kilometers per hour (km/h) is used in most other countries, knots are used in aviation and maritime navigation, and meters per second (m/s) is the SI unit used in science.',
+      'Mach number represents speed relative to the speed of sound (approximately 340 m/s at sea level). Mach 1 is the speed of sound, Mach 2 is twice the speed of sound, and so on. The speed of light (c) is approximately 299,792,458 m/s in a vacuum.',
+    ],
+    howTo: {
+      intro: 'Enter a speed value, select your unit, and see instant conversions across all speed units.',
+      steps: [
+        { title: 'Enter a speed', text: 'Type the speed value in the input field.' },
+        { title: 'Select the unit', text: 'Choose from mph, km/h, m/s, knots, Mach, or speed of light.' },
+        { title: 'Read conversions', text: 'All units update instantly. Use quick presets for common reference speeds.' },
+      ],
+    },
+    faqs: [
+      { question: 'How do I convert mph to km/h?', answer: 'Multiply mph by 1.60934. For example, 60 mph x 1.60934 = 96.56 km/h. To convert km/h to mph, divide by 1.60934 (or multiply by 0.621371).' },
+      { question: 'What is a knot?', answer: "A knot is one nautical mile per hour. One nautical mile equals 1.852 km or 1.15078 miles. Knots are the standard unit for speed in aviation and maritime navigation because nautical miles are based on the Earth's circumference, making navigation calculations simpler." },
+      { question: 'What is Mach 1?', answer: 'Mach 1 is the speed of sound, approximately 343 m/s (767 mph or 1,235 km/h) at sea level at 20 C. The exact speed varies with air temperature, pressure, and altitude. At 30,000 feet where commercial jets cruise, the speed of sound is closer to 295 m/s due to colder temperatures.' },
+    ],
+  },
+  {
+    slug: 'pace',
+    title: 'Pace Calculator',
+    description: 'Calculate running pace, finish time, or distance. Includes race projections for 5K, 10K, half marathon, and marathon.',
+    icon: 'Timer',
+    category: 'health',
+    keywords: ['pace calculator', 'running pace', 'min per mile', 'marathon pace', '5k pace', 'half marathon pace', 'running time calculator'],
+    color: 'bg-green-100 text-green-600',
+    explanation: [
+      'Running pace is typically expressed as minutes per mile (min/mi) or minutes per kilometer (min/km). It describes how long it takes to cover one unit of distance. Pace is the inverse of speed -- a faster runner has a lower pace number (e.g., 7:00/mi is faster than 10:00/mi).',
+      'This calculator can find any one of three values when you know the other two: pace, total time, or distance. It also projects finish times for common race distances based on your current pace, assuming you maintain the same effort throughout.',
+    ],
+    howTo: {
+      intro: 'Select what you want to calculate, enter the two known values, and the third is calculated automatically.',
+      steps: [
+        { title: 'Choose your goal', text: 'Select Find Pace, Find Time, or Find Distance from the tabs.' },
+        { title: 'Enter the known values', text: 'Fill in the two fields that are not grayed out.' },
+        { title: 'Read the results', text: 'Your result appears instantly along with race finish time projections.' },
+      ],
+    },
+    faqs: [
+      { question: 'What is a good running pace?', answer: 'Average recreational runners finish a 5K in 30-40 minutes (about 9:40-12:52 per mile). A good pace for a beginner is anything under 15 min/mile. Competitive amateur runners typically run 7-9 min/mile. Elite marathon runners maintain under 5 min/mile for 26.2 miles.' },
+      { question: 'How do I calculate my pace?', answer: 'Divide your total time (in seconds) by your distance (in miles or km). For example, if you ran 3 miles in 30 minutes (1800 seconds): 1800 / 3 = 600 seconds per mile = 10:00 min/mile.' },
+      { question: 'What is negative splitting?', answer: 'Negative splitting means running the second half of a race faster than the first half. It is considered the optimal race strategy because it prevents early fatigue and allows you to finish strong. Most world records are set with negative or even splits.' },
+    ],
+  },
+  {
+    slug: 'net-worth',
+    title: 'Net Worth Calculator',
+    description: 'Calculate your total net worth by entering your assets and liabilities. Includes debt-to-asset ratio and financial health indicators.',
+    icon: 'TrendingUp',
+    category: 'financial',
+    keywords: ['net worth calculator', 'calculate net worth', 'assets liabilities', 'personal net worth', 'financial net worth'],
+    color: 'bg-emerald-100 text-emerald-600',
+    explanation: [
+      'Net worth is the total value of everything you own (assets) minus everything you owe (liabilities). It is the most comprehensive single measure of your financial health. A positive net worth means your assets exceed your debts; a negative net worth means you owe more than you own.',
+      'Assets include cash, investments, retirement accounts, real estate, vehicles, and other valuables. Liabilities include mortgages, car loans, student loans, credit card balances, and any other debts. Tracking your net worth over time is one of the best ways to measure financial progress.',
+    ],
+    howTo: {
+      intro: 'Enter the current values of your assets and liabilities. Your net worth updates automatically as you type.',
+      steps: [
+        { title: 'Enter your assets', text: 'Add the current value of each asset: bank accounts, investments, home equity, vehicles, etc.' },
+        { title: 'Enter your liabilities', text: 'Add the outstanding balance of each debt: mortgage, car loans, credit cards, student loans.' },
+        { title: 'Review your net worth', text: 'Your total net worth and debt-to-asset ratio are calculated automatically.' },
+      ],
+    },
+    faqs: [
+      { question: 'What is a good net worth by age?', answer: 'According to the Federal Reserve, median net worth by age group in the US: under 35: $39,000; 35-44: $135,000; 45-54: $247,000; 55-64: $365,000; 65-74: $410,000. These are medians -- half of people in each group have more, half have less. The average (mean) is much higher due to wealthy outliers.' },
+      { question: 'Should I include my home in net worth?', answer: "Yes, but use your home's current market value minus your outstanding mortgage balance (home equity). For example, if your home is worth $400,000 and you owe $280,000, your home equity is $120,000. This is the net contribution to your net worth." },
+      { question: 'How often should I calculate my net worth?', answer: 'Most financial advisors recommend calculating net worth quarterly or annually. Monthly tracking can be useful when actively paying down debt or building savings, but daily fluctuations in investment values can be misleading. The trend over 1-3 years is more meaningful than any single snapshot.' },
+    ],
+  },
 ];
 
 // Merge SEO content into calculators

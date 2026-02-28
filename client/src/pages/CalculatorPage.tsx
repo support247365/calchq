@@ -10,6 +10,7 @@ import { useState, useEffect } from "react";
 import Navbar from "@/components/Navbar";
 import BookmarkPrompt from "@/components/BookmarkPrompt";
 import Footer from "@/components/Footer";
+import { RecentlyViewed, trackCalculatorView } from "@/components/RecentlyViewed";
 import { getCalculatorBySlug, CALCULATORS, CATEGORIES } from "@/lib/calculators";
 import LoanCalculator from "@/components/calculators/LoanCalculator";
 import {
@@ -72,6 +73,12 @@ import {
   ColorConverter,
   NumberBaseConverter,
 } from "@/components/calculators/DesignTools";
+import {
+  TemperatureConverter,
+  SpeedConverter,
+  PaceCalculator,
+  NetWorthCalculator,
+} from "@/components/calculators/FinalCalculators";
 
 const CALCULATOR_COMPONENTS: Record<string, React.ComponentType> = {
   loan: LoanCalculator,
@@ -117,6 +124,10 @@ const CALCULATOR_COMPONENTS: Record<string, React.ComponentType> = {
   "roman-numerals": RomanNumeralConverter,
   color: ColorConverter,
   "number-base": NumberBaseConverter,
+  temperature: TemperatureConverter,
+  speed: SpeedConverter,
+  pace: PaceCalculator,
+  "net-worth": NetWorthCalculator,
 };
 
 function FAQItem({ question, answer }: { question: string; answer: string }) {
@@ -150,6 +161,9 @@ export default function CalculatorPage() {
   useEffect(() => {
     if (!calc) return;
 
+    // Track this view in localStorage
+    trackCalculatorView(calc.slug);
+
     document.title = `${calc.title} — Free Online Calculator | CalcHQ`;
 
     let metaDesc = document.querySelector('meta[name="description"]');
@@ -160,9 +174,52 @@ export default function CalculatorPage() {
     }
     (metaDesc as HTMLMetaElement).content = `Free ${calc.title.toLowerCase()} — ${calc.description} No sign-up required. Instant results.`;
 
+    // Open Graph + Twitter Card meta tags
+    const setMeta = (property: string, content: string, attr = 'property') => {
+      let el = document.querySelector(`meta[${attr}="${property}"]`) as HTMLMetaElement | null;
+      if (!el) {
+        el = document.createElement('meta');
+        el.setAttribute(attr, property);
+        document.head.appendChild(el);
+      }
+      el.content = content;
+    };
+    const pageUrl = `https://calchq.io/calculator/${calc.slug}`;
+    const pageTitle = `${calc.title} — Free Online Calculator | CalcHQ`;
+    const pageDesc = `Free ${calc.title.toLowerCase()} — ${calc.description} No sign-up required. Instant results.`;
+    setMeta('og:type', 'website');
+    setMeta('og:url', pageUrl);
+    setMeta('og:title', pageTitle);
+    setMeta('og:description', pageDesc);
+    setMeta('og:image', 'https://calchq.io/og-image.png');
+    setMeta('og:site_name', 'CalcHQ');
+    setMeta('twitter:card', 'summary', 'name');
+    setMeta('twitter:title', pageTitle, 'name');
+    setMeta('twitter:description', pageDesc, 'name');
+    setMeta('twitter:image', 'https://calchq.io/og-image.png', 'name');
+
     // Remove old schemas
     document.getElementById('faq-schema')?.remove();
     document.getElementById('howto-schema')?.remove();
+
+    // BreadcrumbList schema
+    const breadcrumbSchema = {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://calchq.io" },
+        { "@type": "ListItem", "position": 2, "name": calc.category.charAt(0).toUpperCase() + calc.category.slice(1), "item": `https://calchq.io/?category=${calc.category}` },
+        { "@type": "ListItem", "position": 3, "name": calc.title, "item": pageUrl },
+      ],
+    };
+    let breadcrumbEl = document.getElementById('breadcrumb-schema');
+    if (!breadcrumbEl) {
+      breadcrumbEl = document.createElement('script');
+      breadcrumbEl.id = 'breadcrumb-schema';
+      (breadcrumbEl as HTMLScriptElement).type = 'application/ld+json';
+      document.head.appendChild(breadcrumbEl);
+    }
+    breadcrumbEl.textContent = JSON.stringify(breadcrumbSchema);
 
     // FAQ schema
     if (calc.faqs.length > 0) {
@@ -207,6 +264,7 @@ export default function CalculatorPage() {
       document.title = 'CalcHQ - Free Online Calculators for Finance, Health & Math';
       document.getElementById('faq-schema')?.remove();
       document.getElementById('howto-schema')?.remove();
+      document.getElementById('breadcrumb-schema')?.remove();
     };
   }, [calc]);
 
@@ -438,6 +496,7 @@ export default function CalculatorPage() {
         </div>
       </main>
 
+      <RecentlyViewed currentSlug={slug} />
       <Footer />
     </div>
   );
