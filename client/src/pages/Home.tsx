@@ -113,8 +113,8 @@ export default function Home() {
         <div className="container py-4">
           <div className="flex flex-wrap gap-6 md:gap-10">
             {[
-              { value: "41", label: "Free Calculators" },
-              { value: "1.7M+", label: "Unique Pages" },
+              { value: "43", label: "Free Calculators" },
+              { value: "1.8M+", label: "Unique Pages" },
               { value: "100%", label: "Free & Private" },
               { value: "0", label: "Sign-ups Required" },
             ].map((stat) => (

@@ -68,6 +68,10 @@ import {
   ScientificNotationConverter,
   RomanNumeralConverter,
 } from "@/components/calculators/MathConverters";
+import {
+  ColorConverter,
+  NumberBaseConverter,
+} from "@/components/calculators/DesignTools";
 
 const CALCULATOR_COMPONENTS: Record<string, React.ComponentType> = {
   loan: LoanCalculator,
@@ -111,6 +115,8 @@ const CALCULATOR_COMPONENTS: Record<string, React.ComponentType> = {
   "word-counter": WordCounter,
   "scientific-notation": ScientificNotationConverter,
   "roman-numerals": RomanNumeralConverter,
+  color: ColorConverter,
+  "number-base": NumberBaseConverter,
 };
 
 function FAQItem({ question, answer }: { question: string; answer: string }) {
@@ -227,10 +233,56 @@ export default function CalculatorPage() {
 
   const catInfo = CATEGORIES[calc.category];
 
-  // Related calculators: same category, excluding self, up to 4
-  const related = CALCULATORS.filter(
+  // Cross-category internal links for key calculators
+  const CROSS_LINKS: Record<string, string[]> = {
+    mortgage: ["loan", "amortization", "rent-vs-buy", "retirement"],
+    loan: ["mortgage", "amortization", "salary", "tip"],
+    amortization: ["mortgage", "loan", "rent-vs-buy", "inflation"],
+    "rent-vs-buy": ["mortgage", "amortization", "salary", "loan"],
+    bmi: ["body-fat", "calorie-deficit", "bmr", "tdee"],
+    "body-fat": ["bmi", "calorie-deficit", "bmr", "tdee"],
+    "calorie-deficit": ["bmi", "body-fat", "bmr", "calories-burned"],
+    bmr: ["tdee", "calorie-deficit", "bmi", "body-fat"],
+    tdee: ["bmr", "calorie-deficit", "bmi", "calories-burned"],
+    date: ["timezone", "age", "word-counter"],
+    timezone: ["date", "word-counter"],
+    percentage: ["fraction", "scientific-notation", "calculator"],
+    fraction: ["percentage", "exponent", "scientific-notation"],
+    "scientific-notation": ["fraction", "exponent", "percentage", "roman-numerals"],
+    "roman-numerals": ["scientific-notation", "number-base", "percentage"],
+    "number-base": ["scientific-notation", "roman-numerals", "exponent"],
+    color: ["number-base", "unit-converter"],
+    currency: ["inflation", "tip", "salary"],
+    inflation: ["currency", "retirement", "mortgage"],
+    salary: ["tax", "loan", "currency", "retirement"],
+    tax: ["salary", "tip", "loan"],
+    tip: ["tax", "loan", "currency"],
+    retirement: ["mortgage", "inflation", "salary", "loan"],
+    gpa: ["percentage", "fraction", "calculator"],
+    "fuel-cost": ["unit-converter", "tip", "salary"],
+    "random-number": ["password-generator", "calculator"],
+    "password-generator": ["random-number", "word-counter"],
+    "word-counter": ["date", "password-generator"],
+    "calories-burned": ["calorie-deficit", "bmi", "bmr", "fat-burning-zone"],
+    "fat-burning-zone": ["calories-burned", "bmr", "tdee"],
+    "one-rep-max": ["calories-burned", "bmi", "body-fat"],
+    "unit-converter": ["fuel-cost", "color", "scientific-notation"],
+    calculator: ["percentage", "fraction", "exponent"],
+    exponent: ["fraction", "percentage", "scientific-notation"],
+    age: ["date", "bmi", "retirement"],
+  };
+
+  // Related: same category first, then cross-links, up to 4 total
+  const sameCat = CALCULATORS.filter(
     (c) => c.category === calc.category && c.slug !== calc.slug
-  ).slice(0, 4);
+  ).slice(0, 3);
+  const crossSlugs = (CROSS_LINKS[calc.slug] ?? []).filter(
+    (s) => !sameCat.find((c) => c.slug === s) && s !== calc.slug
+  );
+  const crossCalcs = crossSlugs
+    .map((s) => CALCULATORS.find((c) => c.slug === s))
+    .filter(Boolean) as typeof CALCULATORS;
+  const related = [...sameCat, ...crossCalcs].slice(0, 4);
 
   return (
     <div className="min-h-screen flex flex-col bg-white">

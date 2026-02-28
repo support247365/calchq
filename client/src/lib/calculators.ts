@@ -1018,6 +1018,61 @@ export const CALCULATORS: Calculator[] = [
       },
     ],
   },
+  // -- PHASE 9: DESIGN & DEVELOPER TOOLS -----------------------------------------
+  {
+    slug: 'color',
+    title: 'Color Converter',
+    description: 'Convert colors between HEX, RGB, HSL, and CMYK formats instantly. Includes a live color preview, WCAG accessibility contrast checker, and one-click copy for each format.',
+    category: 'tools',
+    icon: 'Palette',
+    color: 'bg-orange-50 text-orange-700',
+    keywords: ['color converter', 'hex to rgb', 'rgb to hex', 'hsl to rgb', 'cmyk converter', 'color code converter', 'hex color picker', 'web color converter'],
+    faqs: [
+      {
+        question: 'What is the difference between HEX, RGB, HSL, and CMYK?',
+        answer: 'HEX is a 6-digit hexadecimal code used in web development (e.g., #FF5733). RGB defines colors by Red, Green, Blue light values (0-255 each), used in screens. HSL uses Hue (0-360 degrees), Saturation (0-100%), and Lightness (0-100%), which is more intuitive for designers. CMYK (Cyan, Magenta, Yellow, Black) is used in print design and represents ink percentages.',
+      },
+      {
+        question: 'When should I use HEX vs RGB in web development?',
+        answer: 'HEX is the most common format in CSS for static colors (e.g., color: #FF5733). RGB and RGBA are preferred when you need transparency (e.g., rgba(255, 87, 51, 0.5)) or when calculating colors dynamically in JavaScript. HSL is increasingly popular in modern CSS because it is easier to adjust brightness and saturation programmatically.',
+      },
+      {
+        question: 'What is WCAG color contrast and why does it matter?',
+        answer: 'WCAG (Web Content Accessibility Guidelines) defines minimum contrast ratios between text and background colors to ensure readability for people with visual impairments. A ratio of 4.5:1 is required for normal text (AA standard), and 7:1 for enhanced accessibility (AAA). Failing contrast requirements can make your website inaccessible and may violate accessibility laws in many countries.',
+      },
+      {
+        question: 'Why does my CMYK color look different when printed?',
+        answer: 'RGB colors are created by combining light (additive color model), while CMYK colors are created by mixing inks (subtractive color model). Not all RGB colors can be reproduced in CMYK -- highly saturated or neon colors often appear duller in print. This is called being outside the CMYK gamut. Professional printers use color profiles (ICC profiles) to manage this conversion.',
+      },
+    ],
+  },
+  {
+    slug: 'number-base',
+    title: 'Number Base Converter',
+    description: 'Convert numbers between binary (base 2), octal (base 8), decimal (base 10), and hexadecimal (base 16). Includes a bit-length compatibility checker and clickable reference table.',
+    category: 'math',
+    icon: 'Binary',
+    color: 'bg-violet-50 text-violet-700',
+    keywords: ['number base converter', 'binary to decimal', 'decimal to binary', 'hex to binary', 'binary converter', 'hexadecimal converter', 'octal converter', 'base conversion calculator'],
+    faqs: [
+      {
+        question: 'Why do computers use binary?',
+        answer: 'Computers use binary (base 2) because transistors -- the fundamental building blocks of processors -- have two states: on (1) and off (0). This makes binary the natural language of digital electronics. All data in a computer, including text, images, and programs, is ultimately stored and processed as sequences of 1s and 0s.',
+      },
+      {
+        question: 'What is hexadecimal used for in computing?',
+        answer: 'Hexadecimal (base 16) is used as a human-readable shorthand for binary. Since each hex digit represents exactly 4 binary bits (a nibble), it is much more compact. Common uses include: memory addresses (0x7FFF0000), color codes in web design (#FF5733), error codes, and machine code representation. Two hex digits represent one byte (8 bits).',
+      },
+      {
+        question: 'How do I convert binary to decimal?',
+        answer: 'Multiply each binary digit by 2 raised to its position power (starting from 0 on the right), then add all results. Example: 1011 in binary = (1x2^3) + (0x2^2) + (1x2^1) + (1x2^0) = 8 + 0 + 2 + 1 = 11 in decimal. This calculator does this automatically, but understanding the method helps with programming and computer science courses.',
+      },
+      {
+        question: 'What is the difference between 8-bit, 16-bit, 32-bit, and 64-bit numbers?',
+        answer: 'These refer to the maximum number of bits used to store an integer. An 8-bit number can store values from 0 to 255 (2^8 - 1). A 16-bit number stores 0 to 65,535. A 32-bit number stores 0 to 4,294,967,295. A 64-bit number stores up to 18.4 quintillion. In programming, choosing the right bit size matters for memory efficiency and preventing integer overflow errors.',
+      },
+    ],
+  },
 ];
 
 // Merge SEO content into calculators

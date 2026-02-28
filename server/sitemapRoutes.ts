@@ -26,7 +26,8 @@ const CALCULATOR_SLUGS = [
   "fraction", "exponent", "date",
   "random-number", "password-generator",
   "timezone", "word-counter",
-  "scientific-notation", "roman-numerals"
+  "scientific-notation", "roman-numerals",
+  "color", "number-base"
 ];
 
 export function registerSitemapRoutes(app: Express) {

@@ -71,3 +71,12 @@
 - [x] Register both in CalculatorPage.tsx component map
 - [x] Register both in sitemapRoutes.ts
 - [x] Update homepage stats
+
+## Phase 9 - Color Converter, Number Base Converter, Internal Links
+- [x] Build Color Converter component (HEX, RGB, HSL, CMYK)
+- [x] Build Number Base Converter component (binary, octal, decimal, hex)
+- [x] Add cross-category internal links to CalculatorPage related section
+- [x] Register both in calculators.ts with FAQs
+- [x] Register both in CalculatorPage.tsx component map
+- [x] Register both in sitemapRoutes.ts
+- [x] Update homepage stats
