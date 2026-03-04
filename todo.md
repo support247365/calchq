@@ -92,3 +92,6 @@
 - [x] Build Net Worth Calculator component
 - [x] Register all 4 new calculators in registry, sitemap, homepage
 - [x] Update homepage stats to 47 calculators / 2M+ pages
+
+- [x] Rebuild Calories Burned Calculator: 50+ activities with categories, speed/intensity variants, richer output (per-hour rate, activity comparison)
+- [x] Rebuild BMI Calculator: visual BMI scale, health risk indicators, waist-to-height ratio, body composition context, personalized guidance

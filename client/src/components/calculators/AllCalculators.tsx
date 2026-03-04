@@ -349,59 +349,272 @@ export function MacroCalculator() {
 // ─── BMI ─────────────────────────────────────────────────────────────────────
 export function BMICalculator() {
   const [weight, setWeight] = useState("160");
-  const [height, setHeight] = useState("68");
+  const [heightFt, setHeightFt] = useState("5");
+  const [heightIn, setHeightIn] = useState("8");
+  const [heightCm, setHeightCm] = useState("172");
   const [unit, setUnit] = useState("imperial");
+  const [age, setAge] = useState("30");
+  const [sex, setSex] = useState("male");
 
   const result = useMemo(() => {
-    let w = parseFloat(weight) || 0;
-    let h = parseFloat(height) || 0;
-    if (unit === "imperial") { w = w * 0.453592; h = h * 0.0254; }
-    else { h = h / 100; }
-    if (w <= 0 || h <= 0) return null;
-    const bmi = w / (h * h);
-    let category = "";
-    let color = "";
-    if (bmi < 18.5) { category = "Underweight"; color = "text-blue-600"; }
-    else if (bmi < 25) { category = "Normal Weight"; color = "text-emerald-600"; }
-    else if (bmi < 30) { category = "Overweight"; color = "text-yellow-600"; }
-    else { category = "Obese"; color = "text-red-600"; }
-    return { bmi, category, color };
-  }, [weight, height, unit]);
+    let wKg = parseFloat(weight) || 0;
+    let hM = 0;
+    if (unit === "imperial") {
+      wKg = wKg * 0.453592;
+      const ft = parseFloat(heightFt) || 0;
+      const inches = parseFloat(heightIn) || 0;
+      hM = (ft * 12 + inches) * 0.0254;
+    } else {
+      hM = (parseFloat(heightCm) || 0) / 100;
+    }
+    if (wKg <= 0 || hM <= 0) return null;
+    const bmi = wKg / (hM * hM);
+    const hCm = hM * 100;
+
+    // Category & color
+    let category = ""; let color = ""; let bgColor = ""; let risk = "";
+    if (bmi < 18.5) { category = "Underweight"; color = "text-blue-600"; bgColor = "bg-blue-50 border-blue-200"; risk = "Low (but other health risks may be present)"; }
+    else if (bmi < 25) { category = "Normal Weight"; color = "text-emerald-600"; bgColor = "bg-emerald-50 border-emerald-200"; risk = "Low"; }
+    else if (bmi < 27) { category = "Overweight"; color = "text-yellow-600"; bgColor = "bg-yellow-50 border-yellow-200"; risk = "Increased"; }
+    else if (bmi < 30) { category = "Overweight"; color = "text-orange-500"; bgColor = "bg-orange-50 border-orange-200"; risk = "High"; }
+    else if (bmi < 35) { category = "Obese (Class I)"; color = "text-red-500"; bgColor = "bg-red-50 border-red-200"; risk = "Very High"; }
+    else if (bmi < 40) { category = "Obese (Class II)"; color = "text-red-600"; bgColor = "bg-red-50 border-red-200"; risk = "Extremely High"; }
+    else { category = "Obese (Class III)"; color = "text-red-700"; bgColor = "bg-red-50 border-red-200"; risk = "Extremely High"; }
+
+    // Healthy weight range for this height (BMI 18.5–24.9)
+    const minHealthyKg = 18.5 * hM * hM;
+    const maxHealthyKg = 24.9 * hM * hM;
+    const minHealthyLbs = minHealthyKg / 0.453592;
+    const maxHealthyLbs = maxHealthyKg / 0.453592;
+
+    // Weight to lose/gain to reach normal
+    const wLbs = parseFloat(weight) || 0;
+    let weightDiff: number | null = null;
+    let weightDiffDir = "";
+    if (unit === "imperial") {
+      if (bmi >= 25) { weightDiff = wLbs - maxHealthyLbs; weightDiffDir = "lose"; }
+      else if (bmi < 18.5) { weightDiff = minHealthyLbs - wLbs; weightDiffDir = "gain"; }
+    } else {
+      if (bmi >= 25) { weightDiff = wKg - maxHealthyKg; weightDiffDir = "lose"; }
+      else if (bmi < 18.5) { weightDiff = minHealthyKg - wKg; weightDiffDir = "gain"; }
+    }
+
+    // BMI position on scale (0–100%) — scale from 10 to 45
+    const scaleMin = 10; const scaleMax = 45;
+    const scalePos = Math.min(100, Math.max(0, ((bmi - scaleMin) / (scaleMax - scaleMin)) * 100));
+
+    // Ponderal Index (alternative to BMI)
+    const pi = wKg / (hM * hM * hM);
+
+    return {
+      bmi, category, color, bgColor, risk,
+      minHealthyLbs, maxHealthyLbs, minHealthyKg, maxHealthyKg,
+      weightDiff, weightDiffDir, scalePos, pi, hCm
+    };
+  }, [weight, heightFt, heightIn, heightCm, unit]);
+
+  const guidance: Record<string, { tips: string[]; note: string }> = {
+    "Underweight": {
+      tips: ["Increase caloric intake with nutrient-dense foods", "Add strength training to build lean muscle mass", "Consult a dietitian for a personalized meal plan", "Track protein intake — aim for 0.8–1g per lb of body weight"],
+      note: "Being underweight can increase risk of bone loss, immune deficiency, and nutritional deficiencies."
+    },
+    "Normal Weight": {
+      tips: ["Maintain regular physical activity (150+ min/week)", "Focus on balanced nutrition with whole foods", "Monitor weight periodically to stay in range", "Prioritize sleep and stress management for metabolic health"],
+      note: "A normal BMI is associated with the lowest risk of weight-related health conditions."
+    },
+    "Overweight": {
+      tips: ["Aim for a modest calorie deficit of 300–500 kcal/day", "Increase cardiovascular activity to 200+ min/week", "Reduce ultra-processed foods and added sugars", "Consider tracking meals to increase dietary awareness"],
+      note: "Even a 5–10% reduction in body weight can significantly improve metabolic health markers."
+    },
+    "Obese (Class I)": {
+      tips: ["Work with a healthcare provider on a structured weight loss plan", "Start with low-impact exercise (walking, swimming, cycling)", "Focus on sustainable lifestyle changes over crash diets", "Monitor blood pressure, blood sugar, and cholesterol regularly"],
+      note: "Class I obesity is associated with increased risk of type 2 diabetes, hypertension, and cardiovascular disease."
+    },
+    "Obese (Class II)": {
+      tips: ["Consult a physician or bariatric specialist", "Medical weight loss programs may be appropriate", "Prioritize sleep apnea screening", "Structured exercise with professional supervision is recommended"],
+      note: "Class II obesity carries substantially elevated health risks and often benefits from medical intervention."
+    },
+    "Obese (Class III)": {
+      tips: ["Seek evaluation from a bariatric medicine specialist", "Surgical options (e.g., gastric bypass) may be considered", "Comprehensive lifestyle intervention programs are available", "Mental health support is an important component of treatment"],
+      note: "Class III obesity (formerly 'morbid obesity') is associated with significantly reduced life expectancy without intervention."
+    },
+  };
+
+  const categoryKey = result?.category.startsWith("Overweight") ? "Overweight" : result?.category || "";
+  const currentGuidance = guidance[categoryKey];
 
   return (
     <div className="space-y-6">
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+      {/* Inputs */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         <SelectField label="Units" value={unit} onChange={setUnit} options={[
-          { value: "imperial", label: "Imperial (lbs/in)" },
-          { value: "metric", label: "Metric (kg/cm)" },
+          { value: "imperial", label: "Imperial (lbs / ft & in)" },
+          { value: "metric", label: "Metric (kg / cm)" },
         ]} />
         <InputField label={unit === "imperial" ? "Weight (lbs)" : "Weight (kg)"} value={weight} onChange={setWeight} />
-        <InputField label={unit === "imperial" ? "Height (inches)" : "Height (cm)"} value={height} onChange={setHeight} />
+        {unit === "imperial" ? (
+          <>
+            <InputField label="Height (feet)" value={heightFt} onChange={setHeightFt} min="3" max="8" />
+            <InputField label="Height (inches)" value={heightIn} onChange={setHeightIn} min="0" max="11" />
+          </>
+        ) : (
+          <InputField label="Height (cm)" value={heightCm} onChange={setHeightCm} />
+        )}
       </div>
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-sm">
+        <InputField label="Age (optional)" value={age} onChange={setAge} unit="years" min="2" max="120" />
+        <SelectField label="Sex (optional)" value={sex} onChange={setSex} options={[
+          { value: "male", label: "Male" },
+          { value: "female", label: "Female" },
+        ]} />
+      </div>
+
       {result && (
-        <div className="bg-emerald-50 border border-emerald-100 rounded-xl p-5">
-          <h3 className="text-sm font-semibold text-emerald-800 mb-4" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>Results</h3>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div className="bg-white rounded-lg p-4 shadow-sm">
-              <p className="text-xs text-gray-500 mb-1">Your BMI</p>
-              <p className="text-3xl font-bold text-emerald-600 result-value">{formatNumber(result.bmi)}</p>
+        <div className="space-y-4">
+          {/* Primary result card */}
+          <div className={`border rounded-xl p-5 ${result.bgColor}`}>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-5">
+              <div className="bg-white rounded-lg p-4 shadow-sm">
+                <p className="text-xs text-gray-500 mb-1">Your BMI</p>
+                <p className={`text-4xl font-bold result-value ${result.color}`}>{formatNumber(result.bmi)}</p>
+              </div>
+              <div className="bg-white rounded-lg p-4 shadow-sm">
+                <p className="text-xs text-gray-500 mb-1">Category</p>
+                <p className={`text-xl font-bold result-value ${result.color}`}>{result.category}</p>
+              </div>
+              <div className="bg-white rounded-lg p-4 shadow-sm">
+                <p className="text-xs text-gray-500 mb-1">Disease Risk</p>
+                <p className={`text-xl font-bold result-value ${result.color}`}>{result.risk}</p>
+              </div>
             </div>
+
+            {/* Visual BMI scale with pointer */}
             <div className="bg-white rounded-lg p-4 shadow-sm">
-              <p className="text-xs text-gray-500 mb-1">Category</p>
-              <p className={`text-2xl font-bold result-value ${result.color}`}>{result.category}</p>
+              <p className="text-xs font-medium text-gray-600 mb-3">BMI Scale</p>
+              <div className="relative">
+                {/* Color bar */}
+                <div className="flex rounded-full overflow-hidden h-4">
+                  <div className="bg-blue-300" style={{ width: "24%" }} title="Underweight" />
+                  <div className="bg-emerald-400" style={{ width: "20%" }} title="Normal" />
+                  <div className="bg-yellow-400" style={{ width: "14%" }} title="Overweight" />
+                  <div className="bg-orange-400" style={{ width: "10%" }} title="Obese I" />
+                  <div className="bg-red-500" style={{ width: "16%" }} title="Obese II" />
+                  <div className="bg-red-700" style={{ width: "16%" }} title="Obese III" />
+                </div>
+                {/* Pointer */}
+                <div
+                  className="absolute -top-1 w-0.5 h-6 bg-gray-800"
+                  style={{ left: `${result.scalePos}%`, transform: "translateX(-50%)" }}
+                />
+                <div
+                  className="absolute top-5 text-xs font-bold text-gray-800 bg-white border border-gray-200 rounded px-1 py-0.5 shadow-sm"
+                  style={{ left: `${result.scalePos}%`, transform: "translateX(-50%)", whiteSpace: "nowrap" }}
+                >
+                  {formatNumber(result.bmi)}
+                </div>
+              </div>
+              <div className="flex justify-between text-xs text-gray-400 mt-7">
+                <span>10</span><span>18.5</span><span>25</span><span>30</span><span>35</span><span>40</span><span>45+</span>
+              </div>
+              <div className="flex gap-3 flex-wrap mt-3">
+                {[
+                  { color: "bg-blue-300", label: "Underweight (<18.5)" },
+                  { color: "bg-emerald-400", label: "Normal (18.5–24.9)" },
+                  { color: "bg-yellow-400", label: "Overweight (25–29.9)" },
+                  { color: "bg-red-500", label: "Obese (≥30)" },
+                ].map((item) => (
+                  <div key={item.label} className="flex items-center gap-1.5">
+                    <div className={`w-3 h-3 rounded-full ${item.color}`} />
+                    <span className="text-xs text-gray-500">{item.label}</span>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
-          <div className="mt-4 bg-white rounded-lg p-4 shadow-sm">
-            <p className="text-xs text-gray-500 mb-2">BMI Scale</p>
-            <div className="flex rounded-full overflow-hidden h-3">
-              <div className="flex-1 bg-blue-200" title="Underweight < 18.5" />
-              <div className="flex-1 bg-emerald-300" title="Normal 18.5–24.9" />
-              <div className="flex-1 bg-yellow-300" title="Overweight 25–29.9" />
-              <div className="flex-1 bg-red-300" title="Obese ≥ 30" />
+
+          {/* Healthy weight range */}
+          <div className="bg-white border border-gray-100 rounded-xl p-5 shadow-sm">
+            <h3 className="text-sm font-semibold text-gray-700 mb-3" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>Healthy Weight Range for Your Height</h3>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+              <div className="p-3 bg-emerald-50 rounded-lg">
+                <p className="text-xs text-gray-500 mb-1">Minimum (BMI 18.5)</p>
+                <p className="text-lg font-bold text-emerald-700">
+                  {unit === "imperial" ? `${formatNumber(result.minHealthyLbs, 1)} lbs` : `${formatNumber(result.minHealthyKg, 1)} kg`}
+                </p>
+              </div>
+              <div className="p-3 bg-emerald-50 rounded-lg">
+                <p className="text-xs text-gray-500 mb-1">Maximum (BMI 24.9)</p>
+                <p className="text-lg font-bold text-emerald-700">
+                  {unit === "imperial" ? `${formatNumber(result.maxHealthyLbs, 1)} lbs` : `${formatNumber(result.maxHealthyKg, 1)} kg`}
+                </p>
+              </div>
+              {result.weightDiff !== null && (
+                <div className="p-3 bg-blue-50 rounded-lg">
+                  <p className="text-xs text-gray-500 mb-1">To reach healthy range</p>
+                  <p className="text-lg font-bold text-blue-700">
+                    {result.weightDiffDir === "lose" ? "Lose " : "Gain "}
+                    {unit === "imperial" ? `${formatNumber(result.weightDiff!, 1)} lbs` : `${formatNumber(result.weightDiff!, 1)} kg`}
+                  </p>
+                </div>
+              )}
             </div>
-            <div className="flex justify-between text-xs text-gray-400 mt-1">
-              <span>Under</span><span>Normal</span><span>Over</span><span>Obese</span>
+          </div>
+
+          {/* BMI Classification Table */}
+          <div className="bg-white border border-gray-100 rounded-xl p-5 shadow-sm">
+            <h3 className="text-sm font-semibold text-gray-700 mb-3" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>WHO BMI Classification</h3>
+            <div className="overflow-x-auto">
+              <table className="w-full text-sm">
+                <thead>
+                  <tr className="border-b border-gray-100">
+                    <th className="text-left py-2 text-xs font-semibold text-gray-500">Category</th>
+                    <th className="text-left py-2 text-xs font-semibold text-gray-500">BMI Range</th>
+                    <th className="text-left py-2 text-xs font-semibold text-gray-500">Health Risk</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {[
+                    { cat: "Underweight", range: "< 18.5", risk: "Low (other risks)", highlight: result.bmi < 18.5 },
+                    { cat: "Normal Weight", range: "18.5 – 24.9", risk: "Minimal", highlight: result.bmi >= 18.5 && result.bmi < 25 },
+                    { cat: "Overweight", range: "25.0 – 29.9", risk: "Increased", highlight: result.bmi >= 25 && result.bmi < 30 },
+                    { cat: "Obese Class I", range: "30.0 – 34.9", risk: "High", highlight: result.bmi >= 30 && result.bmi < 35 },
+                    { cat: "Obese Class II", range: "35.0 – 39.9", risk: "Very High", highlight: result.bmi >= 35 && result.bmi < 40 },
+                    { cat: "Obese Class III", range: "≥ 40.0", risk: "Extremely High", highlight: result.bmi >= 40 },
+                  ].map((row) => (
+                    <tr key={row.cat} className={`border-b border-gray-50 ${row.highlight ? "bg-emerald-50" : ""}`}>
+                      <td className={`py-2 pr-4 font-medium ${row.highlight ? "text-emerald-700" : "text-gray-700"}`}>
+                        {row.cat} {row.highlight && <span className="text-xs">← you</span>}
+                      </td>
+                      <td className="py-2 pr-4 text-gray-600">{row.range}</td>
+                      <td className="py-2 text-gray-600">{row.risk}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
             </div>
+          </div>
+
+          {/* Personalized guidance */}
+          {currentGuidance && (
+            <div className="bg-white border border-gray-100 rounded-xl p-5 shadow-sm">
+              <h3 className="text-sm font-semibold text-gray-700 mb-2" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>Guidance for Your Category</h3>
+              <p className="text-xs text-gray-500 mb-3 italic">{currentGuidance.note}</p>
+              <ul className="space-y-2">
+                {currentGuidance.tips.map((tip) => (
+                  <li key={tip} className="flex items-start gap-2 text-sm text-gray-700">
+                    <span className="text-emerald-500 mt-0.5 flex-shrink-0">✓</span>
+                    {tip}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+
+          {/* BMI Limitations note */}
+          <div className="bg-gray-50 border border-gray-100 rounded-xl p-4">
+            <p className="text-xs text-gray-500">
+              <strong>Important:</strong> BMI is a screening tool, not a diagnostic measure. It does not account for muscle mass, bone density, age, sex, or fat distribution. Athletes may have a high BMI with low body fat. Always consult a healthcare provider for a complete health assessment.
+            </p>
           </div>
         </div>
       )}
@@ -557,49 +770,257 @@ export function OneRepMaxCalculator() {
 }
 
 // ─── CALORIES BURNED ─────────────────────────────────────────────────────────
-const ACTIVITIES = [
-  { value: "8", label: "Running (6 mph)" },
-  { value: "6", label: "Cycling (moderate)" },
-  { value: "3.5", label: "Walking (3 mph)" },
-  { value: "7", label: "Swimming (vigorous)" },
-  { value: "5", label: "Aerobics (general)" },
-  { value: "4", label: "Yoga" },
-  { value: "3", label: "Weight Training" },
-  { value: "10", label: "HIIT" },
-  { value: "2.5", label: "Stretching" },
+type ActivityEntry = { met: number; label: string; category: string };
+
+const ACTIVITY_DATA: ActivityEntry[] = [
+  // Running
+  { met: 6.0, label: "Running — 5 mph (12 min/mile)", category: "Running" },
+  { met: 8.3, label: "Running — 6 mph (10 min/mile)", category: "Running" },
+  { met: 9.8, label: "Running — 7 mph (8.5 min/mile)", category: "Running" },
+  { met: 11.0, label: "Running — 8 mph (7.5 min/mile)", category: "Running" },
+  { met: 11.8, label: "Running — 9 mph (6.5 min/mile)", category: "Running" },
+  { met: 12.8, label: "Running — 10 mph (6 min/mile)", category: "Running" },
+  { met: 14.5, label: "Running — 12 mph (5 min/mile)", category: "Running" },
+  { met: 4.5, label: "Jogging (general)", category: "Running" },
+  { met: 9.0, label: "Trail Running", category: "Running" },
+  { met: 13.3, label: "Running — Uphill (8 mph)", category: "Running" },
+  // Walking
+  { met: 2.5, label: "Walking — 2 mph (slow)", category: "Walking" },
+  { met: 3.5, label: "Walking — 3 mph (moderate)", category: "Walking" },
+  { met: 4.3, label: "Walking — 3.5 mph (brisk)", category: "Walking" },
+  { met: 5.0, label: "Walking — 4 mph (fast)", category: "Walking" },
+  { met: 6.0, label: "Walking — 4.5 mph (very fast)", category: "Walking" },
+  { met: 6.0, label: "Hiking (cross-country)", category: "Walking" },
+  { met: 5.3, label: "Hiking with backpack", category: "Walking" },
+  { met: 3.0, label: "Walking upstairs", category: "Walking" },
+  // Cycling
+  { met: 4.0, label: "Cycling — < 10 mph (leisure)", category: "Cycling" },
+  { met: 6.8, label: "Cycling — 10–12 mph (light)", category: "Cycling" },
+  { met: 8.0, label: "Cycling — 12–14 mph (moderate)", category: "Cycling" },
+  { met: 10.0, label: "Cycling — 14–16 mph (vigorous)", category: "Cycling" },
+  { met: 12.0, label: "Cycling — 16–19 mph (racing)", category: "Cycling" },
+  { met: 15.8, label: "Cycling — > 20 mph (elite)", category: "Cycling" },
+  { met: 8.5, label: "Mountain Biking", category: "Cycling" },
+  { met: 5.5, label: "Stationary Bike (moderate)", category: "Cycling" },
+  { met: 8.5, label: "Stationary Bike (vigorous)", category: "Cycling" },
+  // Swimming
+  { met: 5.8, label: "Swimming — freestyle (moderate)", category: "Swimming" },
+  { met: 9.8, label: "Swimming — freestyle (vigorous)", category: "Swimming" },
+  { met: 7.0, label: "Swimming — backstroke", category: "Swimming" },
+  { met: 10.0, label: "Swimming — breaststroke", category: "Swimming" },
+  { met: 13.8, label: "Swimming — butterfly", category: "Swimming" },
+  { met: 6.0, label: "Water aerobics", category: "Swimming" },
+  // Gym & Strength
+  { met: 3.5, label: "Weight Training (general)", category: "Gym & Strength" },
+  { met: 6.0, label: "Weight Training (vigorous)", category: "Gym & Strength" },
+  { met: 8.0, label: "Circuit Training", category: "Gym & Strength" },
+  { met: 10.0, label: "HIIT (high intensity)", category: "Gym & Strength" },
+  { met: 7.0, label: "CrossFit", category: "Gym & Strength" },
+  { met: 3.8, label: "Pilates", category: "Gym & Strength" },
+  { met: 4.0, label: "Yoga (power/vinyasa)", category: "Gym & Strength" },
+  { met: 2.5, label: "Yoga (hatha/gentle)", category: "Gym & Strength" },
+  { met: 2.3, label: "Stretching", category: "Gym & Strength" },
+  { met: 5.0, label: "Rowing Machine (moderate)", category: "Gym & Strength" },
+  { met: 8.5, label: "Rowing Machine (vigorous)", category: "Gym & Strength" },
+  { met: 5.0, label: "Elliptical (moderate)", category: "Gym & Strength" },
+  { met: 8.0, label: "Stair Climber", category: "Gym & Strength" },
+  { met: 4.5, label: "Jump Rope (moderate)", category: "Gym & Strength" },
+  { met: 10.0, label: "Jump Rope (fast)", category: "Gym & Strength" },
+  // Sports
+  { met: 8.0, label: "Basketball (game)", category: "Sports" },
+  { met: 6.0, label: "Basketball (shooting around)", category: "Sports" },
+  { met: 7.0, label: "Soccer (general)", category: "Sports" },
+  { met: 10.0, label: "Soccer (competitive)", category: "Sports" },
+  { met: 7.0, label: "Tennis (singles)", category: "Sports" },
+  { met: 5.0, label: "Tennis (doubles)", category: "Sports" },
+  { met: 8.0, label: "Volleyball (competitive)", category: "Sports" },
+  { met: 3.5, label: "Volleyball (recreational)", category: "Sports" },
+  { met: 7.0, label: "Golf (carrying clubs)", category: "Sports" },
+  { met: 4.5, label: "Golf (riding cart)", category: "Sports" },
+  { met: 9.0, label: "Football (competitive)", category: "Sports" },
+  { met: 8.0, label: "Baseball / Softball", category: "Sports" },
+  { met: 7.0, label: "Racquetball", category: "Sports" },
+  { met: 12.0, label: "Boxing (sparring)", category: "Sports" },
+  { met: 6.0, label: "Martial Arts (moderate)", category: "Sports" },
+  { met: 5.5, label: "Dancing (aerobic)", category: "Sports" },
+  { met: 3.0, label: "Dancing (ballroom)", category: "Sports" },
+  // Outdoor & Recreation
+  { met: 7.0, label: "Skiing (downhill, moderate)", category: "Outdoor" },
+  { met: 9.0, label: "Skiing (cross-country)", category: "Outdoor" },
+  { met: 7.0, label: "Snowboarding", category: "Outdoor" },
+  { met: 5.0, label: "Kayaking", category: "Outdoor" },
+  { met: 6.0, label: "Rock Climbing (moderate)", category: "Outdoor" },
+  { met: 8.0, label: "Rock Climbing (vigorous)", category: "Outdoor" },
+  { met: 3.5, label: "Gardening / Yard Work", category: "Outdoor" },
+  { met: 5.0, label: "Shoveling Snow", category: "Outdoor" },
+  { met: 4.5, label: "Mowing Lawn (push mower)", category: "Outdoor" },
+  // Daily Activities
+  { met: 1.8, label: "Sitting (desk work)", category: "Daily Life" },
+  { met: 2.0, label: "Standing (light activity)", category: "Daily Life" },
+  { met: 2.5, label: "Cooking / Food Prep", category: "Daily Life" },
+  { met: 3.0, label: "Cleaning / Housework", category: "Daily Life" },
+  { met: 3.5, label: "Carrying / Moving Boxes", category: "Daily Life" },
+  { met: 2.3, label: "Shopping (grocery)", category: "Daily Life" },
+  { met: 3.0, label: "Playing with kids (moderate)", category: "Daily Life" },
 ];
+
+const ACTIVITY_CATEGORIES = Array.from(new Set(ACTIVITY_DATA.map((a) => a.category)));
 
 export function CaloriesBurnedCalculator() {
   const [weight, setWeight] = useState("160");
   const [duration, setDuration] = useState("30");
-  const [activity, setActivity] = useState("8");
   const [unit, setUnit] = useState("imperial");
+  const [category, setCategory] = useState("Running");
+  const [activityLabel, setActivityLabel] = useState("Running — 6 mph (10 min/mile)");
+
+  const filteredActivities = useMemo(
+    () => ACTIVITY_DATA.filter((a) => a.category === category),
+    [category]
+  );
+
+  const selectedActivity = useMemo(
+    () => ACTIVITY_DATA.find((a) => a.label === activityLabel) || filteredActivities[0],
+    [activityLabel, filteredActivities]
+  );
+
+  const handleCategoryChange = (cat: string) => {
+    setCategory(cat);
+    const first = ACTIVITY_DATA.find((a) => a.category === cat);
+    if (first) setActivityLabel(first.label);
+  };
 
   const result = useMemo(() => {
     let wKg = parseFloat(weight) || 0;
     if (unit === "imperial") wKg = wKg * 0.453592;
     const mins = parseFloat(duration) || 0;
-    const met = parseFloat(activity) || 0;
+    const met = selectedActivity?.met || 0;
     if (wKg <= 0 || mins <= 0 || met <= 0) return null;
     const calories = met * wKg * (mins / 60);
-    return { calories };
-  }, [weight, duration, activity, unit]);
+    const perHour = met * wKg;
+    const perMinute = perHour / 60;
+    // Estimate equivalents
+    const walkingMins = Math.round(calories / (3.5 * wKg / 60));
+    const cheeseburgerCals = 550;
+    return { calories, perHour, perMinute, walkingMins, cheeseburgerFraction: calories / cheeseburgerCals, met };
+  }, [weight, duration, unit, selectedActivity]);
+
+  // Comparison: same duration across 3 intensities for context
+  const comparisons = useMemo(() => {
+    let wKg = parseFloat(weight) || 0;
+    if (unit === "imperial") wKg = wKg * 0.453592;
+    const mins = parseFloat(duration) || 0;
+    if (wKg <= 0 || mins <= 0) return [];
+    const picks = filteredActivities.slice(0, Math.min(5, filteredActivities.length));
+    return picks.map((a) => ({
+      label: a.label.replace(category + " — ", "").replace(category + " ", ""),
+      calories: Math.round(a.met * wKg * (mins / 60)),
+      met: a.met,
+      isSelected: a.label === activityLabel,
+    }));
+  }, [weight, duration, unit, filteredActivities, activityLabel, category]);
 
   return (
     <div className="space-y-6">
+      {/* Inputs */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         <SelectField label="Units" value={unit} onChange={setUnit} options={[
           { value: "imperial", label: "Imperial (lbs)" },
           { value: "metric", label: "Metric (kg)" },
         ]} />
         <InputField label={unit === "imperial" ? "Weight (lbs)" : "Weight (kg)"} value={weight} onChange={setWeight} />
-        <SelectField label="Activity" value={activity} onChange={setActivity} options={ACTIVITIES} />
         <InputField label="Duration" value={duration} onChange={setDuration} unit="minutes" />
+        <SelectField label="Activity Category" value={category} onChange={handleCategoryChange}
+          options={ACTIVITY_CATEGORIES.map((c) => ({ value: c, label: c }))} />
       </div>
+      <SelectField label="Specific Activity" value={activityLabel} onChange={setActivityLabel}
+        options={filteredActivities.map((a) => ({ value: a.label, label: a.label }))} />
+
+      {/* Results */}
       {result && (
-        <ResultBox>
-          <ResultCard label="Calories Burned" value={`${formatNumber(result.calories, 0)} kcal`} highlight />
-        </ResultBox>
+        <div className="space-y-4">
+          {/* Primary result */}
+          <div className="bg-emerald-50 border border-emerald-100 rounded-xl p-5">
+            <h3 className="text-sm font-semibold text-emerald-800 mb-4" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>Results</h3>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+              <div className="bg-white rounded-lg p-4 shadow-sm">
+                <p className="text-xs text-gray-500 mb-1">Calories Burned</p>
+                <p className="text-3xl font-bold text-emerald-600 result-value">{formatNumber(result.calories, 0)}</p>
+                <p className="text-xs text-gray-400 mt-1">kcal total</p>
+              </div>
+              <div className="bg-white rounded-lg p-4 shadow-sm">
+                <p className="text-xs text-gray-500 mb-1">Burn Rate</p>
+                <p className="text-2xl font-bold text-gray-800 result-value">{formatNumber(result.perHour, 0)}</p>
+                <p className="text-xs text-gray-400 mt-1">kcal / hour</p>
+              </div>
+              <div className="bg-white rounded-lg p-4 shadow-sm">
+                <p className="text-xs text-gray-500 mb-1">MET Value</p>
+                <p className="text-2xl font-bold text-gray-800 result-value">{result.met.toFixed(1)}</p>
+                <p className="text-xs text-gray-400 mt-1">metabolic equivalent</p>
+              </div>
+            </div>
+          </div>
+
+          {/* Equivalents */}
+          <div className="bg-white border border-gray-100 rounded-xl p-5 shadow-sm">
+            <h3 className="text-sm font-semibold text-gray-700 mb-3" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>What does that equal?</h3>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+              <div className="flex items-center gap-3 p-3 bg-orange-50 rounded-lg">
+                <span className="text-2xl">🍔</span>
+                <div>
+                  <p className="text-sm font-semibold text-gray-800">{(result.cheeseburgerFraction * 100).toFixed(0)}% of a cheeseburger</p>
+                  <p className="text-xs text-gray-500">~550 kcal each</p>
+                </div>
+              </div>
+              <div className="flex items-center gap-3 p-3 bg-blue-50 rounded-lg">
+                <span className="text-2xl">🚶</span>
+                <div>
+                  <p className="text-sm font-semibold text-gray-800">{result.walkingMins} min of walking</p>
+                  <p className="text-xs text-gray-500">to burn the same calories</p>
+                </div>
+              </div>
+              <div className="flex items-center gap-3 p-3 bg-purple-50 rounded-lg">
+                <span className="text-2xl">⚡</span>
+                <div>
+                  <p className="text-sm font-semibold text-gray-800">{formatNumber(result.perMinute, 1)} kcal/min</p>
+                  <p className="text-xs text-gray-500">average burn rate</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Activity comparison within category */}
+          {comparisons.length > 1 && (
+            <div className="bg-white border border-gray-100 rounded-xl p-5 shadow-sm">
+              <h3 className="text-sm font-semibold text-gray-700 mb-3" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>
+                {category} Intensity Comparison ({duration} min)
+              </h3>
+              <div className="space-y-2">
+                {comparisons.map((c) => {
+                  const maxCals = Math.max(...comparisons.map((x) => x.calories));
+                  const pct = maxCals > 0 ? (c.calories / maxCals) * 100 : 0;
+                  return (
+                    <div key={c.label} className={`rounded-lg p-2.5 ${c.isSelected ? "bg-emerald-50 border border-emerald-200" : ""}`}>
+                      <div className="flex justify-between items-center mb-1">
+                        <span className={`text-xs font-medium ${c.isSelected ? "text-emerald-700" : "text-gray-600"}`}>
+                          {c.label} {c.isSelected && "(selected)"}
+                        </span>
+                        <span className={`text-xs font-bold ${c.isSelected ? "text-emerald-700" : "text-gray-700"}`}>
+                          {c.calories} kcal
+                        </span>
+                      </div>
+                      <div className="w-full bg-gray-100 rounded-full h-1.5">
+                        <div
+                          className={`h-1.5 rounded-full transition-all ${c.isSelected ? "bg-emerald-500" : "bg-gray-300"}`}
+                          style={{ width: `${pct}%` }}
+                        />
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          )}
+        </div>
       )}
     </div>
   );
