@@ -95,3 +95,4 @@
 
 - [x] Rebuild Calories Burned Calculator: 50+ activities with categories, speed/intensity variants, richer output (per-hour rate, activity comparison)
 - [x] Rebuild BMI Calculator: visual BMI scale, health risk indicators, waist-to-height ratio, body composition context, personalized guidance
+- [x] Build SBA 7(a) Loan Calculator with current rates, guarantee fees, amortization schedule

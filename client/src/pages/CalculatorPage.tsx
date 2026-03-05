@@ -27,6 +27,7 @@ import {
   CaloriesBurnedCalculator,
   FatBurningZoneCalculator,
   UnitConverter,
+  SBA7aCalculator,
 } from "@/components/calculators/AllCalculators";
 import {
   PercentageCalculator,
@@ -128,6 +129,7 @@ const CALCULATOR_COMPONENTS: Record<string, React.ComponentType> = {
   speed: SpeedConverter,
   pace: PaceCalculator,
   "net-worth": NetWorthCalculator,
+  "sba-7a-loan": SBA7aCalculator,
 };
 
 function FAQItem({ question, answer }: { question: string; answer: string }) {

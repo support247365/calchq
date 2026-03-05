@@ -69,6 +69,33 @@ export const CALCULATORS: Calculator[] = [
     ],
   },
   {
+    slug: 'sba-7a-loan',
+    title: 'SBA 7(a) Loan Calculator',
+    description: 'Calculate SBA 7(a) loan payments with current prevailing interest rates, guarantee fees, and full amortization schedule.',
+    category: 'financial',
+    icon: 'Landmark',
+    color: 'bg-emerald-50 text-emerald-700',
+    keywords: ['SBA 7a loan calculator', 'SBA loan payment', 'small business loan calculator', 'SBA guarantee fee', 'SBA interest rate'],
+    faqs: [
+      {
+        question: 'What is the current SBA 7(a) interest rate?',
+        answer: 'SBA 7(a) loan interest rates are based on the prime rate (currently 6.75% as of March 2026) plus a spread. For loans over $350,000, the maximum variable rate is prime + 3% (9.75%). For loans under $50,000, the maximum is prime + 6.5% (13.25%). Fixed rate maximums range from 11.75% to 14.75% depending on loan size.',
+      },
+      {
+        question: 'What is the SBA guarantee fee?',
+        answer: 'The SBA guarantee fee (also called the upfront fee) is charged on the guaranteed portion of the loan. For FY2026, loans over 12 months are charged 2% (loans ≤$150K), 3% ($150K–$700K), or 3.5%–3.75% (over $700K) of the guaranteed portion. Short-term loans (≤12 months) are charged just 0.25%.',
+      },
+      {
+        question: 'What are the maximum loan terms for SBA 7(a) loans?',
+        answer: 'SBA 7(a) loan terms depend on use: working capital loans are typically 5–7 years, equipment loans up to 10 years, and real estate loans up to 25 years. The maximum loan amount is $5 million.',
+      },
+      {
+        question: 'What other fees are associated with SBA 7(a) loans?',
+        answer: 'In addition to the SBA guarantee fee, borrowers typically pay packaging and closing costs of $2,000–$5,000 (legal fees, appraisals, lender processing). Lenders also pay an annual service fee of 0.55% of the outstanding guaranteed balance, but this is a lender cost and cannot be passed to the borrower.',
+      },
+    ],
+  },
+  {
     slug: 'mortgage',
     title: 'Mortgage Calculator',
     description: 'Estimate your monthly mortgage payment including principal, interest, taxes, and insurance.',

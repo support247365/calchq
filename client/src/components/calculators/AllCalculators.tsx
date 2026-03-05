@@ -1166,3 +1166,386 @@ export function UnitConverter() {
     </div>
   );
 }
+
+// ─── SBA 7(A) LOAN CALCULATOR ────────────────────────────────────────────────
+// Rates and fees sourced from SBA.gov and updated for FY2026 (Oct 1, 2025 – Sep 30, 2026)
+// Prime rate: 6.75% as of March 2026
+
+const SBA_PRIME_RATE = 6.75; // Current prime rate as of March 2026
+
+// Variable rate spreads by loan amount (SBA maximums)
+function getSBAMaxVariableSpread(loanAmount: number): number {
+  if (loanAmount <= 50000) return 6.5;
+  if (loanAmount <= 250000) return 6.0;
+  if (loanAmount <= 350000) return 4.5;
+  return 3.0;
+}
+
+// Fixed rate maximums by loan amount (SBA FY2026)
+function getSBAMaxFixedRate(loanAmount: number): number {
+  if (loanAmount <= 25000) return 14.75;
+  if (loanAmount <= 50000) return 13.75;
+  if (loanAmount <= 250000) return 12.75;
+  return 11.75;
+}
+
+// SBA Guarantee fee (FY2026) — applied to the guaranteed portion only
+// Guarantee % is 85% for loans ≤$150K, 75% for loans >$150K
+function getSBAGuaranteeFee(loanAmount: number, termYears: number): number {
+  const guaranteePct = loanAmount <= 150000 ? 0.85 : 0.75;
+  const guaranteedAmount = loanAmount * guaranteePct;
+
+  if (termYears <= 1) {
+    // Short-term: 0.25% flat across all amounts
+    return guaranteedAmount * 0.0025;
+  }
+  // Long-term (>12 months)
+  if (loanAmount <= 150000) return guaranteedAmount * 0.02;
+  if (loanAmount <= 700000) return guaranteedAmount * 0.03;
+  // $700,001 – $5M: 3.5% on first $1M guaranteed, 3.75% on remainder
+  const firstMillion = Math.min(guaranteedAmount, 1000000);
+  const remainder = Math.max(0, guaranteedAmount - 1000000);
+  return firstMillion * 0.035 + remainder * 0.0375;
+}
+
+// Annual service fee: 0.55% of outstanding guaranteed balance (paid by lender, not borrower)
+// Packaging / closing costs: typically $2,000–$5,000 (we let user input this)
+
+export function SBA7aCalculator() {
+  const [loanAmount, setLoanAmount] = useState("500000");
+  const [termYears, setTermYears] = useState("10");
+  const [rateType, setRateType] = useState("variable");
+  const [customRate, setCustomRate] = useState("");
+  const [packagingFee, setPackagingFee] = useState("3000");
+  const [showAmortization, setShowAmortization] = useState(false);
+
+  const result = useMemo(() => {
+    const principal = parseFloat(loanAmount.replace(/,/g, "")) || 0;
+    const years = parseFloat(termYears) || 0;
+    const months = years * 12;
+    const packaging = parseFloat(packagingFee) || 0;
+
+    if (principal <= 0 || years <= 0) return null;
+    if (principal > 5000000) return null;
+
+    // Determine interest rate
+    let maxRate: number;
+    let rateLabel: string;
+    if (rateType === "variable") {
+      const spread = getSBAMaxVariableSpread(principal);
+      maxRate = SBA_PRIME_RATE + spread;
+      rateLabel = `Prime (${SBA_PRIME_RATE}%) + ${spread}% = ${maxRate.toFixed(2)}%`;
+    } else {
+      maxRate = getSBAMaxFixedRate(principal);
+      rateLabel = `Fixed max: ${maxRate.toFixed(2)}%`;
+    }
+
+    // Use custom rate if provided and within SBA max
+    const effectiveRate = customRate
+      ? Math.min(parseFloat(customRate) || maxRate, maxRate)
+      : maxRate;
+    const monthlyRate = effectiveRate / 100 / 12;
+
+    // Monthly payment (standard amortization)
+    let monthlyPayment: number;
+    if (monthlyRate === 0) {
+      monthlyPayment = principal / months;
+    } else {
+      monthlyPayment = (principal * monthlyRate * Math.pow(1 + monthlyRate, months)) /
+        (Math.pow(1 + monthlyRate, months) - 1);
+    }
+
+    const totalPayments = monthlyPayment * months;
+    const totalInterest = totalPayments - principal;
+
+    // Guarantee fee
+    const guaranteeFee = getSBAGuaranteeFee(principal, years);
+    const guaranteePct = principal <= 150000 ? 0.85 : 0.75;
+    const guaranteedAmount = principal * guaranteePct;
+
+    // Annual service fee (lender cost, shown for transparency)
+    const annualServiceFee = guaranteedAmount * 0.0055;
+
+    // Total upfront costs
+    const totalUpfront = guaranteeFee + packaging;
+
+    // APR approximation (including upfront fees amortized over loan life)
+    // Simple APR: solve for rate that makes PV of payments = principal - upfront fees
+    // We use a simplified approach: effective cost / principal
+    const totalCostOfBorrowing = totalInterest + guaranteeFee + packaging;
+    const simplifiedAPR = ((totalCostOfBorrowing / principal) / years) * 100;
+
+    // Amortization schedule (first 24 months + last 3 for preview)
+    const schedule: { month: number; payment: number; principal: number; interest: number; balance: number }[] = [];
+    let balance = principal;
+    for (let m = 1; m <= months; m++) {
+      const interestCharge = balance * monthlyRate;
+      const principalCharge = monthlyPayment - interestCharge;
+      balance = Math.max(0, balance - principalCharge);
+      schedule.push({ month: m, payment: monthlyPayment, principal: principalCharge, interest: interestCharge, balance });
+    }
+
+    return {
+      effectiveRate, maxRate, rateLabel, monthlyPayment, totalPayments,
+      totalInterest, guaranteeFee, guaranteePct, guaranteedAmount,
+      annualServiceFee, totalUpfront, simplifiedAPR, packaging, schedule, months
+    };
+  }, [loanAmount, termYears, rateType, customRate, packagingFee]);
+
+  const displaySchedule = result ? [
+    ...result.schedule.slice(0, 24),
+    ...(result.months > 27 ? [{ month: -1, payment: 0, principal: 0, interest: 0, balance: 0 }] : []),
+    ...result.schedule.slice(-3),
+  ] : [];
+
+  return (
+    <div className="space-y-6">
+      {/* Inputs */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        <InputField label="Loan Amount ($)" value={loanAmount} onChange={setLoanAmount} unit="max $5M" />
+        <SelectField label="Loan Term" value={termYears} onChange={setTermYears} options={[
+          { value: "5", label: "5 years (working capital)" },
+          { value: "7", label: "7 years" },
+          { value: "10", label: "10 years (equipment)" },
+          { value: "15", label: "15 years" },
+          { value: "25", label: "25 years (real estate)" },
+        ]} />
+        <SelectField label="Rate Type" value={rateType} onChange={setRateType} options={[
+          { value: "variable", label: "Variable (Prime-based)" },
+          { value: "fixed", label: "Fixed" },
+        ]} />
+      </div>
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-xl">
+        <InputField
+          label="Custom Interest Rate (optional)"
+          value={customRate}
+          onChange={setCustomRate}
+          unit="%"
+          placeholder={result ? `Max: ${result.maxRate.toFixed(2)}%` : ""}
+        />
+        <InputField label="Packaging / Closing Costs ($)" value={packagingFee} onChange={setPackagingFee} unit="est." />
+      </div>
+
+      {/* Rate context banner */}
+      {result && (
+        <div className="bg-blue-50 border border-blue-100 rounded-lg px-4 py-3 text-sm text-blue-800">
+          <strong>Rate basis:</strong> {result.rateLabel}
+          {customRate && parseFloat(customRate) < result.maxRate && (
+            <span className="ml-2 text-blue-600">(using your custom rate of {parseFloat(customRate).toFixed(2)}%)</span>
+          )}
+          <span className="ml-3 text-blue-500 text-xs">Prime rate: {SBA_PRIME_RATE}% as of March 2026</span>
+        </div>
+      )}
+
+      {/* Results */}
+      {result && (
+        <div className="space-y-4">
+          {/* Primary metrics */}
+          <div className="bg-emerald-50 border border-emerald-100 rounded-xl p-5">
+            <h3 className="text-sm font-semibold text-emerald-800 mb-4" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>Loan Summary</h3>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+              <div className="bg-white rounded-lg p-4 shadow-sm">
+                <p className="text-xs text-gray-500 mb-1">Monthly Payment</p>
+                <p className="text-3xl font-bold text-emerald-600 result-value">{formatCurrency(result.monthlyPayment)}</p>
+              </div>
+              <div className="bg-white rounded-lg p-4 shadow-sm">
+                <p className="text-xs text-gray-500 mb-1">Total Interest Paid</p>
+                <p className="text-2xl font-bold text-gray-800 result-value">{formatCurrency(result.totalInterest)}</p>
+              </div>
+              <div className="bg-white rounded-lg p-4 shadow-sm">
+                <p className="text-xs text-gray-500 mb-1">Total Cost of Loan</p>
+                <p className="text-2xl font-bold text-gray-800 result-value">{formatCurrency(result.totalPayments)}</p>
+              </div>
+              <div className="bg-white rounded-lg p-4 shadow-sm">
+                <p className="text-xs text-gray-500 mb-1">Interest Rate</p>
+                <p className="text-2xl font-bold text-gray-800 result-value">{result.effectiveRate.toFixed(2)}%</p>
+              </div>
+            </div>
+          </div>
+
+          {/* SBA Fees Breakdown */}
+          <div className="bg-white border border-gray-100 rounded-xl p-5 shadow-sm">
+            <h3 className="text-sm font-semibold text-gray-700 mb-3" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>SBA Fees Breakdown (FY2026)</h3>
+            <div className="overflow-x-auto">
+              <table className="w-full text-sm">
+                <thead>
+                  <tr className="border-b border-gray-100">
+                    <th className="text-left py-2 text-xs font-semibold text-gray-500">Fee</th>
+                    <th className="text-left py-2 text-xs font-semibold text-gray-500">Basis</th>
+                    <th className="text-right py-2 text-xs font-semibold text-gray-500">Amount</th>
+                    <th className="text-left py-2 text-xs font-semibold text-gray-500">Paid By</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr className="border-b border-gray-50">
+                    <td className="py-2.5 pr-4 font-medium text-gray-700">SBA Guarantee Fee (Upfront)</td>
+                    <td className="py-2.5 pr-4 text-gray-500 text-xs">
+                      {result.guaranteePct * 100}% guaranteed × fee rate
+                      <br /><span className="text-gray-400">Guaranteed: {formatCurrency(result.guaranteedAmount)}</span>
+                    </td>
+                    <td className="py-2.5 text-right font-semibold text-gray-800">{formatCurrency(result.guaranteeFee)}</td>
+                    <td className="py-2.5 pl-4 text-gray-500 text-xs">Borrower (via lender)</td>
+                  </tr>
+                  <tr className="border-b border-gray-50">
+                    <td className="py-2.5 pr-4 font-medium text-gray-700">Packaging / Closing Costs</td>
+                    <td className="py-2.5 pr-4 text-gray-500 text-xs">Lender fees, legal, appraisal<br /><span className="text-gray-400">Typical range: $2,000–$5,000</span></td>
+                    <td className="py-2.5 text-right font-semibold text-gray-800">{formatCurrency(result.packaging)}</td>
+                    <td className="py-2.5 pl-4 text-gray-500 text-xs">Borrower</td>
+                  </tr>
+                  <tr className="border-b border-gray-50 bg-gray-50">
+                    <td className="py-2.5 pr-4 font-bold text-gray-800">Total Upfront Costs</td>
+                    <td className="py-2.5 pr-4 text-gray-500 text-xs">Guarantee fee + packaging</td>
+                    <td className="py-2.5 text-right font-bold text-gray-900">{formatCurrency(result.totalUpfront)}</td>
+                    <td className="py-2.5 pl-4 text-gray-500 text-xs">Due at closing</td>
+                  </tr>
+                  <tr className="border-b border-gray-50 opacity-70">
+                    <td className="py-2.5 pr-4 font-medium text-gray-600">Annual Service Fee</td>
+                    <td className="py-2.5 pr-4 text-gray-500 text-xs">0.55% of guaranteed balance/yr<br /><span className="text-gray-400">~{formatCurrency(result.annualServiceFee)}/yr (declining)</span></td>
+                    <td className="py-2.5 text-right text-gray-600">Lender cost</td>
+                    <td className="py-2.5 pl-4 text-gray-500 text-xs">Lender (not borrower)</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          {/* Rate caps reference */}
+          <div className="bg-white border border-gray-100 rounded-xl p-5 shadow-sm">
+            <h3 className="text-sm font-semibold text-gray-700 mb-3" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>
+              SBA 7(a) Maximum Interest Rates — {rateType === "variable" ? "Variable" : "Fixed"} (March 2026)
+            </h3>
+            <div className="overflow-x-auto">
+              <table className="w-full text-sm">
+                <thead>
+                  <tr className="border-b border-gray-100">
+                    <th className="text-left py-2 text-xs font-semibold text-gray-500">Loan Amount</th>
+                    <th className="text-left py-2 text-xs font-semibold text-gray-500">Formula</th>
+                    <th className="text-right py-2 text-xs font-semibold text-gray-500">Max Rate</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {(rateType === "variable" ? [
+                    { range: "≤ $50,000", formula: `Prime + 6.5%`, rate: (SBA_PRIME_RATE + 6.5).toFixed(2) + "%" },
+                    { range: "$50,001 – $250,000", formula: `Prime + 6.0%`, rate: (SBA_PRIME_RATE + 6.0).toFixed(2) + "%" },
+                    { range: "$250,001 – $350,000", formula: `Prime + 4.5%`, rate: (SBA_PRIME_RATE + 4.5).toFixed(2) + "%" },
+                    { range: "> $350,000", formula: `Prime + 3.0%`, rate: (SBA_PRIME_RATE + 3.0).toFixed(2) + "%" },
+                  ] : [
+                    { range: "≤ $25,000", formula: "Fixed max", rate: "14.75%" },
+                    { range: "$25,001 – $50,000", formula: "Fixed max", rate: "13.75%" },
+                    { range: "$50,001 – $250,000", formula: "Fixed max", rate: "12.75%" },
+                    { range: "> $250,000", formula: "Fixed max", rate: "11.75%" },
+                  ]).map((row) => {
+                    const isActive = (() => {
+                      const amt = parseFloat(loanAmount.replace(/,/g, "")) || 0;
+                      if (rateType === "variable") {
+                        if (row.range.includes("50,000") && !row.range.includes("250")) return amt <= 50000;
+                        if (row.range.includes("250,000")) return amt > 50000 && amt <= 250000;
+                        if (row.range.includes("350,000")) return amt > 250000 && amt <= 350000;
+                        return amt > 350000;
+                      } else {
+                        if (row.range.includes("25,000") && !row.range.includes("50")) return amt <= 25000;
+                        if (row.range.includes("50,000")) return amt > 25000 && amt <= 50000;
+                        if (row.range.includes("250,000")) return amt > 50000 && amt <= 250000;
+                        return amt > 250000;
+                      }
+                    })();
+                    return (
+                      <tr key={row.range} className={`border-b border-gray-50 ${isActive ? "bg-emerald-50" : ""}`}>
+                        <td className={`py-2 pr-4 font-medium ${isActive ? "text-emerald-700" : "text-gray-700"}`}>
+                          {row.range} {isActive && <span className="text-xs">← your loan</span>}
+                        </td>
+                        <td className="py-2 pr-4 text-gray-500">{row.formula}</td>
+                        <td className={`py-2 text-right font-bold ${isActive ? "text-emerald-700" : "text-gray-700"}`}>{row.rate}</td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            </div>
+            <p className="text-xs text-gray-400 mt-2">Prime rate: {SBA_PRIME_RATE}% as of March 2026. Rates change when the Fed adjusts the federal funds rate.</p>
+          </div>
+
+          {/* Guarantee fee table */}
+          <div className="bg-white border border-gray-100 rounded-xl p-5 shadow-sm">
+            <h3 className="text-sm font-semibold text-gray-700 mb-3" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>SBA Guarantee Fee Schedule (FY2026, loans &gt; 12 months)</h3>
+            <div className="overflow-x-auto">
+              <table className="w-full text-sm">
+                <thead>
+                  <tr className="border-b border-gray-100">
+                    <th className="text-left py-2 text-xs font-semibold text-gray-500">Loan Amount</th>
+                    <th className="text-left py-2 text-xs font-semibold text-gray-500">Guarantee %</th>
+                    <th className="text-right py-2 text-xs font-semibold text-gray-500">Fee Rate</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {[
+                    { range: "≤ $150,000", guarantee: "85%", fee: "2.0% of guaranteed portion" },
+                    { range: "$150,001 – $700,000", guarantee: "75%", fee: "3.0% of guaranteed portion" },
+                    { range: "$700,001 – $5M", guarantee: "75%", fee: "3.5% on first $1M guaranteed + 3.75% above" },
+                  ].map((row) => (
+                    <tr key={row.range} className="border-b border-gray-50">
+                      <td className="py-2 pr-4 font-medium text-gray-700">{row.range}</td>
+                      <td className="py-2 pr-4 text-gray-500">{row.guarantee}</td>
+                      <td className="py-2 text-right text-gray-700">{row.fee}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          {/* Amortization toggle */}
+          <div className="bg-white border border-gray-100 rounded-xl shadow-sm overflow-hidden">
+            <button
+              onClick={() => setShowAmortization(!showAmortization)}
+              className="w-full flex items-center justify-between px-5 py-4 text-sm font-semibold text-gray-700 hover:bg-gray-50 transition-colors"
+            >
+              <span>Amortization Schedule</span>
+              <span className="text-gray-400">{showAmortization ? "▲ Hide" : "▼ Show"}</span>
+            </button>
+            {showAmortization && (
+              <div className="px-5 pb-5 overflow-x-auto">
+                <table className="w-full text-xs">
+                  <thead>
+                    <tr className="border-b border-gray-100">
+                      <th className="text-left py-2 text-gray-500">Month</th>
+                      <th className="text-right py-2 text-gray-500">Payment</th>
+                      <th className="text-right py-2 text-gray-500">Principal</th>
+                      <th className="text-right py-2 text-gray-500">Interest</th>
+                      <th className="text-right py-2 text-gray-500">Balance</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {displaySchedule.map((row, i) =>
+                      row.month === -1 ? (
+                        <tr key="ellipsis">
+                          <td colSpan={5} className="py-2 text-center text-gray-400">· · · remaining months · · ·</td>
+                        </tr>
+                      ) : (
+                        <tr key={row.month} className={`border-b border-gray-50 ${i % 2 === 0 ? "" : "bg-gray-50/50"}`}>
+                          <td className="py-1.5 text-gray-600">{row.month}</td>
+                          <td className="py-1.5 text-right text-gray-700">{formatCurrency(row.payment)}</td>
+                          <td className="py-1.5 text-right text-emerald-700">{formatCurrency(row.principal)}</td>
+                          <td className="py-1.5 text-right text-red-500">{formatCurrency(row.interest)}</td>
+                          <td className="py-1.5 text-right text-gray-700">{formatCurrency(row.balance)}</td>
+                        </tr>
+                      )
+                    )}
+                  </tbody>
+                </table>
+                <p className="text-xs text-gray-400 mt-3">Showing first 24 months and last 3 months. All figures assume fixed monthly payment at the stated interest rate.</p>
+              </div>
+            )}
+          </div>
+
+          {/* Disclaimer */}
+          <div className="bg-gray-50 border border-gray-100 rounded-xl p-4">
+            <p className="text-xs text-gray-500">
+              <strong>Disclaimer:</strong> This calculator provides estimates based on SBA FY2026 fee schedules and the current prime rate of {SBA_PRIME_RATE}% (March 2026). Actual loan terms, rates, and fees are determined by your lender and may vary. The SBA guarantee fee and packaging costs are estimates — consult an SBA-approved lender for exact figures. This tool is for informational purposes only and does not constitute financial advice.
+            </p>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
