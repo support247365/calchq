@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://calchq.io/sitemap.xml
+Sitemap: https://calchq.io/api/sitemap.xml

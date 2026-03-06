@@ -32,13 +32,26 @@ const CALCULATOR_SLUGS = [
 ];
 
 export function registerSitemapRoutes(app: Express) {
+  // Redirect old short URL format /:slug/:zip to /calculator/:slug/:zip
+  // This fixes the noindex issue for URLs like /sales-tax/67061
+  app.get('/:slug/:zip', (req, res, next) => {
+    const { slug, zip } = req.params;
+    // Only redirect if slug matches a known calculator and zip is 5 digits
+    if (CALCULATOR_SLUGS.includes(slug) && /^\d{5}$/.test(zip)) {
+      return res.redirect(301, `/calculator/${slug}/${zip}`);
+    }
+    next();
+  });
+
   // Sitemap index — lists all sub-sitemaps
-  app.get("/sitemap.xml", (_req, res) => {
+  // NOTE: Routes are under /api/ because the Manus platform only proxies /api/* to our server.
+  // robots.txt points to /api/sitemap.xml
+  app.get("/api/sitemap.xml", (_req, res) => {
     const today = new Date().toISOString().split("T")[0];
     const subSitemaps = [
-      `<sitemap><loc>${BASE_URL}/sitemap-main.xml</loc><lastmod>${today}</lastmod></sitemap>`,
+      `<sitemap><loc>${BASE_URL}/api/sitemap-main.xml</loc><lastmod>${today}</lastmod></sitemap>`,
       ...CALCULATOR_SLUGS.map(slug =>
-        `<sitemap><loc>${BASE_URL}/sitemap-zip-${slug}.xml</loc><lastmod>${today}</lastmod></sitemap>`
+        `<sitemap><loc>${BASE_URL}/api/sitemap-zip-${slug}.xml</loc><lastmod>${today}</lastmod></sitemap>`
       )
     ].join("\n  ");
 
@@ -50,8 +63,8 @@ export function registerSitemapRoutes(app: Express) {
 </sitemapindex>`);
   });
 
-  // Main sitemap — homepage + all 32 calculator pages
-  app.get("/sitemap-main.xml", (_req, res) => {
+  // Main sitemap — homepage + all 48 calculator pages
+  app.get("/api/sitemap-main.xml", (_req, res) => {
     const today = new Date().toISOString().split("T")[0];
     const urls = [
       `<url><loc>${BASE_URL}/</loc><changefreq>weekly</changefreq><priority>1.0</priority><lastmod>${today}</lastmod></url>`,
@@ -70,7 +83,7 @@ export function registerSitemapRoutes(app: Express) {
 
   // Per-calculator ZIP code sitemaps — one per calculator slug
   // Each contains all 42,741 ZIP code pages for that calculator
-  app.get("/sitemap-zip-:slug.xml", async (req, res) => {
+  app.get("/api/sitemap-zip-:slug.xml", async (req, res) => {
     const { slug } = req.params;
     if (!CALCULATOR_SLUGS.includes(slug)) {
       res.status(404).send("Not found");
