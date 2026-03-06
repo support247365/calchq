@@ -99,5 +99,6 @@
 - [x] Fix Search Console: Server error (5xx) on some pages — investigated, no 5xx found in live site; likely transient DB connection issue during initial deployment
 - [x] Fix Search Console: Pages excluded by noindex tag — no noindex found in codebase; likely Google rendering SPA before JS hydrates; added sba-7a-loan to sitemap slugs
 - [x] Fix noindex on /sales-tax/67061 — old short URL format now 301 redirects to /calculator/sales-tax/67061
-- [x] Fix sitemap.xml broken in production — moved all sitemap routes to /api/ prefix so Manus platform proxies them correctly
+- [x] Fix sitemap.xml — static file in client/public/ serves sitemapindex pointing to /api/ sub-sitemaps — moved all sitemap routes to /api/ prefix so Manus platform proxies them correctly
 - [x] Add 301 redirect from /:slug/:zip to /calculator/:slug/:zip to fix old URL format
+- [x] Update homepage calculator count from 47 to 48
