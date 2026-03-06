@@ -44,10 +44,13 @@ const CALCULATOR_SLUGS = [
 ];
 
 function buildSitemapIndex(today: string): string {
+  // NOTE: Non-/api/ paths are intercepted by the Manus platform in production
+  // and return HTML instead of XML. We use /api/ paths here because Google's
+  // sitemap fetcher ignores robots.txt Disallow rules for explicitly submitted sitemaps.
   const subSitemaps = [
-    `<sitemap><loc>${BASE_URL}/sitemap-main.xml</loc><lastmod>${today}</lastmod></sitemap>`,
+    `<sitemap><loc>${BASE_URL}/api/sitemap-main.xml</loc><lastmod>${today}</lastmod></sitemap>`,
     ...CALCULATOR_SLUGS.map(slug =>
-      `<sitemap><loc>${BASE_URL}/sitemap-zip-${slug}.xml</loc><lastmod>${today}</lastmod></sitemap>`
+      `<sitemap><loc>${BASE_URL}/api/sitemap-zip-${slug}.xml</loc><lastmod>${today}</lastmod></sitemap>`
     )
   ].join("\n  ");
 
