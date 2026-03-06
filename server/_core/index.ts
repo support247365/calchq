@@ -36,6 +36,16 @@ async function startServer() {
   app.use(express.urlencoded({ limit: "50mb", extended: true }));
   // Dynamic sitemap routes
   registerSitemapRoutes(app);
+  // Serve robots.txt explicitly — overrides any static file to ensure /api/sitemap is allowed
+  app.get('/robots.txt', (_req, res) => {
+    res.type('text/plain').send(
+`User-agent: *
+Allow: /
+Allow: /api/sitemap
+Sitemap: https://calchq.io/api/sitemap.xml
+`);
+  });
+
   // Ezoic ads.txt redirect — serves Ezoic-managed ads.txt automatically
   app.get('/ads.txt', (_req, res) => {
     res.redirect(301, 'https://srv.adstxtmanager.com/19390/calchq.io');
