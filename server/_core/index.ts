@@ -36,6 +36,10 @@ async function startServer() {
   app.use(express.urlencoded({ limit: "50mb", extended: true }));
   // Dynamic sitemap routes
   registerSitemapRoutes(app);
+  // Ezoic ads.txt redirect — serves Ezoic-managed ads.txt automatically
+  app.get('/ads.txt', (_req, res) => {
+    res.redirect(301, 'https://srv.adstxtmanager.com/19390/calchq.io');
+  });
   // OAuth callback under /api/oauth/callback
   registerOAuthRoutes(app);
   // tRPC API
