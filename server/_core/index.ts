@@ -36,8 +36,9 @@ async function startServer() {
   app.use(express.urlencoded({ limit: "50mb", extended: true }));
   // Dynamic sitemap routes
   registerSitemapRoutes(app);
-  // Serve robots.txt explicitly — overrides any static file to ensure /api/sitemap is allowed
+  // Serve robots.txt explicitly — no-cache to bypass CDN, ensure /api/sitemap is allowed
   app.get('/robots.txt', (_req, res) => {
+    res.set('Cache-Control', 'no-store, no-cache, must-revalidate');
     res.type('text/plain').send(
 `User-agent: *
 Allow: /
