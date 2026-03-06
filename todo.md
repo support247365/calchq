@@ -129,3 +129,18 @@
 - [x] Register all 12 in sitemapRoutes.ts CALCULATOR_SLUGS
 - [x] Update sitemap.xml static file
 - [x] Update homepage stats (48 → 60 calculators)
+
+## Phase 12 - ZIP Code Coverage Completion + Internal Linking
+
+### ZIP Code Pages for 5 Missing Calculators
+- [x] Enable ZIP code pages for GPA Calculator
+- [x] Enable ZIP code pages for Tip Calculator
+- [x] Enable ZIP code pages for Fuel Cost Calculator
+- [x] Enable ZIP code pages for Currency Converter
+- [x] Enable ZIP code pages for Inflation Calculator
+- [x] Update sitemap to include all 5 new ZIP sitemaps
+
+### Nearby ZIP Codes Internal Linking
+- [x] Add "Nearby ZIP Codes" section to ZipCalculatorPage
+- [x] Query 10 nearest ZIP codes by lat/lng from database
+- [x] Render as linked grid on each ZIP calculator page

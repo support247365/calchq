@@ -51,6 +51,13 @@ import {
 } from "@/components/calculators/HealthCalculators2";
 import AgeCalculator from "@/components/calculators/AgeCalculator";
 import MultiCalculator from "@/components/calculators/MultiCalculator";
+import {
+  GPACalculator,
+  TipCalculator,
+  FuelCostCalculator,
+  CurrencyConverter,
+  InflationCalculator,
+} from "@/components/calculators/NewCalculators";
 
 const CALCULATOR_COMPONENTS: Record<string, React.ComponentType> = {
   loan: LoanCalculator,
@@ -80,6 +87,11 @@ const CALCULATOR_COMPONENTS: Record<string, React.ComponentType> = {
   sleep: SleepCalculator,
   age: AgeCalculator,
   calculator: MultiCalculator,
+  gpa: GPACalculator,
+  tip: TipCalculator,
+  "fuel-cost": FuelCostCalculator,
+  currency: CurrencyConverter,
+  inflation: InflationCalculator,
 };
 
 function formatCurrency(n: number): string {
@@ -117,6 +129,11 @@ export default function ZipCalculatorPage() {
 
   const { data: zipData, isLoading } = trpc.zip.getByZip.useQuery(
     { zip: zip || '' },
+    { enabled: !!zip && zip.length === 5 }
+  );
+
+  const { data: nearbyZips } = trpc.zip.getNearby.useQuery(
+    { zip: zip || '', limit: 10 },
     { enabled: !!zip && zip.length === 5 }
   );
 
@@ -422,6 +439,33 @@ export default function ZipCalculatorPage() {
                       <p className="text-xs text-gray-400 line-clamp-1 mt-0.5">{rel.description}</p>
                     </div>
                     <ArrowRight className="w-4 h-4 text-gray-300 group-hover:text-emerald-500 flex-shrink-0 transition-colors" />
+                  </button>
+                ))}
+              </div>
+            </section>
+          )}
+          {/* Nearby ZIP Codes — internal linking for SEO */}
+          {nearbyZips && nearbyZips.length > 0 && (
+            <section className="mt-10 pt-8 border-t border-gray-100">
+              <h2
+                className="text-xl font-bold text-gray-900 mb-2"
+                style={{ fontFamily: "'Space Grotesk', sans-serif" }}
+              >
+                Nearby ZIP Codes
+              </h2>
+              <p className="text-sm text-gray-500 mb-4">
+                Use the {calc?.title} for ZIP codes near {zipData?.city || zip}:
+              </p>
+              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-2">
+                {nearbyZips.map((nearby) => (
+                  <button
+                    key={nearby.zip}
+                    onClick={() => navigate(`/calculator/${slug}/${nearby.zip}`)}
+                    className="flex flex-col items-start p-3 bg-gray-50 border border-gray-100 rounded-xl hover:border-emerald-200 hover:bg-emerald-50 transition-all text-left group"
+                  >
+                    <span className="text-sm font-bold text-gray-900 group-hover:text-emerald-700 transition-colors">{nearby.zip}</span>
+                    <span className="text-xs text-gray-500 line-clamp-1 mt-0.5">{nearby.city}, {nearby.state}</span>
+                    <span className="text-xs text-gray-400 mt-1">{nearby.dist_miles} mi away</span>
                   </button>
                 ))}
               </div>
