@@ -14,7 +14,7 @@ import { zipCodes } from "../drizzle/schema";
 
 const BASE_URL = "https://calchq.io";
 
-// All 48 calculator slugs
+// All 60 calculator slugs
 const CALCULATOR_SLUGS = [
   "loan", "sba-7a-loan", "mortgage", "rent-vs-buy", "salary", "sales-tax",
   "percentage", "compound-interest", "retirement", "paycheck", "roi", "refinance",
@@ -28,7 +28,11 @@ const CALCULATOR_SLUGS = [
   "timezone", "word-counter",
   "scientific-notation", "roman-numerals",
   "color", "number-base",
-  "temperature", "speed", "pace", "net-worth"
+  "temperature", "speed", "pace", "net-worth",
+  // Phase 11 — High-Revenue Expansion
+  "sba-504-loan", "auto-loan", "debt-payoff", "home-equity",
+  "heart-rate-zone", "water-intake", "due-date", "menstrual-cycle",
+  "business-valuation", "break-even", "depreciation", "workers-comp"
 ];
 
 export function registerSitemapRoutes(app: Express) {

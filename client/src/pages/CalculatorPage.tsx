@@ -80,6 +80,24 @@ import {
   PaceCalculator,
   NetWorthCalculator,
 } from "@/components/calculators/FinalCalculators";
+import {
+  SBA504Calculator,
+  AutoLoanCalculator,
+  DebtPayoffCalculator,
+  HomeEquityCalculator,
+} from "@/components/calculators/HighRevenueCalculators1";
+import {
+  HeartRateZoneCalculator,
+  WaterIntakeCalculator,
+  DueDateCalculator,
+  MenstrualCycleCalculator,
+} from "@/components/calculators/HighRevenueCalculators2";
+import {
+  BusinessValuationCalculator,
+  BreakEvenCalculator,
+  DepreciationCalculator,
+  WorkersCompCalculator,
+} from "@/components/calculators/HighRevenueCalculators3";
 
 const CALCULATOR_COMPONENTS: Record<string, React.ComponentType> = {
   loan: LoanCalculator,
@@ -130,6 +148,18 @@ const CALCULATOR_COMPONENTS: Record<string, React.ComponentType> = {
   pace: PaceCalculator,
   "net-worth": NetWorthCalculator,
   "sba-7a-loan": SBA7aCalculator,
+  "sba-504-loan": SBA504Calculator,
+  "auto-loan": AutoLoanCalculator,
+  "debt-payoff": DebtPayoffCalculator,
+  "home-equity": HomeEquityCalculator,
+  "heart-rate-zone": HeartRateZoneCalculator,
+  "water-intake": WaterIntakeCalculator,
+  "due-date": DueDateCalculator,
+  "menstrual-cycle": MenstrualCycleCalculator,
+  "business-valuation": BusinessValuationCalculator,
+  "break-even": BreakEvenCalculator,
+  depreciation: DepreciationCalculator,
+  "workers-comp": WorkersCompCalculator,
 };
 
 function FAQItem({ question, answer }: { question: string; answer: string }) {

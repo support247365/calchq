@@ -102,3 +102,30 @@
 - [x] Fix sitemap.xml — static file in client/public/ serves sitemapindex pointing to /api/ sub-sitemaps — moved all sitemap routes to /api/ prefix so Manus platform proxies them correctly
 - [x] Add 301 redirect from /:slug/:zip to /calculator/:slug/:zip to fix old URL format
 - [x] Update homepage calculator count from 47 to 48
+
+## Phase 11 - High-Revenue Calculator Expansion (12 new calculators)
+
+### Batch 1 — Financial (highest CPC)
+- [x] Build SBA 504 Loan Calculator
+- [x] Build Auto Loan Calculator
+- [x] Build Debt Payoff Calculator (snowball + avalanche)
+- [x] Build Home Equity Loan Calculator
+
+### Batch 2 — Health (high volume)
+- [x] Build Heart Rate Zone Calculator
+- [x] Build Water Intake Calculator
+- [x] Build Due Date Calculator
+- [x] Build Menstrual Cycle Calculator
+
+### Batch 3 — Business (very high CPC)
+- [x] Build Business Valuation Calculator
+- [x] Build Break-Even Calculator
+- [x] Build Depreciation Calculator
+- [x] Build Workers Comp Estimate Calculator
+
+### Registration (all 12)
+- [x] Register all 12 in calculators.ts with FAQs and keywords
+- [x] Register all 12 in CalculatorPage.tsx component map
+- [x] Register all 12 in sitemapRoutes.ts CALCULATOR_SLUGS
+- [x] Update sitemap.xml static file
+- [x] Update homepage stats (48 → 60 calculators)
