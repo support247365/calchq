@@ -14,9 +14,9 @@ import { zipCodes } from "../drizzle/schema";
 
 const BASE_URL = "https://calchq.io";
 
-// All 47 calculator slugs
+// All 48 calculator slugs
 const CALCULATOR_SLUGS = [
-  "loan", "mortgage", "rent-vs-buy", "salary", "sales-tax",
+  "loan", "sba-7a-loan", "mortgage", "rent-vs-buy", "salary", "sales-tax",
   "percentage", "compound-interest", "retirement", "paycheck", "roi", "refinance",
   "tdee", "macro", "bmi", "body-fat", "bmr", "one-rep-max",
   "calories-burned", "fat-burning-zone",
