@@ -114,7 +114,7 @@ export default function Home() {
         <div className="container py-4">
           <div className="flex flex-wrap gap-6 md:gap-10">
             {[
-              { value: "60", label: "Free Calculators" },
+              { value: "63", label: "Free Calculators" },
               { value: "2.5M+", label: "Unique Pages" },
               { value: "100%", label: "Free & Private" },
               { value: "0", label: "Sign-ups Required" },
@@ -131,6 +131,9 @@ export default function Home() {
       </div>
 
       <RecentlyViewedHomeBanner />
+
+      {/* Ezoic Ad Slot 102 — Homepage Top */}
+      <div id="ezoic-pub-ad-placeholder-102" className="container py-2" />
 
       {/* Calculator sections */}
       <main className="flex-1 container py-12 space-y-16">

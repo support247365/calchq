@@ -98,6 +98,11 @@ import {
   DepreciationCalculator,
   WorkersCompCalculator,
 } from "@/components/calculators/HighRevenueCalculators3";
+import {
+  VALoanCalculator,
+  CreditCardPayoffCalculator,
+  SavingsGoalCalculator,
+} from "@/components/calculators/Phase14Calculators";
 
 const CALCULATOR_COMPONENTS: Record<string, React.ComponentType> = {
   loan: LoanCalculator,
@@ -160,6 +165,9 @@ const CALCULATOR_COMPONENTS: Record<string, React.ComponentType> = {
   "break-even": BreakEvenCalculator,
   depreciation: DepreciationCalculator,
   "workers-comp": WorkersCompCalculator,
+  "va-loan": VALoanCalculator,
+  "credit-card-payoff": CreditCardPayoffCalculator,
+  "savings-goal": SavingsGoalCalculator,
 };
 
 function FAQItem({ question, answer }: { question: string; answer: string }) {
@@ -464,10 +472,8 @@ export default function CalculatorPage() {
             </section>
           )}
 
-          {/* Ad slot */}
-          <div className="bg-gray-50 border border-dashed border-gray-200 rounded-xl p-6 text-center mb-8">
-            <p className="text-xs text-gray-400 uppercase tracking-wider">Advertisement</p>
-          </div>
+          {/* Ezoic Ad Slot 101 — Below Calculator */}
+          <div id="ezoic-pub-ad-placeholder-101" className="mb-8" />
 
           {/* FAQs */}
           {calc.faqs.length > 0 && (

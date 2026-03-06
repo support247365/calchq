@@ -12,17 +12,19 @@ import Home from "./pages/Home";
 import CalculatorPage from "./pages/CalculatorPage";
 import ZipCalculatorPage from "./pages/ZipCalculatorPage";
 import AllCalculators from "./pages/AllCalculators";
+
 function Router() {
-  // make sure to consider if you need authentication for certain routes
   return (
-    <Switch>
-      <Route path="/" component={Home} />
-      <Route path="/calculators" component={AllCalculators} />
-      <Route path="/calculator/:slug/:zip" component={ZipCalculatorPage} />
-      <Route path="/calculator/:slug" component={CalculatorPage} />
-      <Route path="/404" component={NotFound} />
-      <Route component={NotFound} />
-    </Switch>
+    <>
+      <Switch>
+        <Route path="/" component={Home} />
+        <Route path="/calculators" component={AllCalculators} />
+        <Route path="/calculator/:slug/:zip" component={ZipCalculatorPage} />
+        <Route path="/calculator/:slug" component={CalculatorPage} />
+        <Route path="/404" component={NotFound} />
+        <Route component={NotFound} />
+      </Switch>
+    </>
   );
 }
 

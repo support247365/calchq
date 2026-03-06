@@ -1,6 +1,3 @@
 User-agent: *
-Allow: /api/sitemap
-Allow: /api/sitemap-main.xml
-Allow: /api/sitemap-zip-
 Allow: /
 Sitemap: https://calchq.io/sitemap.xml

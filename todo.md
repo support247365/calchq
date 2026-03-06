@@ -144,3 +144,21 @@
 - [x] Add "Nearby ZIP Codes" section to ZipCalculatorPage
 - [x] Query 10 nearest ZIP codes by lat/lng from database
 - [x] Render as linked grid on each ZIP calculator page
+
+## Phase 13 - Ezoic Ad Integration
+- [x] Add Ezoic dynamic SPA ad refresh on route changes (useLocation hook in App.tsx)
+- [x] Add Ezoic privacy consent scripts (GatekeeperConsent) to index.html
+- [x] Add Ezoic main header script (sa.min.js) to index.html
+- [x] Add Ezoic site verification meta tag to index.html
+- [x] Add /ads.txt redirect to Ezoic adstxtmanager
+- [x] Add Ezoic ad placeholder div to CalculatorPage (below calculator, ID 101)
+- [x] Add Ezoic ad placeholder div to ZipCalculatorPage (below calculator, ID 101)
+- [ ] Add Ezoic ad placeholder divs to Home page
+- [ ] Update placeholder IDs once user creates placements in Ezoic dashboard
+
+## Phase 14 - New High-Value Calculators
+- [x] Build VA Loan Calculator (high-CPC, relevant to veteran audience)
+- [x] Build Credit Card Payoff Calculator (high search volume)
+- [x] Build Savings Goal Calculator (high search volume)
+- [x] Register all 3 in calculators.ts, CalculatorPage.tsx, sitemapRoutes.ts
+- [x] Update homepage stats (60 → 63 calculators)

@@ -844,6 +844,53 @@ export const CALCULATORS: Calculator[] = [
       },
     ],
   },
+  // -- PHASE 14: HIGH-VALUE CALCULATORS (VA Loan, Credit Card Payoff, Savings Goal) ---
+  {
+    slug: 'va-loan',
+    title: 'VA Loan Calculator',
+    description: 'Calculate VA home loan payments, funding fees, and affordability. Designed for veterans, active-duty service members, and surviving spouses.',
+    category: 'financial',
+    icon: 'Shield',
+    color: 'bg-blue-50 text-blue-700',
+    keywords: ['VA loan calculator', 'VA home loan', 'veteran mortgage calculator', 'VA funding fee', 'military home loan', 'VA loan payment'],
+    faqs: [
+      { question: 'What is a VA loan?', answer: 'A VA loan is a mortgage loan guaranteed by the U.S. Department of Veterans Affairs. It is available to eligible veterans, active-duty service members, National Guard members, reservists, and surviving spouses. VA loans typically offer no down payment, no private mortgage insurance (PMI), and competitive interest rates.' },
+      { question: 'What is the VA funding fee?', answer: 'The VA funding fee is a one-time fee paid to the VA to help sustain the loan program. For first-time use with no down payment, the fee is 2.15% of the loan amount for regular military and 2.4% for Reserves/National Guard. The fee is lower with a down payment and for subsequent use. Veterans with a service-connected disability rating of 10% or more are exempt from the funding fee.' },
+      { question: 'Do VA loans require a down payment?', answer: 'No down payment is required for VA loans up to the conforming loan limit ($766,550 in most areas for 2024). For loans above this limit, a down payment may be required. While not required, making a down payment reduces your monthly payment and can lower or eliminate the funding fee.' },
+      { question: 'What is the maximum VA loan amount?', answer: 'There is no maximum VA loan amount for eligible borrowers with full entitlement. However, lenders will still evaluate your ability to repay based on income, credit, and debt-to-income ratio. The conforming loan limit ($766,550 in most counties) determines when a down payment may be needed.' },
+      { question: 'How do VA loan rates compare to conventional loans?', answer: 'VA loan interest rates are typically 0.25% to 0.5% lower than conventional loan rates because the VA guarantee reduces lender risk. Combined with no PMI requirement, VA loans often have significantly lower total monthly costs than conventional loans with less than 20% down.' },
+    ],
+  },
+  {
+    slug: 'credit-card-payoff',
+    title: 'Credit Card Payoff Calculator',
+    description: 'Calculate how long it will take to pay off your credit card debt and how much interest you will pay. Compare fixed payment vs. payoff date strategies.',
+    category: 'financial',
+    icon: 'CreditCard',
+    color: 'bg-red-50 text-red-700',
+    keywords: ['credit card payoff calculator', 'credit card debt calculator', 'pay off credit card', 'credit card interest calculator', 'minimum payment calculator', 'debt payoff'],
+    faqs: [
+      { question: 'How long does it take to pay off a credit card with minimum payments?', answer: 'Paying only the minimum payment (typically 1-3% of the balance) can take decades to pay off a credit card. For example, a $5,000 balance at 20% APR with a 2% minimum payment would take over 30 years and cost more than $8,000 in interest. Paying even a fixed amount above the minimum dramatically reduces payoff time.' },
+      { question: 'What is the avalanche vs. snowball method for credit card debt?', answer: 'The avalanche method pays off the highest-interest card first, minimizing total interest paid. The snowball method pays off the smallest balance first, providing psychological wins. Mathematically, the avalanche method saves more money, but the snowball method can be more motivating for some people. Either method beats paying minimums only.' },
+      { question: 'How is credit card interest calculated?', answer: 'Credit card interest is calculated daily using your Annual Percentage Rate (APR) divided by 365. Each day, your balance is multiplied by the daily rate. Interest is then added to your balance at the end of each billing cycle. This is why carrying a balance from month to month is so costly -- you pay interest on interest.' },
+      { question: 'What is a good credit card APR?', answer: 'As of 2024, the average credit card APR is around 20-21%. Cards for excellent credit (750+) may offer 15-18% APR. Rewards cards typically have higher rates (20-25%). Store cards often have the highest rates (25-30%). If you carry a balance, APR is critical -- a 0% intro APR balance transfer card can save significant money while paying down debt.' },
+    ],
+  },
+  {
+    slug: 'savings-goal',
+    title: 'Savings Goal Calculator',
+    description: 'Calculate how long it will take to reach your savings goal, or how much you need to save each month to hit a target by a specific date.',
+    category: 'financial',
+    icon: 'PiggyBank',
+    color: 'bg-green-50 text-green-700',
+    keywords: ['savings goal calculator', 'savings calculator', 'how long to save', 'monthly savings calculator', 'savings target calculator', 'emergency fund calculator'],
+    faqs: [
+      { question: 'How much should I have in an emergency fund?', answer: 'Financial experts recommend saving 3-6 months of essential living expenses in an emergency fund. If you have variable income, are self-employed, or have dependents, aim for 6-12 months. Keep your emergency fund in a high-yield savings account (HYSA) where it earns interest but remains accessible.' },
+      { question: 'What is compound interest and how does it help savings?', answer: 'Compound interest means you earn interest on your interest, not just your principal. For example, $10,000 at 5% annual interest earns $500 in year 1, but in year 2 you earn 5% on $10,500 = $525. Over time, this compounding effect dramatically accelerates growth. The earlier you start saving, the more powerful compounding becomes.' },
+      { question: 'What is a high-yield savings account (HYSA)?', answer: 'A high-yield savings account offers significantly higher interest rates than traditional savings accounts. As of 2024, top HYSAs offer 4-5% APY versus the national average of 0.46% for traditional savings. Online banks typically offer the best rates because they have lower overhead costs. HYSAs are FDIC-insured up to $250,000.' },
+      { question: 'How much should I save each month?', answer: 'The 50/30/20 rule suggests allocating 20% of after-tax income to savings and debt repayment. For a $5,000/month take-home, that is $1,000 toward savings. However, the right amount depends on your goals, debt, and timeline. Start with whatever you can consistently save, then increase it over time as income grows or expenses decrease.' },
+    ],
+  },
   // -- PHASE 6: TOOLS SECTION EXPANSION ---------------------------------------
   {
     slug: 'random-number',
@@ -1387,7 +1434,6 @@ export const CALCULATORS: Calculator[] = [
     ],
   },
 ];
-
 // Merge SEO content into calculators
 function mergeContent(calcs: Calculator[]): Calculator[] {
   return calcs.map((c) => {
