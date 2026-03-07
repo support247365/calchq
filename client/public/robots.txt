@@ -1,4 +1,3 @@
 User-agent: *
 Allow: /
-Allow: /api/sitemap
-Sitemap: https://calchq.io/api/sitemap.xml
+Sitemap: https://calchq.io/sitemap-index.xml
