@@ -12,6 +12,7 @@ import Home from "./pages/Home";
 import CalculatorPage from "./pages/CalculatorPage";
 import ZipCalculatorPage from "./pages/ZipCalculatorPage";
 import AllCalculators from "./pages/AllCalculators";
+import Support from "./pages/Support";
 
 function Router() {
   return (
@@ -19,6 +20,7 @@ function Router() {
       <Switch>
         <Route path="/" component={Home} />
         <Route path="/calculators" component={AllCalculators} />
+        <Route path="/support" component={Support} />
         <Route path="/calculator/:slug/:zip" component={ZipCalculatorPage} />
         <Route path="/calculator/:slug" component={CalculatorPage} />
         <Route path="/404" component={NotFound} />

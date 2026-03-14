@@ -2,7 +2,7 @@
  * CalcHQ Footer — "Clean Utility" Design
  */
 import { Link } from "wouter";
-import { Calculator } from "lucide-react";
+import { Calculator, LifeBuoy } from "lucide-react";
 import { CALCULATORS, CATEGORIES, type Category } from "@/lib/calculators";
 
 const FOOTER_CATEGORIES: Category[] = ["financial", "health", "tools"];
@@ -51,13 +51,24 @@ export default function Footer() {
           })}
         </div>
 
-        <div className="mt-10 pt-6 border-t border-gray-200 flex flex-col sm:flex-row items-center justify-between gap-3">
-          <p className="text-xs text-gray-400">
-            © {new Date().getFullYear()} CalcHQ. All calculators are for informational purposes only.
-          </p>
-          <p className="text-xs text-gray-400">
-            Fast · Free · Private · No sign-up required
-          </p>
+        <div className="mt-10 pt-6 border-t border-gray-200">
+          <div className="flex flex-wrap gap-4 mb-4">
+            <Link href="/support" className="inline-flex items-center gap-1.5 text-sm text-gray-500 hover:text-emerald-600 transition-colors">
+              <LifeBuoy className="w-3.5 h-3.5" />
+              Support Center
+            </Link>
+            <a href="mailto:support@calchq.io" className="text-sm text-gray-500 hover:text-emerald-600 transition-colors">
+              support@calchq.io
+            </a>
+          </div>
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-3">
+            <p className="text-xs text-gray-400">
+              © {new Date().getFullYear()} CalcHQ. All calculators are for informational purposes only.
+            </p>
+            <p className="text-xs text-gray-400">
+              Fast · Free · Private · No sign-up required
+            </p>
+          </div>
         </div>
       </div>
     </footer>

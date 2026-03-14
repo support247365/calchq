@@ -4,7 +4,7 @@
  */
 import { useState } from "react";
 import { Link, useLocation } from "wouter";
-import { Calculator, ChevronDown, Menu, X } from "lucide-react";
+import { Calculator, ChevronDown, Menu, X, LifeBuoy } from "lucide-react";
 import { CALCULATORS, CATEGORIES, type Category } from "@/lib/calculators";
 
 const NAV_CATEGORIES: Category[] = ["financial", "health", "math", "tools"];
@@ -72,6 +72,13 @@ export default function Navbar() {
           {/* Right side */}
           <div className="flex items-center gap-3">
             <Link
+              href="/support"
+              className="hidden md:inline-flex items-center gap-1.5 px-3 py-2 text-sm font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-50 rounded-md transition-colors"
+            >
+              <LifeBuoy className="w-4 h-4" />
+              Support
+            </Link>
+            <Link
               href="/calculators"
               className="hidden md:inline-flex items-center gap-1.5 px-4 py-2 bg-emerald-500 hover:bg-emerald-600 text-white text-sm font-semibold rounded-lg transition-colors shadow-sm"
             >
@@ -94,6 +101,14 @@ export default function Navbar() {
       {mobileOpen && (
         <div className="md:hidden border-t border-gray-100 bg-white">
           <div className="container py-4 space-y-1">
+            <Link
+              href="/support"
+              onClick={() => setMobileOpen(false)}
+              className="flex items-center gap-2 px-3 py-2 text-sm font-medium text-gray-700 hover:bg-emerald-50 hover:text-emerald-700 rounded-md transition-colors"
+            >
+              <LifeBuoy className="w-4 h-4" />
+              Support
+            </Link>
             {NAV_CATEGORIES.map((cat) => {
               const calcs = CALCULATORS.filter((c) => c.category === cat);
               const catInfo = CATEGORIES[cat];
