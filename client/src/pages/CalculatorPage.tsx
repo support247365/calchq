@@ -103,6 +103,7 @@ import {
   CreditCardPayoffCalculator,
   SavingsGoalCalculator,
 } from "@/components/calculators/Phase14Calculators";
+import { RaiseRightCalculator } from "@/components/calculators/RaiseRightCalculator";
 
 const CALCULATOR_COMPONENTS: Record<string, React.ComponentType> = {
   loan: LoanCalculator,
@@ -168,6 +169,7 @@ const CALCULATOR_COMPONENTS: Record<string, React.ComponentType> = {
   "va-loan": VALoanCalculator,
   "credit-card-payoff": CreditCardPayoffCalculator,
   "savings-goal": SavingsGoalCalculator,
+  "raise-right": RaiseRightCalculator,
 };
 
 function FAQItem({ question, answer }: { question: string; answer: string }) {

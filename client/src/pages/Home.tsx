@@ -4,12 +4,19 @@
  */
 import { useState, useMemo } from "react";
 import { useLocation } from "wouter";
-import { Search, ArrowRight, Calculator, TrendingUp, Heart, Wrench, Sigma } from "lucide-react";
+import { Search, ArrowRight, Calculator, TrendingUp, Heart, Wrench, Sigma, Star } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import BookmarkPrompt from "@/components/BookmarkPrompt";
 import { RecentlyViewedHomeBanner } from "@/components/RecentlyViewed";
-import { CALCULATORS, CATEGORIES, type Category } from "@/lib/calculators";
+import { CALCULATORS, CATEGORIES, type Category, getCalculatorBySlug } from "@/lib/calculators";
+
+// ── Calculator of the Day ────────────────────────────────────────────────────
+const CALCULATOR_OF_THE_DAY_SLUG = "raise-right";
+const COTD_DESCRIPTIONS: Record<string, string> = {
+  "raise-right":
+    "Just got a raise? Don't let it disappear into lifestyle creep. RaiseRight shows you exactly how much to increase your 401(k) so your paycheck stays the same — and your entire raise goes straight to retirement.",
+};
 
 const CATEGORY_ICONS: Record<Category, React.ReactNode> = {
   financial: <TrendingUp className="w-5 h-5" />,
@@ -34,6 +41,8 @@ export default function Home() {
         c.keywords.some((k) => k.toLowerCase().includes(q))
     );
   }, [query]);
+
+  const cotd = getCalculatorBySlug(CALCULATOR_OF_THE_DAY_SLUG);
 
   return (
     <div className="min-h-screen flex flex-col bg-white">
@@ -114,7 +123,7 @@ export default function Home() {
         <div className="container py-4">
           <div className="flex flex-wrap gap-6 md:gap-10">
             {[
-              { value: "63", label: "Free Calculators" },
+              { value: "64", label: "Free Calculators" },
               { value: "2.5M+", label: "Unique Pages" },
               { value: "100%", label: "Free & Private" },
               { value: "0", label: "Sign-ups Required" },
@@ -131,6 +140,41 @@ export default function Home() {
       </div>
 
       <RecentlyViewedHomeBanner />
+
+      {/* Calculator of the Day */}
+      {cotd && (
+        <div className="bg-gradient-to-r from-emerald-600 to-emerald-700 border-b border-emerald-800">
+          <div className="container py-5">
+            <div className="flex flex-col md:flex-row md:items-center gap-4">
+              <div className="flex items-center gap-3 flex-shrink-0">
+                <div className="w-10 h-10 bg-white/20 rounded-xl flex items-center justify-center">
+                  <Star className="w-5 h-5 text-white fill-white" />
+                </div>
+                <div>
+                  <p className="text-xs font-semibold text-emerald-100 uppercase tracking-wider">
+                    Calculator of the Day
+                  </p>
+                  <h2
+                    className="text-xl font-bold text-white"
+                    style={{ fontFamily: "'Space Grotesk', sans-serif" }}
+                  >
+                    {cotd.title}
+                  </h2>
+                </div>
+              </div>
+              <p className="flex-1 text-sm text-emerald-50 leading-relaxed md:border-l md:border-white/20 md:pl-5">
+                {COTD_DESCRIPTIONS[cotd.slug] ?? cotd.description}
+              </p>
+              <button
+                onClick={() => navigate(`/calculator/${cotd.slug}`)}
+                className="flex items-center gap-2 px-5 py-2.5 bg-white text-emerald-700 rounded-xl text-sm font-semibold hover:bg-emerald-50 transition-colors flex-shrink-0"
+              >
+                Open Calculator <ArrowRight className="w-4 h-4" />
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Ezoic Ad Slot 102 — Homepage Top */}
       <div id="ezoic-pub-ad-placeholder-102" className="container py-2" />

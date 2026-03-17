@@ -1433,6 +1433,62 @@ export const CALCULATORS: Calculator[] = [
       { question: 'Is workers comp required for all businesses?', answer: 'Workers compensation requirements vary by state. Most states require coverage for businesses with 1 or more employees, though some states exempt very small employers or specific industries. Sole proprietors and partners are often exempt but can opt in. Penalties for non-compliance can include fines, stop-work orders, and personal liability for injury claims.' },
     ],
   },
+  // -- RaiseRight ------------------------------------------------------------
+  {
+    slug: 'raise-right',
+    title: 'RaiseRight — 401(k) Raise Redirect Calculator',
+    description: 'Turn your next raise into retirement wealth without changing your take-home pay. Enter your pay stub numbers and new salary — RaiseRight tells you exactly how much to increase your 401(k) so your paycheck stays the same.',
+    category: 'financial',
+    icon: 'TrendingUp',
+    color: 'bg-emerald-50 text-emerald-700',
+    keywords: [
+      'raise redirect calculator',
+      '401k raise calculator',
+      'increase 401k with raise',
+      'redirect raise to 401k',
+      'RaiseRight calculator',
+      '401k contribution calculator',
+      'maximize 401k without losing pay',
+      'raise take home pay same',
+      'pre-tax raise calculator',
+    ],
+    faqs: [
+      {
+        question: 'How does the RaiseRight calculator work?',
+        answer: 'RaiseRight calculates exactly how much to increase your 401(k) contribution when you receive a raise so that your take-home pay stays exactly the same. Because 401(k) contributions are pre-tax, the IRS effectively subsidizes part of the contribution through reduced withholding. The formula is: required 401(k) increase = gross raise per period divided by (1 minus your marginal tax rate). The IRS absorbs the tax savings, and your net paycheck is unchanged.',
+      },
+      {
+        question: 'Why does my take-home pay stay the same?',
+        answer: 'A 401(k) contribution is pre-tax, meaning it reduces your taxable income. When you increase your 401(k) contribution by more than your raise, the IRS reduces your withholding by the tax savings on that contribution. Those tax savings exactly offset the difference between your raise and the larger 401(k) increase — so your net paycheck is unchanged. You get the full raise invested for retirement, and it costs you nothing in current income.',
+      },
+      {
+        question: 'What is the 2026 IRS 401(k) contribution limit?',
+        answer: 'For 2026, the IRS allows a maximum pre-tax 401(k) contribution of $23,500 per year for employees under age 50. Workers aged 50 and older can contribute an additional $7,500 as a catch-up contribution, for a total of $31,000. RaiseRight automatically shows you how much of the annual limit you are using after the raise redirect.',
+      },
+      {
+        question: 'Does this work for hourly workers?',
+        answer: 'Yes. RaiseRight supports both salaried and hourly workers. For hourly workers, simply enter your hourly rate and average hours per week — the calculator converts this to an annual salary automatically. When you receive a raise, enter your new hourly rate and RaiseRight calculates the exact 401(k) increase needed.',
+      },
+      {
+        question: 'What taxes should I include from my pay stub?',
+        answer: 'Include only mandatory government taxes: federal income tax, state income tax, Social Security (OASDI), Medicare, and any local or city tax. Do NOT include health insurance premiums, dental, vision, FSA, HSA, or other voluntary benefit deductions — those are not taxes and do not affect the calculation.',
+      },
+      {
+        question: 'What if my raise would push my 401(k) above the IRS limit?',
+        answer: 'RaiseRight automatically detects if the full redirect would exceed the $23,500 annual IRS limit and shows you the maximum additional contribution you can make. For the remaining amount, consider contributing to a Roth IRA (2026 limit: $7,000 per year, or $8,000 if age 50+) to continue building tax-advantaged retirement savings.',
+      },
+    ],
+    howTo: {
+      intro: 'Use RaiseRight to redirect your entire raise into your 401(k) without reducing your take-home pay.',
+      steps: [
+        { title: 'Select your pay type', text: 'Choose Salaried or Hourly. Hourly workers enter their rate and average hours per week — the annual salary is calculated automatically.' },
+        { title: 'Enter your current pay information', text: 'Enter your current gross annual salary (or hourly rate) and select how often you are paid — weekly, bi-weekly, semi-monthly, or monthly.' },
+        { title: 'Enter your pay stub tax amounts', text: 'Look at your most recent pay stub and enter the dollar amounts for each tax line: federal income tax, state income tax, Social Security, Medicare, and any local tax. Enter $0 for any that do not apply. Also enter your current 401(k) contribution per period.' },
+        { title: 'Enter your new salary after your raise', text: 'Enter your new gross annual salary (or new hourly rate). This is the number your employer gave you — before taxes.' },
+        { title: 'Review your personalized result', text: 'RaiseRight instantly shows you exactly how much to increase your 401(k) per pay period, how much the IRS absorbs through tax savings, and confirms your net take-home pay change is $0.00.' },
+      ],
+    },
+  },
 ];
 // Merge SEO content into calculators
 function mergeContent(calcs: Calculator[]): Calculator[] {
